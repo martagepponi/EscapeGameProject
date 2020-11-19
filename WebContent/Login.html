@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="css/Style.css">
+	<meta charset="ISO-8859-1">
+	<title>Login</title>
+	<script type="text/javascript" src="script/Login.js?v=1" defer></script>
+
+</head>
+
+<body>
+
+	<div class="DivForm1">
+		<h1>Accedi</h1>
+		<form  name="Form1" onsubmit="return false;">
+			<h2>Inserisci le tue credenziali:</h2>
+			<label for="username" id="label_username">Username: </label>
+			<input type= "text" placeholder="Username" name="username" id="username" required> <br>
+			
+			
+			<label for="password" id="label_password">Password: </label>
+			<input type="password" placeholder="Password" name="pwd" required><br>		
+			<div class="button">
+				<input type="submit" value="Accedi" id="login_button"> <br>
+				
+			<a href= "./RegistrazioneStudente.html"> Registrati come studente </a> <br>
+			<a href= "./RegistrazioneDocente.html"> Registrati come docente </a>
+			</div>
+		</form>
+
+	</div>
+</body>
+
+</html>
