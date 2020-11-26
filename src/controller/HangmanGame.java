@@ -18,13 +18,16 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import Bean.User;
+import Bean.AbstractMinigame;
+import Bean.HangmanGameResponse;
 import Bean.Hangmangame;
 
  
 @WebServlet("/Hangmangame")
 public class HangmanGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 private Connection connection = null;
+	private static final int MAX_NUM_ERRORI = 10;
+	private Connection connection = null;
   
     public HangmanGame() {
         super();
@@ -51,8 +54,6 @@ public class HangmanGame extends HttpServlet {
 		}
 	}
 	
-
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
@@ -60,30 +61,90 @@ public class HangmanGame extends HttpServlet {
 		System.out.println(user.getUsername());
 
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
+	 	HangmanGameResponse retval = new HangmanGameResponse();
 		if(session.isNew() || user == null) {
 			System.out.println("redirect a login -...");
-			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
+//			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
+			retval.setSessionExpired(true);
 		}else {
-			
-			
 			Hangmangame minigame = (Hangmangame)session.getAttribute("Minigame");
 		 	String word = minigame.getWord();
+		 	String displayWord = minigame.getDisplayWord();
 		 	String question1 = minigame.getQuestion1();
 		 	String question2 = minigame.getQuestion2();
+		 	int numeroErrori = minigame.getErrorNumber();
 		 	System.out.println("question2:" + question2);
 		 	
+		 	String action = request.getParameter("action");
+		 	if ("selectLetter".equals(action)) {
+		 		String letter = request.getParameter("letterSelected");
+		 		if (letter.length() == 1) {
+			 		if (word.indexOf(letter) != -1)
+			 		{
+			 			int pos = 0;
+			 			String temp_mask = displayWord;
+			 			while (word.indexOf(letter, pos) != -1) {
+				 			pos = word.indexOf(letter, pos);
+				 			temp_mask = temp_mask.substring(0, pos) + letter + temp_mask.substring(pos + 1);
+				 			pos++;
+			 			}
+			 			displayWord = temp_mask;
+			 			minigame.setDisplayWord(temp_mask);
+			 			retval.setEsito(true);
+			 			retval.setDisplayWord(displayWord);
+			 			retval.setErrorNumber(minigame.getErrorNumber());
+			 			if (temp_mask.indexOf("#") == -1) {
+			 				minigame.setEsito(AbstractMinigame.VINTO);
+			 				int punteggio = 0;
+			 				//calcolare punteggio e scrivere classifica
+			 				
+			 				retval.setCorrectWord(word);
+			 				retval.setEsitoFinale(AbstractMinigame.VINTO);
+			 				retval.setPunteggio(punteggio);
+			 			}
+			 		} else {
+			 			numeroErrori++;
+			 			minigame.setErrorNumber(numeroErrori);
+			 			retval.setEsito(false);
+			 			retval.setDisplayWord(displayWord);
+			 			retval.setErrorNumber(minigame.getErrorNumber());
+			 			if (MAX_NUM_ERRORI <= numeroErrori) {
+			 				minigame.setEsito(AbstractMinigame.PERSO);
+			 				int punteggio = 0;
+			 				//calcolare punteggio e scrivere classifica
+
+			 				retval.setCorrectWord(word);
+			 				retval.setEsitoFinale(AbstractMinigame.PERSO);
+			 				retval.setPunteggio(punteggio);
+			 			}
+			 		}
+		 		} else {
+		 			retval.setEsito(false);
+		 			retval.setDisplayWord(displayWord);
+		 			retval.setErrorNumber(minigame.getErrorNumber());
+		 		}
+		 	} else if ("hint".equals(action)) {
+	 			minigame.setHintSelected(true);
+	 			
+		 		retval.setEsito(true);
+	 			retval.setDisplayWord(displayWord);
+	 			retval.setErrorNumber(minigame.getErrorNumber());
+	 			retval.setQuestion2(question2);
+	 			
+		 	} else {
+		 		// TODO: gestione risposta su azione sconosciuta
+		 	}
 		 	PrintWriter out = response.getWriter();
 		 	Gson gson = new Gson();
-			String json = gson.toJson(word);
-			System.out.println("word: "+ json );
+			String json = gson.toJson(retval);
+			System.out.println("response: "+ json );
 			out.println(json);
-	}
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-			
-		}
-		}
+		doGet(request, response);
+	}
+}
 	
 

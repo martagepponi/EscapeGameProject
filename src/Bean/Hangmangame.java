@@ -2,14 +2,15 @@ package Bean;
 
 public class Hangmangame extends AbstractMinigame {
 	
-	int idHangman;
-	String word;
-	String question1;
-	String question2;
-	String price;
-	String pass;
-
-	
+	protected int idHangman;
+	protected String word;
+	protected String question1;
+	protected String question2;
+	protected String price;
+	protected String pass;
+	protected String displayWord;
+	protected int errorNumber;
+	protected boolean hintSelected;
 	
 	//COSTRUTTORE
 	public Hangmangame(int idMinigame, String type, int idSubject, int idHangman, String word, 
@@ -21,19 +22,26 @@ public class Hangmangame extends AbstractMinigame {
 		this.question2=question2;
 		this.price=price;
 		this.pass= pass;
+		displayWord = this.buildDisplay(word);
+		errorNumber = 0;
+		hintSelected = false;
 		
 	}
-
-
 
 	public Hangmangame() {
 		super();
 		// TODO Auto-generated constructor stub
+		errorNumber = 0;
+		hintSelected = false;
 	}
 
-
-
-	
+	protected String buildDisplay(String parola) {
+		String retval = "";
+		for(int i = 0; i< parola.length(); i++) {
+			retval += "#";
+		}
+		return retval;
+	}
 
 
 	public int getIdHangman() {
@@ -56,6 +64,7 @@ public class Hangmangame extends AbstractMinigame {
 
 	public void setWord(String word) {
 		this.word = word;
+		this.displayWord = this.buildDisplay(word);		
 	}
 
 
@@ -104,6 +113,30 @@ public class Hangmangame extends AbstractMinigame {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public String getDisplayWord() {
+		return displayWord;
+	}
+
+	public void setDisplayWord(String displayWord) {
+		this.displayWord = displayWord;
+	}
+
+	public int getErrorNumber() {
+		return errorNumber;
+	}
+
+	public void setErrorNumber(int errorNumber) {
+		this.errorNumber = errorNumber;
+	}
+
+	public boolean isHintSelected() {
+		return hintSelected;
+	}
+
+	public void setHintSelected(boolean hintSelected) {
+		this.hintSelected = hintSelected;
 	}
 	
 	
