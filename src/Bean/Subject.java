@@ -2,18 +2,23 @@ package Bean;
 
 public class Subject {
 	
-	int idsubject;
-	String name;
-	int year;
-	String object1;
-	String object2;
-	String object3;
-	String object4;
+	private int idsubject;
+	private String name;
+	private int year;
+	private String object1;
+	private	String object2;
+	private String object3;
+	private String object4;
+	private String muro1;
+	private String muro2;
+	private String muro3;
+	private String muro4;
+	
 	
 	
 	
 	public Subject(int idsubject, String name, int year, String object1, String object2, String object3,
-			String object4) {
+			String object4, String muro1, String muro2,String muro3,String muro4) {
 		super();
 		this.idsubject = idsubject;
 		this.name = name;
@@ -22,7 +27,10 @@ public class Subject {
 		this.object2 = object2;
 		this.object3 = object3;
 		this.object4 = object4;
-	
+		this.muro1= muro1;
+		this.muro2= muro2;
+		this.muro3= muro3;
+		this.muro4= muro4;
 	}
 	
 	
@@ -68,6 +76,54 @@ public class Subject {
 	}
 	public void setObject4(String object4) {
 		this.object4 = object4;
+	}
+
+
+
+	public String getMuro1() {
+		return muro1;
+	}
+
+
+
+	public void setMuro1(String muro1) {
+		this.muro1 = muro1;
+	}
+
+
+
+	public String getMuro2() {
+		return muro2;
+	}
+
+
+
+	public void setMuro2(String muro2) {
+		this.muro2 = muro2;
+	}
+
+
+
+	public String getMuro3() {
+		return muro3;
+	}
+
+
+
+	public void setMuro3(String muro3) {
+		this.muro3 = muro3;
+	}
+
+
+
+	public String getMuro4() {
+		return muro4;
+	}
+
+
+
+	public void setMuro4(String muro4) {
+		this.muro4 = muro4;
 	}
 
 }

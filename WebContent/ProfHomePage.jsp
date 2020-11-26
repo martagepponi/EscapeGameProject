@@ -149,7 +149,7 @@ Rankings = (List<Ranking>) request.getAttribute("rankings");
 
 		<p>
 			<b>Stanza: </b><img id="immagine" height="62" width="62"
-				src="images/<%= ranking.getThumbnail()  %>.jpg"
+				src="images/matematica/<%= ranking.getThumbnail()  %>.jpg"
 				alt="<%=ranking.getThumbnail()%>">
 		</p>
 

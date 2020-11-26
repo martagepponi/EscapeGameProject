@@ -82,7 +82,7 @@ public class RoomDAO {
 		return Rooms;
 	}
 	
-	
+	//
 	
 	
 
@@ -150,7 +150,7 @@ public class RoomDAO {
 	
 	
 	//CERCO UNA ROOM TRAMITE ID
-/*	
+	
 	public Room selectById(int idRoom, Connection connection) throws SQLException {
 		Room t = new Room();
 		String query = "SELECT * FROM `room` where `idroom` = ?";
@@ -164,8 +164,8 @@ public class RoomDAO {
 				
 				t.setIdRoom(result.getInt("idroom"));
 				t.setDate(result.getDate("date"));
-			//	t.setSubject(result.getString("subject"));
-				//t.setProf(result.getString("prof"));
+				//t.setSubject(result.getString("subject"));
+				//t.setProfName(result.getString("prof"));
 				t.setMinigame1(result.getInt("minigame1"));
 				t.setMinigame2(result.getInt("minigame2"));
 				t.setMinigame3(result.getInt("minigame3"));
@@ -189,6 +189,6 @@ public class RoomDAO {
 		return t;
 	}
 
-	*/
+
 	
 }

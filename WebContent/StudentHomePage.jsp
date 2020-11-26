@@ -21,6 +21,9 @@ User user = (User) session.getAttribute("user");
 img {
 	cursor: pointer;
 }
+button{
+cursor: pointer;
+}
 </style>
 
 <script type="text/javascript">
@@ -31,8 +34,8 @@ img {
 		document.getElementById('blocco_2').style.display = "none";
 		document.getElementById('blocco_3').style.display = "none";
 		document.getElementById('blocco_4').style.display = "none";
-		if (id_stanza != null && password_stanza != null){
-			mostra(2);}
+		/*if (id_stanza != null && password_stanza != null){
+			mostra(2);}*/
 	}
 
 	function mostra(numero) {
@@ -72,15 +75,19 @@ img {
 	function controlloPassword() {
 		var password = document.getElementById('password').value;
 		if (password != '') {
-			if (password != password_stanza) {
+			
+			if (password != password_stanza ) {
 				alert('password non valida!');
+				return false;
 			}else{
-			//  alert(id_stanza);
-			document.getElementById('id_stanza').value = id_stanza;
+				
+			document.getElementById('id_stanza').value = localStorage.getItem("id_stanza");
 			document.getElementById("blocco_3").submit();
 		}
+		}else{
+			alert('password non valida!');
 		}
-
+		
 	}
 </script>
 </head>
@@ -159,22 +166,14 @@ img {
 
 
 
-	<form id="blocco_3" action="./Game" method="POST"
-		onsubmit="return false;">
-		<table width="100%">
-			<tr width="100%">
-				<h1>Password di accesso</h1>
-			</tr>
-			<tr>
-				<td align="center"><input type="password" id="password"
-					value="" placeholder="password" /></td>
-			</tr>
-			<tr>
-				<td align="center"><input type="submit" id="button"
-					name="accedi" value="Accedi" onclick="controlloPassword()" /></td>
-			</tr>
-		</table>
-		<input id="id_stanza" type="hidden" value="">
+	<form id="blocco_3" action="./Game" method="POST" onsubmit="return false;">
+	
+		<div style ="margin: auto;">
+		<h1>Password di accesso</h1>
+		<input type="password" id="password" value="" placeholder="password" />
+		<input id="id_stanza" name="id_stanza" type="hidden" value= "">
+		<input type="submit" id="button" name="accedi" value="Accedi" onclick="controlloPassword()" />
+	   </div>
 
 	</form>
 
@@ -192,7 +191,7 @@ img {
 
 		<p>
 			<b>Stanza: </b><img id="immagine" height="62" width="62"
-				src="images/<%=ranking.getThumbnail()%>.jpg"
+				src="images/matematica/<%=ranking.getThumbnail()%>.jpg"
 				alt="<%=ranking.getThumbnail()%>">
 		</p>
 

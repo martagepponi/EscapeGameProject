@@ -1,12 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
@@ -16,19 +15,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Bean.Subject;
-import DAO.SubjectDAO;
+import com.google.gson.Gson;
 
+import Bean.User;
+import Bean.Hangmangame;
 
-@WebServlet("/Game")
-public class Game extends HttpServlet {
+ 
+@WebServlet("/Hangmangame")
+public class HangmanGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Connection connection;
+	 private Connection connection = null;
+  
+    public HangmanGame() {
+        super();
+       
+    }
+    
 
-	public Game() {
-		super();
-
-	}
 	//METODO INIT
 	public void init() throws ServletException {
 		try {
@@ -47,42 +50,40 @@ public class Game extends HttpServlet {
 			throw new UnavailableException("Couldn't get db connection");
 		}
 	}
+	
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
+		HttpSession session = request.getSession();
+		User user =(User) session.getAttribute("user");
+		System.out.println(user.getUsername());
+
+		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
+		if(session.isNew() || user == null) {
+			System.out.println("redirect a login -...");
+			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
+		}else {
+			
+			
+			Hangmangame minigame = (Hangmangame)session.getAttribute("Minigame");
+		 	String word = minigame.getWord();
+		 	String question1 = minigame.getQuestion1();
+		 	String question2 = minigame.getQuestion2();
+		 	System.out.println("question2:" + question2);
+		 	
+		 	PrintWriter out = response.getWriter();
+		 	Gson gson = new Gson();
+			String json = gson.toJson(word);
+			System.out.println("word: "+ json );
+			out.println(json);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String id_stanza = request.getParameter("id_stanza");
-		System.out.println("id_stanza:" + id_stanza);
-		int idstanza = Integer.parseInt(id_stanza);
-		
-		SubjectDAO subjectDAO = new SubjectDAO(connection);
-
-		Subject subject =subjectDAO.findAllSubjectByIdRoom(idstanza);
-		
-		System.out.println(subject.getMuro1());
-		if(subject != null) {
-		  request.setAttribute("subject", subject);
-		  
-			HttpSession session = request.getSession(true);
-			session.setAttribute("id_stanza", "" + id_stanza);
-			session.setAttribute("prima_volta", "SI");
-			System.out.println("idstanza" + id_stanza);
-		
-		request.getRequestDispatcher("/Game.jsp").forward(request, response);
-		}
 	}
 	
-	public void destroy() {
-		try{
-			if(this.connection!=null) {
-				this.connection.close();
-				System.out.println("Connessione db chiusa");
-			}	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+			
 		}
-		catch(SQLException e) {}
-	}
+		}
+	
 
-}
