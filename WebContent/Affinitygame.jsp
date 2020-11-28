@@ -11,15 +11,7 @@
     String word4 = minigame.getWord4();
     
     String hint = minigame.getHint();
-
-     
-     if(session.getAttribute("tentativi") == null){
-    	 int tentativi = 3;
-        session.setAttribute("tentativi", "" + tentativi);
-     }else{
-    //	 int tentativi=  Integer.parseInt((String)session.getAttribute("tentativi"));
-     }
-    	
+    int tentativiIniziali = Affinitygame.MAX_NUM_ERRORI;
      
 %>
 <!DOCTYPE html>
@@ -99,36 +91,56 @@ to {
 <script>
 
 
-
 function Word(wordToCheck){
-	if(wordToCheck==""){
+	var wordToCheck = document.getElementById("wordToCheck").value;
+	if(wordToCheck == ""){
+		alert("Non puoi inserire una parola vuota");
 		return false;
 	}else{
-	makeCall("GET", "AffinityGame?word=" + wordToCheck.value, wordResponse);
+		makeCall("GET", "AffinityGame?word=" + wordToCheck.value, wordResponse);
 	}
 }
 
 function wordResponse(){
-	 if (req.readyState == 4 && req.status == 200) {
-		 var esitoParolaInserita = JSON.parse(x.responseText);
-		 if(esitoParolaInserita[0].response == "OK"){
-			 document.getElementById("arpa").style.display="block";
-			 document.getElementById("divMain").style.display="none";
-			 document.getElementById("div2").style.display="none";
-		 }else if(esitoParolaInserita[0].response == "KO"){
-			 alert("numero tentativi rimasti" + tentativi);
-			 
-		 }else if(esitoParolaInserita[0].response == "P"){
-			 alert("Hai perso");
-		 }
-		 
-	 }
+	if (req.readyState == 4 && req.status == 200) {
+		var esitoParolaInserita = JSON.parse(x.responseText);
+		if (response.sessionExpired) {
+			alert("Sessione scaduta!");
+			document.location.href="/Login.html";
+		} else {
+			if(response.esito) {
+				alert("Vinto!");
+				alert("punti di errore: " + response.errorNumber);
+				alert("Punteggio ottenuto: " + response.punteggio );
+				document.getElementById("arpa").style.display="block";
+				document.getElementById("divMain").style.display="none";
+				document.getElementById("div2").style.display="none";
+				document.getElementById("punteggio").innerHTML = response.punteggio;
+			} else  {
+				if (response.esitoFinale == "P") {
+					alert("Perso!");
+					alert("la parola corretta era: " + response.correctWord)
+					alert("punti di errore: " + response.errorNumber);
+					alert("Punteggio ottenuto: " + response.punteggio );
+					document.getElementById("arpa").style.display="block";
+					document.getElementById("divMain").style.display="none";
+					document.getElementById("div2").style.display="none";
+					document.getElementById("correctWord").innerHTML = response.correctWord;
+					document.getElementById("showWord").style.display="block";
+					document.getElementById("punteggio").innerHTML = response.punteggio;
+				} else {
+					var tentativi = response.tentativiRimasti;
+					alert("numero tentativi rimasti" + tentativi);
+					document.getElementById("tentativi").innerHTML = tentativi;
+					
+				}
+			}
+		}		 
+	}
 }
 
 
 </script>
-
-
 <script type="text/javascript">
 
 function makeCall(method, url, cback) {
@@ -156,14 +168,18 @@ function makeCall(method, url, cback) {
 	</div>
 
 	<div id="div2" class="correctWord">
-		<input type="text" placeholder="Inserisci parola" value="">
-		<input type="button" onclick="Word(this)">
+		<input id="wordToCheck" type="text" placeholder="Inserisci parola" value="">
+		<input type="button" onclick="Word()">
 
 	</div>
 
 
 
 	<div id="arpa" align="center" style="display: none;">
+	
+		<p id="showWord" style="display: none;">La parola corretta era: <span id="correctWord"></span></p> 		
+
+		<p>Punteggio ottenuto: <span id="punteggio"></span></p> 		
 
 		<img src="images/<%=minigame.getPrize()%>.png" height="500"
 			width="300">
@@ -175,14 +191,15 @@ function makeCall(method, url, cback) {
 		<a href="./Game"> <input type="button" value="Torna alla stanza">
 		</a>
 
+		
 
 	</div>
 
-	<div id="tentativi" align="center">
+	<div id="divtTentativi" align="center">
 	
 <%-- <%int tentativi=  Integer.parseInt((String)session.getAttribute("tentativi")); %> --%>
 
-<%-- 		<p>NUMERO TENTATIVI: <%=tentativi %></p> --%>
+ 		<p>NUMERO TENTATIVI RIMASTI: <span id="tentativi"><%= tentativiIniziali %></span></p>
 	</div>
 
 

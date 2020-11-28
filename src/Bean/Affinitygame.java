@@ -1,15 +1,19 @@
 package Bean;
 
 public class Affinitygame extends AbstractMinigame {
-	int idAffgame;
-	String word1;
-	String word2;
-	String word3;
-	String word4;
-	String rightAnswer;
-	String hint;
-	String prize;
-	String pass;
+	public static final int MAX_NUM_ERRORI = 3;
+
+	protected int idAffgame;
+	protected String word1;
+	protected String word2;
+	protected String word3;
+	protected String word4;
+	protected String rightAnswer;
+	protected String hint;
+	protected String prize;
+	protected String pass;
+	protected int errorNumber;
+	protected boolean hintSelected;
 	
 	
 	
@@ -26,13 +30,15 @@ public class Affinitygame extends AbstractMinigame {
 		this.hint= hint;
 		this.prize= prize;
 		this.pass= pass;
-		
+		this.errorNumber = 0;
+		this.hintSelected = false;
 	}
 
   //COSTRUTTORE2
 	public Affinitygame() {
 		super();
-		
+		this.errorNumber = 0;
+		this.hintSelected = false;
 	}
 
 
@@ -140,6 +146,22 @@ public class Affinitygame extends AbstractMinigame {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public int getErrorNumber() {
+		return errorNumber;
+	}
+
+	public void setErrorNumber(int errorNumber) {
+		this.errorNumber = errorNumber;
+	}
+
+	public boolean isHintSelected() {
+		return hintSelected;
+	}
+
+	public void setHintSelected(boolean hintSelected) {
+		this.hintSelected = hintSelected;
 	}
 
 	

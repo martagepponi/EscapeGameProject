@@ -177,6 +177,9 @@ public class HangmanGame extends HttpServlet {
 	 			
 		 	} else {
 		 		// TODO: gestione risposta su azione sconosciuta
+		 		retval.setEsito(false);
+	 			retval.setDisplayWord(displayWord);
+	 			retval.setErrorNumber(minigame.getErrorNumber());
 		 	}
 		 	PrintWriter out = response.getWriter();
 		 	Gson gson = new Gson();
