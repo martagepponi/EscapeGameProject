@@ -41,7 +41,7 @@ private Connection connection;
 					t.setWord4(result.getString("word4"));
 					t.setRightAnswer(result.getString("rightanswer"));
 					t.setHint(result.getString("hint"));
-					t.setPrice(result.getString("prize"));
+					t.setPrize(result.getString("prize"));
 					t.setPass(result.getString("pass"));
 				}
 			} catch (SQLException e) {

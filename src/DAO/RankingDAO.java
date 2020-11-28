@@ -125,4 +125,114 @@ return Rankings;
 				}
 	return Rankings;
 		}
+		
+		//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 1
+		
+		
+				public void InsertRank1(int punteggio,int iduser,int idroom) {
+					
+					String query = "INSERT INTO escapegame.ranking (user, rank1, idroom) VALUES(?,?,?)";
+					PreparedStatement pstatement = null;
+					
+					try {
+						
+						pstatement = connection.prepareStatement(query);
+						pstatement.setInt(1, iduser);
+						pstatement.setInt(2, punteggio);
+						pstatement.setInt(3, idroom);
+						
+						pstatement.executeUpdate();
+						
+					} catch (SQLException e) {
+						
+						e.printStackTrace();
+					} finally {
+						try {
+							pstatement.close();
+						} catch (Exception e) {
+							
+							e.printStackTrace();
+						}
+					}
+					
+				}
+				
+				//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 2
+
+				public void InsertRank2(int punteggio,int iduser,int idroom) {
+					
+					String query = "INSERT INTO ranking(user, rank2, idroom) VALUES(?,?,?)";
+					PreparedStatement pstatement = null;
+					
+					try {
+						
+						pstatement = connection.prepareStatement(query);
+						pstatement.setInt(1, iduser);
+						pstatement.setInt(2, punteggio);
+						pstatement.setInt(3, idroom);
+						
+						pstatement.executeUpdate();
+						
+					} catch (SQLException e) {
+						
+						e.printStackTrace();
+					} finally {
+						try {
+							pstatement.close();
+						} catch (Exception e) {
+							
+							e.printStackTrace();
+						}
+					}
+					
+				}		
+				
+				
+				//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 3
+
+						public void InsertRank3(int punteggio,int iduser,int idroom) {
+							
+							String query = "INSERT INTO ranking(user, rank3, idroom) VALUES(?,?,?)";
+							PreparedStatement pstatement = null;
+							
+							try {
+								
+								pstatement = connection.prepareStatement(query);
+								pstatement.setInt(1, iduser);
+								pstatement.setInt(2, punteggio);
+								pstatement.setInt(3, idroom);
+								
+								pstatement.executeUpdate();
+								
+							} catch (SQLException e) {
+								
+								e.printStackTrace();
+							} finally {
+								try {
+									pstatement.close();
+								} catch (Exception e) {
+									
+									e.printStackTrace();
+								}
+							}
+							
+						}		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }

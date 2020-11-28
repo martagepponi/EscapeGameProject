@@ -129,9 +129,10 @@ var nonPrimaVolta = false;
 
 <% if(session.getAttribute("prima_volta").equals("NO")){%>
   oggetti.shift();
-  alert("oggetti"+ oggetti);
+  //alert("oggetti"+ oggetti);
   nonPrimaVolta= true;
-  var numeroMuroAumentato = <%=session.getAttribute("muro")%>;
+  var numeroMuroAumentato = parseInt("<%=session.getAttribute("muro")%>");
+  alert( "numero muro: " + numeroMuroAumentato);
 <%}%>
 var oggettiEMuro = {"<%=object1%>":"<%=wall1%>", "<%=object2%>":"<%=wall2%>", "<%=object3%>":"<%=wall3%>", "<%=object4%>":"<%=wall4%>"};
 
@@ -258,8 +259,10 @@ function startGame2(){
 			if(session.getAttribute("prima_volta").equals("NO")){
 			  numeroMinigame = Integer.parseInt((String)session.getAttribute("numeroMinigame"));
 			  ++ numeroMinigame;
+			  session.setAttribute("numeroMinigame", "" + numeroMinigame);
 			}else{
 				//è la prima volta
+				System.out.println("metto muro prima volta");
 				session.setAttribute("numeroMinigame", "1");
 				session.setAttribute("muro", "1");
 			}
@@ -267,7 +270,7 @@ function startGame2(){
 			numeroMinigame = "<%= numeroMinigame%>";
 			//
 			document.getElementById("area"+ numero).href="./Minigame";
-			alert("#point" + numero);
+			//alert("#point" + numero);
 			
 			if(muroDiRiferimento == "<%=subject.getMuro1()%>")
 			  document.getElementById("muro").setAttribute("usemap", "#point" + numero);

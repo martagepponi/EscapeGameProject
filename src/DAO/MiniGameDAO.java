@@ -110,7 +110,7 @@ public class MiniGameDAO {
 				}else if (AFFINITY.equalsIgnoreCase(type)) {
 					 Affinitygame affinitygame= new Affinitygame();
 						
-						String query1 ="SELECT * FROM `affinitygamegame` WHERE `idaffinityGame`=? ;";
+						String query1 ="SELECT * FROM `affinitygame` WHERE `idaffinityGame`=? ;";
 						 
 						ResultSet result3 = null;
 						PreparedStatement pstate3 = null;
@@ -120,7 +120,7 @@ public class MiniGameDAO {
 						
 						result3 = pstate3.executeQuery();
 						if(result3.next()) {
-						affinitygame.setIdAffgame(result3.getInt("idquiz"));
+						affinitygame.setIdAffgame(result3.getInt("idaffinityGame"));
 						affinitygame.setType(type);
 						affinitygame.setIdsubject(subject);
 						affinitygame.setWord1(result3.getString("word1"));
@@ -129,6 +129,8 @@ public class MiniGameDAO {
 						affinitygame.setWord4(result3.getString("word4"));
 						affinitygame.setRightAnswer(result3.getString("rightanswer"));
 						affinitygame.setHint(result3.getString("hint"));
+						affinitygame.setPrize(result3.getString("prize"));
+						affinitygame.setPass(result3.getString("pass"));
 						
 						minigame = affinitygame;
 					

@@ -8,14 +8,14 @@ public class Affinitygame extends AbstractMinigame {
 	String word4;
 	String rightAnswer;
 	String hint;
-	String price;
+	String prize;
 	String pass;
 	
 	
 	
 	//COSTRUTTORE 
 	public Affinitygame(int idMinigame, String type, int idSubject, int idAffgame, String word1, String word2, 
-			String word3, String word4, String rightAnswer, String hint, String price, String pass ) {
+			String word3, String word4, String rightAnswer, String hint, String prize, String pass ) {
 		super(idMinigame, type, idSubject);
 		this.idAffgame= idAffgame;
 		this.word1= word1;
@@ -24,7 +24,7 @@ public class Affinitygame extends AbstractMinigame {
 		this.word4= word4;
 		this.rightAnswer= rightAnswer;
 		this.hint= hint;
-		this.price= price;
+		this.prize= prize;
 		this.pass= pass;
 		
 	}
@@ -120,14 +120,14 @@ public class Affinitygame extends AbstractMinigame {
 
 
 
-	public String getPrice() {
-		return price;
+	public String getPrize() {
+		return prize;
 	}
 
 
 
-	public void setPrice(String price) {
-		this.price = price;
+	public void setPrize(String prize) {
+		this.prize = prize;
 	}
 
 

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import Bean.User;
+import DAO.RankingDAO;
 import Bean.AbstractMinigame;
 import Bean.HangmanGameResponse;
 import Bean.Hangmangame;
@@ -57,7 +58,15 @@ public class HangmanGame extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
+		String idst = (String) session.getAttribute("id_stanza");
+		int idStanza =  Integer.parseInt(idst) ;
 		User user =(User) session.getAttribute("user");
+		int iduser = user.getIduser();
+//		String slot = (String) session.getAttribute("numeroMinigioco");
+//		int numeroMinigioco=Integer.parseInt(slot);
+		
+		int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
+		
 		System.out.println(user.getUsername());
 
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
@@ -99,23 +108,54 @@ public class HangmanGame extends HttpServlet {
 			 			retval.setErrorNumber(minigame.getErrorNumber());
 			 			if (temp_mask.indexOf("#") == -1) {
 			 				minigame.setEsito(AbstractMinigame.VINTO);
-			 				int punteggio = 0;
-			 				//calcolare punteggio e scrivere classifica
+			 				
+			 				int puntitotali=33;
+			 				int punteggio = puntitotali - numeroErrori;
+			 				RankingDAO rankingDAO = new RankingDAO(connection);
+			 				
+			 				if(numeroMinigame==1) {
+				 				
+				 				rankingDAO.InsertRank1(punteggio, iduser, idStanza);
+				 				
+				 		    }else if(numeroMinigame==2) {
+				 					
+				 		    	rankingDAO.InsertRank2(punteggio, iduser, idStanza);
+				 				
+				 		    }else if(numeroMinigame==3) {
+				 					
+				 				rankingDAO.InsertRank3(punteggio, iduser, idStanza);
+				 					
+				 	        }
 			 				
 			 				retval.setCorrectWord(word);
 			 				retval.setEsitoFinale(AbstractMinigame.VINTO);
 			 				retval.setPunteggio(punteggio);
 			 			}
 			 		} else {
-			 			numeroErrori++;
+			 			numeroErrori= numeroErrori+2;
 			 			minigame.setErrorNumber(numeroErrori);
 			 			retval.setEsito(false);
 			 			retval.setDisplayWord(displayWord);
 			 			retval.setErrorNumber(minigame.getErrorNumber());
 			 			if (MAX_NUM_ERRORI <= numeroErrori) {
 			 				minigame.setEsito(AbstractMinigame.PERSO);
-			 				int punteggio = 0;
-			 				//calcolare punteggio e scrivere classifica
+			 				int puntitotali=33;
+			 				int punteggio = puntitotali - numeroErrori;
+			 				RankingDAO rankingDAO = new RankingDAO(connection);
+			 				
+			 				if(numeroMinigame==1) {
+				 				
+				 				rankingDAO.InsertRank1(punteggio, iduser, idStanza);
+				 				
+				 		    }else if(numeroMinigame==2) {
+				 					
+				 		    	rankingDAO.InsertRank2(punteggio, iduser, idStanza);
+				 				
+				 		    }else if(numeroMinigame==3) {
+				 					
+				 				rankingDAO.InsertRank3(punteggio, iduser, idStanza);
+				 					
+				 	        }
 
 			 				retval.setCorrectWord(word);
 			 				retval.setEsitoFinale(AbstractMinigame.PERSO);
