@@ -23,7 +23,7 @@ import Bean.HangmanGameResponse;
 import Bean.Hangmangame;
 
  
-@WebServlet("/Hangmangame")
+@WebServlet("/HangmanGame")
 public class HangmanGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int MAX_NUM_ERRORI = 10;
@@ -73,7 +73,11 @@ public class HangmanGame extends HttpServlet {
 		 	String question1 = minigame.getQuestion1();
 		 	String question2 = minigame.getQuestion2();
 		 	int numeroErrori = minigame.getErrorNumber();
+		 	String prize = minigame.getPrize();
 		 	System.out.println("question2:" + question2);
+		 	System.out.println("prize:" + prize);
+		 	
+		 	
 		 	
 		 	String action = request.getParameter("action");
 		 	if ("selectLetter".equals(action)) {

@@ -9,9 +9,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%  Subject subject = null;
+<%  session = request.getSession(true); 
+
+Subject subject = null;
 		    
-    subject = (Subject) request.getAttribute("subject");
+    subject = (Subject) session.getAttribute("subject");
       System.out.println(subject.getMuro1());
       String object1 = subject.getObject1();
       String object2 = subject.getObject2();
@@ -21,8 +23,9 @@
       String wall2  = subject.getMuro2();
       String wall3  = subject.getMuro3();
       String wall4  = subject.getMuro4();
-      session = request.getSession(true); 
+      
       String id_stanza = (String) session.getAttribute("id_stanza");
+      System.out.println("ID STANZAAAAAAA: "+ id_stanza);
      
  %>
 <meta charset="ISO-8859-1">
@@ -122,6 +125,14 @@ th.inventario {
 <script>
 
 var oggetti = ["<%=object1%>", "<%=object2%>", "<%=object3%>", "<%=object4%>"];
+var nonPrimaVolta = false;
+
+<% if(session.getAttribute("prima_volta").equals("NO")){%>
+  oggetti.shift();
+  alert("oggetti"+ oggetti);
+  nonPrimaVolta= true;
+  var numeroMuroAumentato = <%=session.getAttribute("muro")%>;
+<%}%>
 var oggettiEMuro = {"<%=object1%>":"<%=wall1%>", "<%=object2%>":"<%=wall2%>", "<%=object3%>":"<%=wall3%>", "<%=object4%>":"<%=wall4%>"};
 
 localStorage.setItem("listaOggetti", JSON.stringify(oggetti));
@@ -144,14 +155,19 @@ function controllaOggettoEMuro(oggetto, muroDaControllare, ordineClick){
 }
 
 function carica(){
+
 	 document.getElementById("rules").style.display = 'none';
 	 document.getElementById("inizia").style.display = 'none';
 	 document.getElementById("frecce").style.display = 'none';
+	if(nonPrimaVolta){
+		document.getElementById("frecce").style.display = 'block';
+	}
 }
 
 function startGame1(){ 
-    document.getElementById("immagine_start").style.display= ' none ';
-    document.getElementById("rules").style.display= ' block ';
+	
+    document.getElementById("immagine_start").style.display = 'none';
+    document.getElementById("rules").style.display  = 'block';
     document.getElementById("inizia").style.display = 'block';
     document.getElementById("frecce").style.display = 'none';
 	
@@ -160,12 +176,12 @@ function startGame1(){
 
 function startGame2(){ 
 	
-    document.getElementById("immagine_start").style.display= ' none ';
-    document.getElementById("rules").style.display= ' none ';
+    document.getElementById("immagine_start").style.display = 'none';
+    document.getElementById("rules").style.display  = 'none';
     document.getElementById("inizia").style.display = 'none';
     document.getElementById("frecce").style.display = 'block';
      // MODO PER ELIMINARE EFFETTO GRIGIO
-    document.getElementById("alto_dx").style["filter"] = "none";
+    document.getElementById("alto_dx").style["filter"]      = "none";
     document.getElementById("muro").style["-webkit-filter"] = "none";
     
 }
@@ -176,7 +192,6 @@ function startGame2(){
 		var numeroMuro = document.getElementById("muro").src;
 		var numero = parseInt(numeroMuro.substring(numeroMuro.indexOf(".") - 1, numeroMuro.indexOf(".")));
 
-		//
 		
 		if(elemento.id === "freccia_sinistra"){
 			-- numero;
@@ -194,7 +209,7 @@ function startGame2(){
 			numero = 1;
 		}
 			//scorrimento muri
-		muro.src = "images/matematica/muro" + numero + ".jpg";
+		muro.src = "images/<%=subject.getName()%>/muro" +numero+ ".jpg";
 		
 		//COntrollare ordine di cliccabilità
 		var nomeOggetto = oggetti[0];
@@ -216,7 +231,7 @@ function startGame2(){
 	
 	
 
-	//------------------------PERCORSO1 :--------------------------------
+	//------------------------PERCORSI :--------------------------------
 	function caricaOggettiCliccabili(id_stanza){
 	
 		var numeroMuro = document.getElementById("muro").src;
@@ -224,35 +239,38 @@ function startGame2(){
 		//document.getElementById("muro").src = "images/muro" + numero + ".jpg";
 // 		switch (id_stanza) {
 // 		case 1:
-			
+			if(nonPrimaVolta){
+			   numero = numeroMuroAumentato;
+			}
 			var muroDiRiferimento = "muro" + numero;
+			
 			var nomeOggetto = oggetti[0];
 			if(!controllaOggettoEMuro(nomeOggetto, muroDiRiferimento, oggettiEMuro))
 				return false;
 			
 		//	alert(nomeOggetto + " presente nel " + muroDiRiferimento);
-			document.getElementById("area").coords= getObject(oggetti[0]);	
+		
+			document.getElementById("area" + numero).coords= getObject(oggetti[0]);	
+			//alert(document.getElementById("area" + numero).coords);
 			//conto numero di minigame
-			var numeroMinigame;
 			<% 
 			int numeroMinigame = 1;
-			if(!session.getAttribute("prima_volta").equals("SI")){
-			  numeroMinigame = Integer.parseInt((String)session.getAttribute("prima_volta"));
+			if(session.getAttribute("prima_volta").equals("NO")){
+			  numeroMinigame = Integer.parseInt((String)session.getAttribute("numeroMinigame"));
 			  ++ numeroMinigame;
-			}%>
+			}else{
+				//è la prima volta
+				session.setAttribute("numeroMinigame", "1");
+				session.setAttribute("muro", "1");
+			}
+			%>
 			numeroMinigame = "<%= numeroMinigame%>";
 			//
-			document.getElementById("area").href="./Minigame"+ "?numeroMinigame=" + numeroMinigame ;
-			document.getElementById("muro").setAttribute("usemap", "#point" + numero);
-			//break;
+			document.getElementById("area"+ numero).href="./Minigame";
+			alert("#point" + numero);
 			
-			
-//         case 2:
-			
-// 			break;
-// 		default:
-// 			break;
-// 		}
+			if(muroDiRiferimento == "<%=subject.getMuro1()%>")
+			  document.getElementById("muro").setAttribute("usemap", "#point" + numero);
 	
 		
 	}
@@ -268,7 +286,7 @@ function startGame2(){
 		if(nome == "asse")
 			coordinate = "572,535,679,655";
 		if(nome == "fuoco")
-			coordinate = "1,2,3,4";
+			coordinate = "225,404,284,530";
 		if(nome == "cane")
 			coordinate = "1,2,3,4";
 		if(nome == "archibugio")
@@ -298,13 +316,13 @@ function startGame2(){
        
        
        <div id="inizia"> 
-       <input type="button" value="Inizia il gioco" onclick= "startGame2();caricaOggettiCliccabili(<%=id_stanza%>); ">
+       <input id="bottoneInizia" type="button" value="Inizia il gioco" onclick= "startGame2();caricaOggettiCliccabili(<%=id_stanza%>); ">
        </div>
        
        
 	<div id="gioco">
 
-		<img id="muro" src="images/matematica/<%=subject.getMuro1()%>.jpg" >  
+		<img id="muro" src="images/<%=subject.getName()%>/<%=subject.getMuro1()%>.jpg" >  
 		<div id="frecce">
 			<img class="freccia" id="freccia_sinistra" src="images/left-arrow.png" onclick="scorriImmagini(this)">
 		    <img class="freccia" id="freccia_destra" src="images/right-arrow.png"  onclick="scorriImmagini(this)">
@@ -326,11 +344,11 @@ function startGame2(){
 <!-- CREAZIONE MAPPA VUOTA -->
 
 <map id="point1" name="point1">
-<area id="area" shape="rect" coords="" href="">
+<area id="area1" shape="rect" coords="" href="">
 </map>
 
 <map id="point2" name="point2">
-<area id="area" shape="circle" coords="" href="">
+<area id="area2" shape="rect" coords="" href="">
 </map>
 
 
@@ -338,6 +356,12 @@ function startGame2(){
 
 
 
-
+<script>
+if(nonPrimaVolta){
+	
+	startGame2();
+	caricaOggettiCliccabili(<%=id_stanza%>);
+}
+	</script>
 </body>
 </html>

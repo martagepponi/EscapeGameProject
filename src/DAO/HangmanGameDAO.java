@@ -37,7 +37,7 @@ private Connection connection;
 				t.setWord(result.getString("word"));
 				t.setQuestion1(result.getString("question1"));
 				t.setQuestion2(result.getString("question2"));
-				t.setPrice(result.getString("prize"));
+				t.setPrize(result.getString("prize"));
 				t.setPass(result.getString("pass"));
 			}
 		} catch (SQLException e) {

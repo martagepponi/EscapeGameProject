@@ -49,11 +49,24 @@ public class Game extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		
+		HttpSession session = request.getSession(true);
+		
+		
+	    session.getAttribute("subject");
+		//System.out.println("MATERIAAAAA:" + session.getAttribute("subject"));
+		String prima_volta = (String) session.getAttribute("prima_volta");
+		
+		
+		
+		request.getRequestDispatcher("/Game.jsp").forward(request, response);
+		
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession(true);
 		String id_stanza = request.getParameter("id_stanza");
 		System.out.println("id_stanza:" + id_stanza);
 		int idstanza = Integer.parseInt(id_stanza);
@@ -64,11 +77,13 @@ public class Game extends HttpServlet {
 		
 		System.out.println(subject.getMuro1());
 		if(subject != null) {
-		  request.setAttribute("subject", subject);
+		//  request.setAttribute("subject", subject);
+		  session.setAttribute("subject", subject);
 		  
-			HttpSession session = request.getSession(true);
+			
 			session.setAttribute("id_stanza", "" + id_stanza);
 			session.setAttribute("prima_volta", "SI");
+			
 			System.out.println("idstanza" + id_stanza);
 		
 		request.getRequestDispatcher("/Game.jsp").forward(request, response);

@@ -69,6 +69,8 @@ public class MiniGameDAO {
 				    hangmangame.setWord(result1.getString("word"));
 					hangmangame.setQuestion1(result1.getString("question1"));
 					hangmangame.setQuestion2(result1.getString("question2"));
+					hangmangame.setPrize(result1.getString("prize"));
+					hangmangame.setPass(result1.getString("pass"));
 				
 					
 					

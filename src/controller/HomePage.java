@@ -80,12 +80,15 @@ public class HomePage extends HttpServlet {
 				List<Room> Rooms = roomDAO.findAllRooms();
 				//LA RICHIESTA INCAPSULA LA LISTA DELLE STANZE
 				request.setAttribute("Rooms", Rooms);
+				session.setAttribute("Room", Rooms ); //NON TESTATO
+				
 				
 				
 				
 				RankingDAO rankingDAO = new RankingDAO(connection);
 				List<Ranking> Rankings = rankingDAO.findAllRanking(user.getIduser());
 				request.setAttribute("Rankings", Rankings);
+				session.setAttribute("Rankings", Rankings);
 				
 			
 

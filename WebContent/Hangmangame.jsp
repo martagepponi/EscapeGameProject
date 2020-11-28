@@ -30,17 +30,19 @@
 	var esitoFinale = "";
 	var punteggio = 0;
 
-	function selectLetterResponse(req) {
+	function hintResponse(req) {
+	
 		if (req.readyState == 4) {
 			var message = req.responseText;
-			alert(message);
+			//alert(message);
 			if (req.status == 200) {
 				var response = JSON.parse(req.responseText);
 				if (response.sessionExpired) {
 					alert("Sessione scaduta!");
 					document.location.href="/Login.html";
 				} else {
-					if (response.esito == "true") {
+					if (response.esito) {
+						
 						document.getElementById("question2").innerHTML = response.question2;
 						document.getElementById("question2").style.display = "block";
 					}
@@ -52,9 +54,10 @@
 	}
 
 	function selectLetterResponse(req) {
+		
 		if (req.readyState == 4) {
 			var message = req.responseText;
-			alert(message);
+			//alert(message);
 			if (req.status == 200) {
 				// SE LA RISPOSTA è OK
 				var response = JSON.parse(req.responseText);
@@ -71,12 +74,44 @@
 						}
 					} else {
 						if (response.esitoFinale == "P") {
-							esitFinale = "P";
+							esitoFinale = "P";
 							punteggio = response.punteggio;
 							correctWord = response.correctWord;
 						}
 					}
-				}				
+				}
+				
+				//NON FUNZIONA
+				
+				
+				
+				
+				document.game.displayWord.value = display_word;
+				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
+				if (esitoFinale == "V") {
+					alert("Vinto!");
+					alert("punti di errore: " + wrong_guesses);
+					alert("Punteggio ottenuto: " + punteggio );
+					can_play = false;
+					
+					document.getElementById("fireExtinguisher").style.display="block";
+					
+					document.getElementById("Hangmangame").style.display = "none";
+					
+					
+					
+				} else if (esitoFinale == "P") {
+					alert("Perso!");
+					alert("la parola corretta era: " + correctWord)
+					alert("punti di errore: " + wrong_guesses);
+					alert("Punteggio ottenuto: " + punteggio );
+					can_play = false;
+					
+					document.getElementById("fireExtinguisher").style.display="block";
+					
+					document.getElementById("Hangmangame").style.display = "none";
+				}
+				
 			} else {
 				// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
 			}
@@ -84,6 +119,7 @@
 	}
 	
 	function selectLetter(l) {
+		document.getElementById("fireExtinguisher").style.display="none";
 		if (can_play == false) {
 			return;
 		}
@@ -95,35 +131,14 @@
 		used_letters += l;
 		document.game.usedLetters.value = used_letters;
 
-		makeCall("GET", "/Hangmangame?action=selectLetter&letterSelected=" + l, selectLetterResponse);
-		// chiamata al controller per verifica se lettera è presente 
-		// ritorni possibili:
-		// OK - display_word - vittoria - punteggio
-		// KO - numero_errori - sconfitta - punteggio - correct_word
-		
-		document.game.displayWord.value = display_word;
-		eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses
-				+ ".gif\"");
-		if (esitoFinale == "V") {
-			alert("Vinto!");
-			alert("punti di errore: " + wrong_guesses);
-			alert("Punteggio ottenuto: " + punteggio );
-			can_play = false;
-			
-		} else if (esitoFinale == "P") {
-			alert("Perso!");
-			alert("la parola corretta era: " + correctWord)
-			alert("punti di errore: " + wrong_guesses);
-			alert("Punteggio ottenuto: " + punteggio );
-			can_play = false;
-		}
+		makeCall("GET", "HangmanGame?action=selectLetter&letterSelected=" + l, selectLetterResponse);
 
 	}
 
 	function hint() {
 		// chiamata al controller per visionareil suggerimento
 		// esito : suggerimento
-		makeCall("GET", "/Hangmangame?action=hint", hintResponse);
+		makeCall("GET", "HangmanGame?action=hint", hintResponse);
 
 	}
 
@@ -154,7 +169,7 @@ function makeCall(method, url, cback) {
 		<h2 id="question2" style="display: none;"></h2>
 		<p>
 			<img src="images/hangmangame/hmstart.gif" height="125" width="75"
-				name="hm" onload= "selectWord('<%=word.length()%>')">
+				name="hm">
 		</p>
 		<form name="game">
 			<p>
@@ -202,6 +217,32 @@ function makeCall(method, url, cback) {
 
 
 	<!-- ------------------------------------------------------------------------ -->
+	
+<!-- 		DIV CON IMMAGINE ESTINTORE CHE APPARE A FINE MINIGIOCO -->
+
+
+<div id="fireExtinguisher" align="center" style="display: none;">
+
+<img src="images/<%=minigame.getPrize()%>.png" height="500" width="300">
+
+<p align="center">  Hai trovato un oggetto.
+                    Troverai questo oggetto nell'inventario, 
+                    ritorna alla stanza e clicca nel punto in cui l'oggetto
+                     trovato può risultarti utile! </p>
+                     
+<a href="./Game"> <input type="button" value="Torna alla stanza" > </a>
+
+
+</div>
+
+
+
+
+
+
+
+
+	
 
 </body>
 </html>

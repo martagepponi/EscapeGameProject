@@ -67,12 +67,18 @@ public class Minigame extends HttpServlet {
 	
 		
 		String prima_volta =(String) session.getAttribute("prima_volta");
+		session.setAttribute("prima_volta", "NO");  //COSì GAME.JSP SA CHE DEVE ATTIVARE LA SECONDA MAP
 		System.out.println("primavolta:"+ prima_volta);
-		//set "NO"
 		
-		int numeroMinigame = Integer.parseInt(request.getParameter("numeroMinigame"));
+		
+		
+		int numeroMinigame = Integer.parseInt((String)session.getAttribute("numeroMinigame"));
+		
+		int numeroMuro = Integer.parseInt((String)session.getAttribute("muro"));
+		session.setAttribute("muro", ++numeroMuro);
 		System.out.println("numeroMinigame"+ numeroMinigame);
 		
+
 		
 		int Id_minigame = 0;
 		if(numeroMinigame==1) {
