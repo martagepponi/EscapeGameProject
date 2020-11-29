@@ -21,10 +21,15 @@ import Bean.AbstractMinigame;
 import Bean.AffinityGameResponse;
 import Bean.Affinitygame;
 import Bean.User;
+import DAO.RankingDAO;
 
 @WebServlet("/AffinityGame")
 public class AffinityGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int MAX_PUNTEGGIO = 30;
+	private static final int PUNTI_ERRORE = 6;
+	private static final int PUNTI_HINT = 12;
+	
 	private Connection connection; 
        
     
@@ -53,8 +58,11 @@ public class AffinityGame extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
+		String idst = (String) session.getAttribute("id_stanza");
+		int idStanza =  Integer.parseInt(idst) ;
 		User user =(User) session.getAttribute("user");
-		System.out.println(user.getUsername());
+		int iduser = user.getIduser();		
+		int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
 		
 		AffinityGameResponse retval = new AffinityGameResponse();
 		if(session.isNew() || user == null) {
@@ -73,8 +81,13 @@ public class AffinityGame extends HttpServlet {
 		 		String word = request.getParameter("word");
 			
 				if(word.equalsIgnoreCase(correctWord)) {
-					int punteggio = 0;
-					// TODO: calcolo punteggio e scrivi classifica
+					
+					
+					int punteggio=  calcolaPunteggio(minigame.getErrorNumber(), minigame.isHintSelected());
+	 				
+	 				RankingDAO rankingDAO = new RankingDAO(connection);
+		 			rankingDAO.InsertRank(numeroMinigame, punteggio, iduser, idStanza);
+				
 					retval.setEsito(true);
 					retval.setEsitoFinale(AbstractMinigame.VINTO);
 					retval.setPunteggio(punteggio);
@@ -88,8 +101,11 @@ public class AffinityGame extends HttpServlet {
 					retval.setErrorNumber(errorNumber);
 					retval.setTentativiRimasti(tentativiRimasti);
 					if(errorNumber >= Affinitygame.MAX_NUM_ERRORI) {
-						int punteggio = 0;
-						// TODO: calcola punteggio
+						
+						int punteggio=  calcolaPunteggio(minigame.getErrorNumber(), minigame.isHintSelected());	 				
+		 				RankingDAO rankingDAO = new RankingDAO(connection);
+			 			rankingDAO.InsertRank(numeroMinigame, punteggio, iduser, idStanza);
+												
 						retval.setEsitoFinale(AbstractMinigame.PERSO);
 						retval.setPunteggio(punteggio);
 						retval.setCorrectWord(correctWord);
@@ -127,6 +143,14 @@ public class AffinityGame extends HttpServlet {
 			}	
 		}
 		catch(SQLException e) {}
+	}
+	
+	protected int calcolaPunteggio(int numeroErrori, boolean requestedHint) {
+		int retval = MAX_PUNTEGGIO;
+		retval -= (numeroErrori * PUNTI_ERRORE);
+		retval -= (requestedHint ? PUNTI_HINT : 0);
+		
+		return retval;
 	}
 
 }
