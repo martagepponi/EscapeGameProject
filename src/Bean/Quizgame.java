@@ -2,13 +2,16 @@ package Bean;
 
 public class Quizgame extends AbstractMinigame {
 	
-	int idQuiz;
-	String question;
-	String rightAnswer;
-	String wrong1;
-	String wrong2;
-	String prize;
-	String pass;
+	public static final int MAX_NUM_ERRORI =2;
+	protected int idQuiz;
+	protected String question;
+	protected String rightAnswer;
+	protected String wrong1;
+	protected String wrong2;
+	protected String prize;
+	protected String pass;
+	protected int errorNumber;
+	protected boolean hintSelected;
 	
 	
 	
@@ -23,6 +26,8 @@ public class Quizgame extends AbstractMinigame {
 		this.wrong2= wrong2;
 		this.prize=prize;
 		this.pass=pass;
+		errorNumber= 0;
+		hintSelected = false;
 		
 	}
 	
@@ -33,18 +38,9 @@ public class Quizgame extends AbstractMinigame {
 
 	public Quizgame() {
 		super();
-		// TODO Auto-generated constructor stub
+		errorNumber= 0;
+		hintSelected = false;
 	}
-
-
-
-
-
-
-	
-
-
-
 
 
 
@@ -114,7 +110,7 @@ public class Quizgame extends AbstractMinigame {
 
 
 
-	public void setPrice(String prize) {
+	public void setPrize (String prize) {
 		this.prize = prize;
 	}
 
@@ -129,7 +125,44 @@ public class Quizgame extends AbstractMinigame {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	
+
+
+
+
+
+
+	public int getErrorNumber() {
+		return errorNumber;
+	}
+
+
+
+
+
+
+	public void setErrorNumber(int errorNumber) {
+		this.errorNumber = errorNumber;
+	}
+
+
+
+
+
+
+	public boolean isHintSelected() {
+		return hintSelected;
+	}
+
+
+
+
+
+
+	public void setHintSelected(boolean hintSelected) {
+		this.hintSelected = hintSelected;
+	}
+
+
 	
 
 }

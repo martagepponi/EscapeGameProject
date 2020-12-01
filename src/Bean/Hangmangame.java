@@ -14,7 +14,7 @@ public class Hangmangame extends AbstractMinigame {
 	
 	//COSTRUTTORE
 	public Hangmangame(int idMinigame, String type, int idSubject, int idHangman, String word, 
-			String question1, String question2, String price, String pass) {
+			String question1, String question2, String prize, String pass) {
 		super(idMinigame, type, idSubject);
 		this.idHangman= idHangman;
 		this.word= word;

@@ -98,6 +98,8 @@ public class MiniGameDAO {
 						quizgame.setRightAnswer(result2.getString("rightanswer"));
 						quizgame.setWrong1(result2.getString("wrong1"));
 						quizgame.setWrong2(result2.getString("wrong2"));
+						quizgame.setPrize(result2.getString("prize"));
+						
 					
 						
 						

@@ -85,16 +85,19 @@ public class Minigame extends HttpServlet {
 
 				Id_minigame = room.getMinigame3();
 
+			} else {
+				//rimando tutti i dati da far visualizzare all'utente che ha finito la stanza
+				//redirect finalgame.jsp
 			}
 			System.out.println("minigame1 qui" + Id_minigame);
 			if (Id_minigame != 0) {
 				MiniGameDAO minigameDAO = new MiniGameDAO(connection);
 				AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(Id_minigame);
-		//		AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(6);
+				//AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(6);
 				System.out.println("MINIGAME TIPO:" + minigame.getType());
 
 				session.setAttribute("Minigame", minigame);
-             //   minigame.setType("affinitygame");
+               //minigame.setType("affinitygame");
 				if (minigame.getType().equalsIgnoreCase("hangmangame")) {
 					// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
 					request.getRequestDispatcher("/Hangmangame.jsp").forward(request, response);

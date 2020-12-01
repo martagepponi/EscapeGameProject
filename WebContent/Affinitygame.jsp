@@ -5,12 +5,13 @@
 <%@page import="Bean.*"%>
 <%
 	Affinitygame minigame = (Affinitygame)session.getAttribute("Minigame");
+session.setAttribute("prize", minigame.getPrize());
     String word1 = minigame.getWord1();
     String word2 = minigame.getWord2();
     String word3 = minigame.getWord3();
     String word4 = minigame.getWord4();
     
-    String hint = minigame.getHint();
+    String question2 = minigame.getHint();
     int tentativiIniziali = Affinitygame.MAX_NUM_ERRORI;
      
 %>
@@ -22,9 +23,9 @@
 
 <style>
 /* /* Google Fonts */
-* /
-	/* @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro); */
-	/* Global */ 
+
+/* @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);  */
+/*  Global  */
 html {
 	min-height: 100%;
 	overflow: hidden;
@@ -58,7 +59,7 @@ body {
 	margin: 0 auto;
 	font-size: 180%;
 	text-align: center;
-	overflow: hidden;
+	
 }
 
 /* Animation */
@@ -67,8 +68,7 @@ body {
 		500ms steps(44) infinite normal;
 }
 
-@
-keyframes typewriter {
+@keyframes typewriter {
 	from {width: 0;
 }
 
@@ -77,8 +77,7 @@ to {
 }
 
 }
-@
-keyframes blinkTextCursor {
+@keyframes blinkTextCursor {
 	from {border-right-color: rgba(255, 255, 255, .75);
 }
 
@@ -86,10 +85,46 @@ to {
 	border-right-color: transparent;
 }
 }
+
+
+
+.button{
+ background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+
+}
 </style>
 
 <script>
+var hintRequested = 0;
 
+
+
+function hintResponse(req) {
+	
+	if (req.readyState == 4) {
+		var message = req.responseText;
+		//alert(message);
+		if (req.status == 200) {
+			var response = JSON.parse(req.responseText);
+			if (response.sessionExpired) {
+				alert("Sessione scaduta!");
+				document.location.href="/Login.html";
+			} else {
+				if (response.esito) {
+					
+					document.getElementById("question2").innerHTML = response.question2;
+					document.getElementById("question2").style.display = "block";
+				}
+			}
+		} else {
+			// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
+		}
+	}		
+}
 
 function Word(wordToCheck){
 	var wordToCheck = document.getElementById("wordToCheck").value;
@@ -97,13 +132,13 @@ function Word(wordToCheck){
 		alert("Non puoi inserire una parola vuota");
 		return false;
 	}else{
-		makeCall("GET", "AffinityGame?word=" + wordToCheck.value, wordResponse);
+		makeCall("GET", "AffinityGame?action=insertWord&word=" + wordToCheck, wordResponse);
 	}
 }
 
-function wordResponse(){
+function wordResponse(req){
 	if (req.readyState == 4 && req.status == 200) {
-		var esitoParolaInserita = JSON.parse(x.responseText);
+		var response = JSON.parse(req.responseText);
 		if (response.sessionExpired) {
 			alert("Sessione scaduta!");
 			document.location.href="/Login.html";
@@ -116,6 +151,8 @@ function wordResponse(){
 				document.getElementById("divMain").style.display="none";
 				document.getElementById("div2").style.display="none";
 				document.getElementById("punteggio").innerHTML = response.punteggio;
+				document.getElementById("divTentativi").style.display="none";
+				document.getElementById("question2").style.display="none";
 			} else  {
 				if (response.esitoFinale == "P") {
 					alert("Perso!");
@@ -128,6 +165,8 @@ function wordResponse(){
 					document.getElementById("correctWord").innerHTML = response.correctWord;
 					document.getElementById("showWord").style.display="block";
 					document.getElementById("punteggio").innerHTML = response.punteggio;
+					document.getElementById("divTentativi").style.display="none";
+					document.getElementById("question2").style.display="none";
 				} else {
 					var tentativi = response.tentativiRimasti;
 					alert("numero tentativi rimasti" + tentativi);
@@ -153,6 +192,14 @@ function makeCall(method, url, cback) {
 	req.send();//invio richiesta http a server
 
 }
+
+
+function hint() {
+	// chiamata al controller per visionareil suggerimento
+	// esito : suggerimento
+	makeCall("GET", "AffinityGame?action=hint", hintResponse);
+
+}
 </script>
 
 </head>
@@ -161,15 +208,21 @@ function makeCall(method, url, cback) {
 
 <body>
 	<div id="divMain" class="line-1 anim-typewriter">
-		<p><%=word1 %>,
-			<%=word2%>,
-			<%=word3%>,
-			<%=word4%></p>
+		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
+	
 	</div>
+	<h2 id="question2" align="center" style="display: none;"></h2>
 
 	<div id="div2" class="correctWord">
 		<input id="wordToCheck" type="text" placeholder="Inserisci parola" value="">
-		<input type="button" onclick="Word()">
+		<input type="button" value="Invia" onclick="Word()">
+		
+		<p>
+			<a href="javascript:hint()">Suggerimento</a>
+				
+		</p>
+		
+		
 
 	</div>
 
@@ -183,21 +236,24 @@ function makeCall(method, url, cback) {
 
 		<img src="images/<%=minigame.getPrize()%>.png" height="500"
 			width="300">
+			
+			
+<a href="./Game"> <input type="button" class="button" value="Torna alla stanza"></a>  
+
 
 		<p align="center">Hai trovato un oggetto. Troverai questo oggetto
 			nell'inventario, ritorna alla stanza e clicca nel punto in cui
 			l'oggetto trovato può risultarti utile!</p>
 
-		<a href="./Game"> <input type="button" value="Torna alla stanza">
-		</a>
-
-		
-
 	</div>
-
-	<div id="divtTentativi" align="center">
 	
-<%-- <%int tentativi=  Integer.parseInt((String)session.getAttribute("tentativi")); %> --%>
+	
+	
+
+
+
+
+	<div id="divTentativi" align="center">
 
  		<p>NUMERO TENTATIVI RIMASTI: <span id="tentativi"><%= tentativiIniziali %></span></p>
 	</div>

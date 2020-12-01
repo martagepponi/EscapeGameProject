@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="Bean.Room"%>
-<%@page import="Bean.Subject"%>
-<%@page import="Bean.User"%>
-<%@page import="Bean.Ranking"%>
+<%@page import="Bean.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -23,7 +20,7 @@ Subject subject = null;
       String wall2  = subject.getMuro2();
       String wall3  = subject.getMuro3();
       String wall4  = subject.getMuro4();
-      
+      String prize = "";
       String id_stanza = (String) session.getAttribute("id_stanza");
       System.out.println("ID STANZAAAAAAA: "+ id_stanza);
      
@@ -39,6 +36,16 @@ img {
  	height: 60%; 
  	width: 60%; 
 	
+}
+
+.arpa{
+height:100px; width:50px;
+}
+.fireEx{
+height:100px; width:50px;
+}
+.ciotola{
+height:200px; width:150px;
 }
 
 #immagine_start{
@@ -127,18 +134,26 @@ th.inventario {
 var oggetti = ["<%=object1%>", "<%=object2%>", "<%=object3%>", "<%=object4%>"];
 var nonPrimaVolta = false;
 
-<% if(session.getAttribute("prima_volta").equals("NO")){%>
-  oggetti.shift();
-  //alert("oggetti"+ oggetti);
-  nonPrimaVolta= true;
-  var numeroMuroAumentato = parseInt("<%=session.getAttribute("muro")%>");
-  alert( "numero muro: " + numeroMuroAumentato);
+<% 
+    
+
+    if(session.getAttribute("prima_volta").equals("NO")){
+    	prize = (String) session.getAttribute("prize");    %>
+     alert("non prima volta");
+     var oggettiJSON = localStorage.getItem("listaOggetti");
+     oggetti = JSON.parse(oggettiJSON);
+     oggetti.shift();
+     nonPrimaVolta= true;
+     var numeroMuroAumentato = parseInt("<%=session.getAttribute("muro")%>");
+     alert( "numero muro: " + numeroMuroAumentato);
+     
+     
 <%}%>
+
 var oggettiEMuro = {"<%=object1%>":"<%=wall1%>", "<%=object2%>":"<%=wall2%>", "<%=object3%>":"<%=wall3%>", "<%=object4%>":"<%=wall4%>"};
-
-localStorage.setItem("listaOggetti", JSON.stringify(oggetti));
-localStorage.setItem("ordineClick", JSON.stringify(oggettiEMuro));
-
+alert("oggetti"+ oggetti);
+//localStorage.setItem("ordineClick", JSON.stringify(oggettiEMuro));
+ localStorage.setItem("listaOggetti", JSON.stringify(oggetti));
 // var a = JSON.parse(localStorage.getItem("ordineClick"));
 
 console.log(oggetti);
@@ -249,10 +264,10 @@ function startGame2(){
 			if(!controllaOggettoEMuro(nomeOggetto, muroDiRiferimento, oggettiEMuro))
 				return false;
 			
-		//	alert(nomeOggetto + " presente nel " + muroDiRiferimento);
+			alert(nomeOggetto + " presente nel " + muroDiRiferimento);
 		
 			document.getElementById("area" + numero).coords= getObject(oggetti[0]);	
-			//alert(document.getElementById("area" + numero).coords);
+			alert(document.getElementById("area" + numero).coords);
 			//conto numero di minigame
 			<% 
 			int numeroMinigame = 1;
@@ -260,6 +275,7 @@ function startGame2(){
 			  numeroMinigame = Integer.parseInt((String)session.getAttribute("numeroMinigame"));
 			  ++ numeroMinigame;
 			  session.setAttribute("numeroMinigame", "" + numeroMinigame);
+		
 			}else{
 				//è la prima volta
 				System.out.println("metto muro prima volta");
@@ -270,7 +286,7 @@ function startGame2(){
 			numeroMinigame = "<%= numeroMinigame%>";
 			//
 			document.getElementById("area"+ numero).href="./Minigame";
-			//alert("#point" + numero);
+			alert("#point" + numero);
 			
 			if(muroDiRiferimento == "<%=subject.getMuro1()%>")
 			  document.getElementById("muro").setAttribute("usemap", "#point" + numero);
@@ -291,9 +307,9 @@ function startGame2(){
 		if(nome == "fuoco")
 			coordinate = "225,404,284,530";
 		if(nome == "cane")
-			coordinate = "1,2,3,4";
+			coordinate = "67,556,156,612";
 		if(nome == "archibugio")
-			coordinate = "1,2,3,4";
+			coordinate = "455,338,515,609";
 		//aggiungi altri oggetti
 		return coordinate;
 		
@@ -339,6 +355,11 @@ function startGame2(){
 			<tr>
 				<th class="inventario">INVENTARIO</th>
 			</tr>
+			<% if(session.getAttribute("prima_volta").equals("NO")){%>
+			<tr> 
+			<td><img src="images/<%=prize%>.png"  class="<%=prize%>"></td>
+			</tr>
+			<%} %>
 		</table>
 	</div>
 	
@@ -354,9 +375,13 @@ function startGame2(){
 <area id="area2" shape="rect" coords="" href="">
 </map>
 
+<map id="point3" name="point3">
+<area id="area3" shape="rect" coords="" href="">
+</map>
 
-
-
+<map id="point4" name="point4">
+<area id="area4" shape="rect" coords="" href="">
+</map>
 
 
 <script>

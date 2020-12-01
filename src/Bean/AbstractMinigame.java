@@ -8,7 +8,7 @@ public abstract class AbstractMinigame implements MiniGame{
 	protected String type;
 	protected int idsubject;
 	protected Subject materia;
-	protected String esito; 
+	protected String esito;
 	
 	
 	

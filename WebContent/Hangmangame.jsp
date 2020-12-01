@@ -5,6 +5,7 @@
 <%@page import="Bean.*"%>
 <%
 	Hangmangame minigame = (Hangmangame)session.getAttribute("Minigame");
+session.setAttribute("prize", minigame.getPrize());
 	//int lunghezzaParola = minigame.getWord().length();
 	String word = minigame.getWord();
 	String displayWord = minigame.getDisplayWord();
