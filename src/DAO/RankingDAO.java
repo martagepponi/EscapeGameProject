@@ -265,7 +265,55 @@ return Rankings;
 		
 		
 		
-		
+						//PUNTEGGI UTENTE CHE HA APPENA GIOCATO A UNA SPECIFICA STANZA 
+						
+						public Ranking findRankingByRoomAndUser (int iduser, int idroom){
+							
+							String query = "SELECT room.thumbnail, ranking.idranking, ranking.user, ranking.date, ranking.rank1, ranking.rank2, ranking.rank3, ranking.rank4, ranking.totalrank FROM escapegame.room JOIN escapegame.ranking WHERE room.idroom=? AND user=?;";
+							ResultSet result = null;
+							PreparedStatement pstatement = null;
+							Ranking ranking = null;
+							try {
+								pstatement = connection.prepareStatement(query);
+								pstatement.setInt(1, iduser);
+								pstatement.setInt(2, idroom);
+								result = pstatement.executeQuery();
+								if (result.next()) {
+									String thumbnail = result.getString("thumbnail");
+									int idRanking =result.getInt("idranking");
+									int user= result.getInt("user");
+									Date date= result.getDate("date");
+									int rank1= result.getInt("rank1");
+									int rank2= result.getInt("rank2");
+									int rank3= result.getInt("rank3");
+									int rank4= result.getInt("rank4");
+									int totalrank= result.getInt("totalrank");
+									
+								 ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom);
+									
+									
+									
+									
+								}
+									
+								}catch (SQLException e) {
+									e.printStackTrace();
+								}finally {
+									  try {
+										  result.close();
+									  } 
+									  catch (Exception e2) {
+										  e2.printStackTrace();
+									  }
+									  try {
+										  pstatement.close();
+									  } 
+									  catch (Exception e3) {
+										  e3.printStackTrace();
+									  }
+								}
+					return ranking;
+					}
 		
 		
 		

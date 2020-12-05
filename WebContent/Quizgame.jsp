@@ -59,6 +59,15 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 	// 	}		
 	// }
 
+	
+	
+	function carica(){
+		 var music = document.getElementById("myAudio"); 
+	     music.play();
+	}
+	
+	
+	
 	function Answer1(answerToCheck) {
 
 		var answerToCheck = document.getElementById("key1").value;
@@ -143,6 +152,17 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 		document.getElementById("Div").style.display = "none";
 		document.getElementById("prize").style.display = "block";
 	}
+	
+	function startMusic(){
+		var music = document.getElementById("myAudio"); 
+		music.play();
+		}
+	
+	function pauseMusic(){
+		var music = document.getElementById("myAudio"); 
+		music.pause();
+	}
+
 </script>
 <script type="text/javascript">
 	function makeCall(method, url, cback) {
@@ -164,7 +184,7 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 	// }
 </script>
 </head>
-<body>
+<body onload="carica()">
 
 	<div id="Div">
 
@@ -221,7 +241,22 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 				value="Ritira premio" onclick="prize()">
 
 		</div>
+		
+
+	<audio id="myAudio">
+		<source src="music/askingquestions.mp3" type="audio/mpeg">
+
+	</audio>
+
+
+	<div id="musicButton" align="center">
+		<button onclick="pauseMusic()" type="button">Pause Audio</button>
+
+		<button onclick="startMusic()" type="button">Play Audio</button>
 	</div>
+
+	</div>
+
 
 
 	<div id="prize" align="center" style="display: none;">

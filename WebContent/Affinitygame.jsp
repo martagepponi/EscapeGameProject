@@ -103,6 +103,12 @@ var hintRequested = 0;
 
 
 
+function carica(){
+	 var music = document.getElementById("myAudio"); 
+     music.play();
+}
+
+
 function hintResponse(req) {
 	
 	if (req.readyState == 4) {
@@ -179,6 +185,17 @@ function wordResponse(req){
 }
 
 
+function startMusic(){
+	var music = document.getElementById("myAudio"); 
+	music.play();
+	}
+
+function pauseMusic(){
+	var music = document.getElementById("myAudio"); 
+	music.pause();
+}
+
+
 </script>
 <script type="text/javascript">
 
@@ -206,7 +223,7 @@ function hint() {
 
 
 
-<body>
+<body onload="carica()">
 	<div id="divMain" class="line-1 anim-typewriter">
 		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
 	
@@ -223,8 +240,20 @@ function hint() {
 		</p>
 		
 		
+<audio id="myAudio">
+		<source src="music/askingquestions.mp3" type="audio/mpeg">
+
+	</audio>
+
+
+	<div id="musicButton" align="center">
+		<button onclick="pauseMusic()" type="button">Pause Audio</button>
+
+		<button onclick="startMusic()" type="button">Play Audio</button>
+	</div>
 
 	</div>
+	
 
 
 

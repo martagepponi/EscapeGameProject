@@ -15,8 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Bean.AbstractMinigame;
+import Bean.Ranking;
 import Bean.Room;
+import Bean.User;
 import DAO.MiniGameDAO;
+import DAO.RankingDAO;
 import DAO.RoomDAO;
 
 @WebServlet("/Minigame")
@@ -85,8 +88,18 @@ public class Minigame extends HttpServlet {
 
 				Id_minigame = room.getMinigame3();
 
-			} else {
-				//rimando tutti i dati da far visualizzare all'utente che ha finito la stanza
+			} else if (numeroMinigame == 4) {
+				
+				User user = (User)session.getAttribute("user");
+				int id_user = user.getIduser();
+			
+				System.out.println("iduser"+ id_user);
+				RankingDAO rankingDAO = new RankingDAO(connection);
+				Ranking ranking = rankingDAO.findRankingByRoomAndUser(id_user, id_stanza);
+				
+				session.setAttribute("ranking", ranking);
+				
+				
 				request.getRequestDispatcher("/finalPage.jsp").forward(request, response);
 				
 				

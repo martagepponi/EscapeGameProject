@@ -31,6 +31,17 @@ session.setAttribute("prize", minigame.getPrize());
 	var esitoFinale = "";
 	var punteggio = 0;
 
+	
+	
+	
+	function carica(){
+		 var music = document.getElementById("myAudio"); 
+	     music.play();
+	}
+	
+	
+	
+	
 	function hintResponse(req) {
 	
 		if (req.readyState == 4) {
@@ -68,7 +79,7 @@ session.setAttribute("prize", minigame.getPrize());
 				} else {
 					display_word = response.displayWord;					
 					wrong_guesses = response.errorNumber;
-					if (response.esito == "true") {
+					if (response.esito) {
 						if (response.esitoFinale == "V") {
 							esitoFinale = "V";
 							punteggio = response.punteggio;
@@ -81,11 +92,7 @@ session.setAttribute("prize", minigame.getPrize());
 						}
 					}
 				}
-				
-				//NON FUNZIONA
-				
-				
-				
+			
 				
 				document.game.displayWord.value = display_word;
 				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
@@ -142,6 +149,18 @@ session.setAttribute("prize", minigame.getPrize());
 		makeCall("GET", "HangmanGame?action=hint", hintResponse);
 
 	}
+	
+	
+	
+	function startMusic(){
+		var music = document.getElementById("myAudio"); 
+		music.play();
+		}
+	
+	function pauseMusic(){
+		var music = document.getElementById("myAudio"); 
+		music.pause();
+	}
 
 	//FINE SCRIPT HANGMANGAME
 </script>
@@ -159,7 +178,7 @@ function makeCall(method, url, cback) {
 }
 </script>
 </head>
-<body>
+<body onload="carica()">
 
 
 	<div id="Hangmangame" align="center">
@@ -213,6 +232,17 @@ function makeCall(method, url, cback) {
 		</p>
 
 
+	<audio id="myAudio">
+		<source src="music/askingquestions.mp3" type="audio/mpeg">
+
+	</audio>
+
+
+	<div id="musicButton" align="center">
+		<button onclick="pauseMusic()" type="button">Pause Audio</button>
+
+		<button onclick="startMusic()" type="button">Play Audio</button>
+	</div>
 
 	</div>
 
