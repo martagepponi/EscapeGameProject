@@ -87,7 +87,10 @@ public class Minigame extends HttpServlet {
 
 			} else {
 				//rimando tutti i dati da far visualizzare all'utente che ha finito la stanza
-				//redirect finalgame.jsp
+				request.getRequestDispatcher("/finalPage.jsp").forward(request, response);
+				
+				
+				
 			}
 			System.out.println("minigame1 qui" + Id_minigame);
 			if (Id_minigame != 0) {
