@@ -9,6 +9,7 @@ public abstract class AbstractMinigame implements MiniGame{
 	protected int idsubject;
 	protected Subject materia;
 	protected String esito;
+	protected String prize;
 	
 	
 	
@@ -65,4 +66,13 @@ public abstract class AbstractMinigame implements MiniGame{
 	public void setEsito(String esito) {
 		this.esito = esito;
 	}
+
+	public String getPrize() {
+		return prize;
+	}
+
+	public void setPrize(String prize) {
+		this.prize = prize;
+	}
+
 }

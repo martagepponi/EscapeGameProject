@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%  session = request.getSession(true); 
-
-Subject subject = null;
+<%  
+	Subject subject = null;
 		    
     subject = (Subject) session.getAttribute("subject");
       System.out.println(subject.getMuro1());
@@ -157,9 +156,25 @@ th.box {
 </style>
 
 <script>
-
-var oggetti = ["<%=object1%>", "<%=object2%>", "<%=object3%>", "<%=object4%>"];
-var nonPrimaVolta = false;
+<%
+String oggetti = "";
+if("SI".equals(session.getAttribute("prima_volta"))) {
+	oggetti = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
+} else {
+	int numeroMinigame = (int)session.getAttribute("numeroMinigame");
+	if (numeroMinigame == 1) {
+		oggetti = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
+	} else if (numeroMinigame == 2) {
+		oggetti = "[\"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
+	} else if (numeroMinigame == 3) {
+		oggetti = "[\"" + object3 + "\", \"" + object4 +"\"]";
+	} else {
+		oggetti = "[\"" + object4 +"\"]";
+	}
+}
+%>
+	var oggetti = <%= oggetti %>;
+	var nonPrimaVolta = false;
 
 
 <% 

@@ -6,7 +6,6 @@ public class Hangmangame extends AbstractMinigame {
 	protected String word;
 	protected String question1;
 	protected String question2;
-	protected String prize;
 	protected String pass;
 	protected String displayWord;
 	protected int errorNumber;
@@ -89,18 +88,6 @@ public class Hangmangame extends AbstractMinigame {
 
 	public void setQuestion2(String question2) {
 		this.question2 = question2;
-	}
-
-
-
-	public String getPrize() {
-		return prize;
-	}
-
-
-
-	public void setPrize(String prize) {
-		this.prize = prize;
 	}
 
 

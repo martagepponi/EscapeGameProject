@@ -8,7 +8,6 @@ public class Quizgame extends AbstractMinigame {
 	protected String rightAnswer;
 	protected String wrong1;
 	protected String wrong2;
-	protected String prize;
 	protected String pass;
 	protected int errorNumber;
 	protected boolean hintSelected;
@@ -100,18 +99,6 @@ public class Quizgame extends AbstractMinigame {
 
 	public void setWrong2(String wrong2) {
 		this.wrong2 = wrong2;
-	}
-
-
-
-	public String getPrize() {
-		return prize;
-	}
-
-
-
-	public void setPrize (String prize) {
-		this.prize = prize;
 	}
 
 

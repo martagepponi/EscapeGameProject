@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.UnavailableException;
@@ -16,7 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Bean.AbstractMinigame;
+import Bean.Ranking;
+import Bean.Room;
 import Bean.Subject;
+import Bean.User;
+import DAO.MiniGameDAO;
+import DAO.RankingDAO;
+import DAO.RoomDAO;
 import DAO.SubjectDAO;
 
 
@@ -66,27 +71,91 @@ public class Game extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		String id_stanza = request.getParameter("id_stanza");
-		System.out.println("id_stanza:" + id_stanza);
-		int idstanza = Integer.parseInt(id_stanza);
-		
-		SubjectDAO subjectDAO = new SubjectDAO(connection);
+		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
+		HttpSession session = request.getSession();
+		User user =(User) session.getAttribute("user");
+		System.out.println(user.getUsername());
 
-		Subject subject =subjectDAO.findAllSubjectByIdRoom(idstanza);
+		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
+		if(session.isNew() || user == null) {
+			System.out.println("redirect a login -...");
+			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
+		}else { //se sessione non è nuova e utente è in sessione
 		
-		System.out.println(subject.getMuro1());
-		if(subject != null) {
-		//  request.setAttribute("subject", subject);
-		  session.setAttribute("subject", subject);
-		  
+			String id_stanza = request.getParameter("id_stanza");
+			System.out.println("id_stanza:" + id_stanza);
+			int idstanza = Integer.parseInt(id_stanza);
 			
-			session.setAttribute("id_stanza", "" + id_stanza);
-			session.setAttribute("prima_volta", "SI");
+			SubjectDAO subjectDAO = new SubjectDAO(connection);
+	
+			Subject subject =subjectDAO.findAllSubjectByIdRoom(idstanza);
 			
-			System.out.println("idstanza" + id_stanza);
-		
-		request.getRequestDispatcher("/Game.jsp").forward(request, response);
+			System.out.println(subject.getMuro1());
+			if(subject != null) {
+				session.setAttribute("subject", subject);
+				session.setAttribute("id_stanza", "" + id_stanza);
+				//controllo se ho già fatto accesso ad almeno un minigioco
+				RankingDAO rankingDAO = new RankingDAO(connection);
+				Ranking ranking = rankingDAO.findRankingByRoomAndUser(user.getIduser() , idstanza);
+				if (ranking == null) {
+					session.setAttribute("prima_volta", "SI");
+				} else {
+					if (ranking.getTotalrank() == 0) {
+						session.setAttribute("prima_volta", "NO");
+						RoomDAO roomDAO = new RoomDAO(connection);
+						Room room = roomDAO.selectById(idstanza, connection);
+						if (room != null) {
+							MiniGameDAO minigameDAO = new MiniGameDAO(connection);
+							if (ranking.getRank4() == 0) {
+								if (ranking.getRank3()  == 0) {
+									if (ranking.getRank2() == 0) {
+										if (ranking.getRank1() == 0) {
+											session.setAttribute("prima_volta", "SI");
+											session.removeAttribute("numeroMinigame");
+											session.removeAttribute("muro");
+										} else {
+											session.setAttribute("numeroMinigame", 1);
+											session.setAttribute("muro", 2);
+											AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame1());
+											if (minigame != null) {
+												session.setAttribute("prize", minigame.getPrize());
+											}
+										}
+									} else {
+										session.setAttribute("numeroMinigame", 2);
+										session.setAttribute("muro", 3);
+										AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame2());
+										if (minigame != null) {
+											session.setAttribute("prize", minigame.getPrize());
+										}
+									}
+								} else {
+									session.setAttribute("numeroMinigame", 3);
+									session.setAttribute("muro", 4);
+									AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame3());
+									if (minigame != null) {
+										session.setAttribute("prize", minigame.getPrize());
+									}
+								}
+							} else {
+								//TODO registrare total rank
+								//mostrare punbteggio totale raggiunto
+								//torna alla Home
+	
+							}
+						} else {
+							request.setAttribute("msgErrore", "Problemi nel recupero della stanza");
+							request.getRequestDispatcher("/HomePage").forward(request,response);
+						}
+					} else {
+						request.setAttribute("msgErrore", "Tentativo di accesso ad una stanza già giocata.");
+						request.getRequestDispatcher("/HomePage").forward(request,response);
+					}
+				}
+				request.getRequestDispatcher("/Game.jsp").forward(request, response);
+			} else {
+				//TODO gestire caso se subject non trovata e costruita....
+			}
 		}
 	}
 	

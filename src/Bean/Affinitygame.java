@@ -10,7 +10,6 @@ public class Affinitygame extends AbstractMinigame {
 	protected String word4;
 	protected String rightAnswer;
 	protected String hint;
-	protected String prize;
 	protected String pass;
 	protected int errorNumber;
 	protected boolean hintSelected;
@@ -28,7 +27,6 @@ public class Affinitygame extends AbstractMinigame {
 		this.word4= word4;
 		this.rightAnswer= rightAnswer;
 		this.hint= hint;
-		this.prize= prize;
 		this.pass= pass;
 		this.errorNumber = 0;
 		this.hintSelected = false;
@@ -122,18 +120,6 @@ public class Affinitygame extends AbstractMinigame {
 
 	public void setHint(String hint) {
 		this.hint = hint;
-	}
-
-
-
-	public String getPrize() {
-		return prize;
-	}
-
-
-
-	public void setPrize(String prize) {
-		this.prize = prize;
 	}
 
 

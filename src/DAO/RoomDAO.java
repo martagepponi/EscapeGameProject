@@ -151,8 +151,8 @@ public class RoomDAO {
 	
 	//CERCO UNA ROOM TRAMITE ID
 	
-	public Room selectById(int idRoom, Connection connection) throws SQLException {
-		Room t = new Room();
+	public Room selectById(int idRoom, Connection connection) {
+		Room t = null;
 		String query = "SELECT * FROM `room` where `idroom` = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -160,8 +160,8 @@ public class RoomDAO {
 			pstatement = connection.prepareStatement(query);
 			pstatement.setInt(1, idRoom);
 			result = pstatement.executeQuery();
-			while (result.next()) {
-				
+			if (result.next()) {
+				t = new Room();
 				t.setIdRoom(result.getInt("idroom"));
 				t.setDate(result.getDate("date"));
 				//t.setSubject(result.getString("subject"));
@@ -172,18 +172,18 @@ public class RoomDAO {
 				t.setFinalgame(result.getInt("finalgame"));
 			}
 		} catch (SQLException e) {
-			throw new SQLException(e);
-
+			e.printStackTrace();
+			t = null;
 		} finally {
 			try {
 				result.close();
 			} catch (Exception e1) {
-				throw new SQLException("Cannot close result");
+				e1.printStackTrace();
 			}
 			try {
 				pstatement.close();
 			} catch (Exception e1) {
-				throw new SQLException("Cannot close statement");
+				e1.printStackTrace();
 			}
 		}
 		return t;
