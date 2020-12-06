@@ -57,7 +57,8 @@ public class Game extends HttpServlet {
 		
 		HttpSession session = request.getSession(true);
 		
-		
+		session.removeAttribute("Minigame");
+
 	    session.getAttribute("subject");
 		//System.out.println("MATERIAAAAA:" + session.getAttribute("subject"));
 		String prima_volta = (String) session.getAttribute("prima_volta");
@@ -82,6 +83,7 @@ public class Game extends HttpServlet {
 			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
 		}else { //se sessione non è nuova e utente è in sessione
 		
+			session.removeAttribute("Minigame");
 			String id_stanza = request.getParameter("id_stanza");
 			System.out.println("id_stanza:" + id_stanza);
 			int idstanza = Integer.parseInt(id_stanza);
@@ -99,6 +101,7 @@ public class Game extends HttpServlet {
 				Ranking ranking = rankingDAO.findRankingByRoomAndUser(user.getIduser() , idstanza);
 				if (ranking == null) {
 					session.setAttribute("prima_volta", "SI");
+					request.getRequestDispatcher("/Game.jsp").forward(request, response);
 				} else {
 					if (ranking.getTotalrank() == 0) {
 						session.setAttribute("prima_volta", "NO");
@@ -114,24 +117,24 @@ public class Game extends HttpServlet {
 											session.removeAttribute("numeroMinigame");
 											session.removeAttribute("muro");
 										} else {
-											session.setAttribute("numeroMinigame", 1);
-											session.setAttribute("muro", 2);
+											session.setAttribute("numeroMinigame", "1");
+											session.setAttribute("muro", "2");
 											AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame1());
 											if (minigame != null) {
 												session.setAttribute("prize", minigame.getPrize());
 											}
 										}
 									} else {
-										session.setAttribute("numeroMinigame", 2);
-										session.setAttribute("muro", 3);
+										session.setAttribute("numeroMinigame", "2");
+										session.setAttribute("muro", "3");
 										AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame2());
 										if (minigame != null) {
 											session.setAttribute("prize", minigame.getPrize());
 										}
 									}
 								} else {
-									session.setAttribute("numeroMinigame", 3);
-									session.setAttribute("muro", 4);
+									session.setAttribute("numeroMinigame", "3");
+									session.setAttribute("muro", "4");
 									AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame3());
 									if (minigame != null) {
 										session.setAttribute("prize", minigame.getPrize());
@@ -143,6 +146,7 @@ public class Game extends HttpServlet {
 								//torna alla Home
 	
 							}
+							request.getRequestDispatcher("/Game.jsp").forward(request, response);
 						} else {
 							request.setAttribute("msgErrore", "Problemi nel recupero della stanza");
 							request.getRequestDispatcher("/HomePage").forward(request,response);
@@ -152,7 +156,7 @@ public class Game extends HttpServlet {
 						request.getRequestDispatcher("/HomePage").forward(request,response);
 					}
 				}
-				request.getRequestDispatcher("/Game.jsp").forward(request, response);
+				
 			} else {
 				//TODO gestire caso se subject non trovata e costruita....
 			}

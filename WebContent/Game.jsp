@@ -161,7 +161,7 @@ String oggetti = "";
 if("SI".equals(session.getAttribute("prima_volta"))) {
 	oggetti = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
 } else {
-	int numeroMinigame = (int)session.getAttribute("numeroMinigame");
+	int numeroMinigame = Integer.parseInt((String)session.getAttribute("numeroMinigame"));
 	if (numeroMinigame == 1) {
 		oggetti = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
 	} else if (numeroMinigame == 2) {
@@ -175,7 +175,7 @@ if("SI".equals(session.getAttribute("prima_volta"))) {
 %>
 	var oggetti = <%= oggetti %>;
 	var nonPrimaVolta = false;
-
+	 localStorage.setItem("listaOggetti", JSON.stringify(oggetti));
 
 <% 
     

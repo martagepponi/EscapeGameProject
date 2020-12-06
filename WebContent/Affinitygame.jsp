@@ -12,7 +12,7 @@ session.setAttribute("prize", minigame.getPrize());
     String word4 = minigame.getWord4();
     
     String question2 = minigame.getHint();
-    int tentativiIniziali = Affinitygame.MAX_NUM_ERRORI;
+    int tentativiIniziali = Affinitygame.MAX_NUM_ERRORI- minigame.getErrorNumber();
      
 %>
 <!DOCTYPE html>
@@ -228,7 +228,7 @@ function hint() {
 		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
 	
 	</div>
-	<h2 id="question2" align="center" style="display: none;"></h2>
+	<h2 id="question2" align="center" style="display: <%= (minigame.isHintSelected() ? "block" : "none") %>;"><%=(minigame.isHintSelected() ? minigame.getHint() : "") %></h2>
 
 	<div id="div2" class="correctWord">
 		<input id="wordToCheck" type="text" placeholder="Inserisci parola" value="">

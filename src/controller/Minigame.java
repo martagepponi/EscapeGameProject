@@ -64,84 +64,104 @@ public class Minigame extends HttpServlet {
 			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
 		}else { //se sessione non è nuova e utente è in sessione
 
-			String id_stanzaString = (String) session.getAttribute("id_stanza");
-			int id_stanza = Integer.parseInt(id_stanzaString);
-	
-			RoomDAO roomDAO = new RoomDAO(connection);
-			Room room = roomDAO.selectById(id_stanza, connection);
-			if ( room != null) {
-				String prima_volta = (String) session.getAttribute("prima_volta");
-				session.setAttribute("prima_volta", "NO"); // COSì GAME.JSP SA CHE DEVE ATTIVARE LA SECONDA MAP
-				System.out.println("primavolta:" + prima_volta);
-	
-				int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
-				System.out.println("numeroMinigame: " + numeroMinigame);
-		
-				int numeroMuro = Integer.parseInt((String) session.getAttribute("muro"));
-				++ numeroMuro;
-				session.setAttribute("muro", "" + numeroMuro);
-				System.out.println("*************************************numeroMuro: " + numeroMuro);
-	
-				
-				int Id_minigame = 0;
-				RankingDAO rankingDAO = new RankingDAO(connection);
-				rankingDAO.InsertRank(numeroMinigame, -1, user.getIduser() , id_stanza);
-				if (numeroMinigame == 1) {
-	
-					Id_minigame = room.getMinigame1();
-	
-				} else if (numeroMinigame == 2) {
-					Id_minigame = room.getMinigame2();
-	
-				} else if (numeroMinigame == 3) {
-	
-					Id_minigame = room.getMinigame3();
-	
-				} else if (numeroMinigame == 4) {
-					
-					int id_user = user.getIduser();
-				
-					System.out.println("iduser"+ id_user);
-					Ranking ranking = rankingDAO.findRankingByRoomAndUser(id_user, id_stanza);
-					
-					session.setAttribute("ranking", ranking);
-					
-					
-					request.getRequestDispatcher("/finalPage.jsp").forward(request, response);
-					
-					
-					
-				}
-				System.out.println("minigame1 qui" + Id_minigame);
-				if (Id_minigame != 0) {
-					MiniGameDAO minigameDAO = new MiniGameDAO(connection);
-					AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(Id_minigame);
-					//AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(6);
-					System.out.println("MINIGAME TIPO:" + minigame.getType());
-	
-					session.setAttribute("Minigame", minigame);
-	               //minigame.setType("affinitygame");
-					if (minigame.getType().equalsIgnoreCase("hangmangame")) {
-						// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
-						request.getRequestDispatcher("/Hangmangame.jsp").forward(request, response);
-					} else if (minigame.getType().equalsIgnoreCase("quizgame")) {
-						request.getRequestDispatcher("/Quizgame.jsp").forward(request, response);
-						// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
-					} else if (minigame.getType().equalsIgnoreCase("affinitygame")) {
-						request.getRequestDispatcher("/Affinitygame.jsp").forward(request, response);
-						// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
-	
-					} else {
-	
-						// TODO errore
+			AbstractMinigame minigame = (AbstractMinigame) session.getAttribute("Minigame");
+			if(minigame==null) {
+				String id_stanzaString = (String) session.getAttribute("id_stanza");
+				int id_stanza = Integer.parseInt(id_stanzaString);
+
+				RoomDAO roomDAO = new RoomDAO(connection);
+				Room room = roomDAO.selectById(id_stanza, connection);
+				if ( room != null) {
+					String prima_volta = (String) session.getAttribute("prima_volta");
+					session.setAttribute("prima_volta", "NO"); // COSì GAME.JSP SA CHE DEVE ATTIVARE LA SECONDA MAP
+					System.out.println("primavolta:" + prima_volta);
+
+					int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
+					System.out.println("numeroMinigame: " + numeroMinigame);
+
+					int numeroMuro = Integer.parseInt((String) session.getAttribute("muro"));
+					++ numeroMuro;
+					session.setAttribute("muro", "" + numeroMuro);
+					System.out.println("*************************************numeroMuro: " + numeroMuro);
+
+
+					int Id_minigame = 0;
+					RankingDAO rankingDAO = new RankingDAO(connection);
+					rankingDAO.InsertRank(numeroMinigame, -1, user.getIduser() , id_stanza);
+					if (numeroMinigame == 1) {
+
+						Id_minigame = room.getMinigame1();
+
+					} else if (numeroMinigame == 2) {
+						Id_minigame = room.getMinigame2();
+
+					} else if (numeroMinigame == 3) {
+
+						Id_minigame = room.getMinigame3();
+
+					} else if (numeroMinigame == 4) {
+
+						int id_user = user.getIduser();
+
+						System.out.println("iduser"+ id_user);
+						Ranking ranking = rankingDAO.findRankingByRoomAndUser(id_user, id_stanza);
+
+						session.setAttribute("ranking", ranking);
+
+
+						request.getRequestDispatcher("/finalPage.jsp").forward(request, response);
+
+
+
 					}
-	
+					System.out.println("minigame1 qui" + Id_minigame);
+					if (Id_minigame != 0) {
+						MiniGameDAO minigameDAO = new MiniGameDAO(connection);
+						minigame = (AbstractMinigame) minigameDAO.findById(Id_minigame);
+						//AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(6);
+						System.out.println("MINIGAME TIPO:" + minigame.getType());
+
+						session.setAttribute("Minigame", minigame);
+						//minigame.setType("affinitygame");
+						if (minigame.getType().equalsIgnoreCase("hangmangame")) {
+							// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
+							request.getRequestDispatcher("/Hangmangame.jsp").forward(request, response);
+						} else if (minigame.getType().equalsIgnoreCase("quizgame")) {
+							request.getRequestDispatcher("/Quizgame.jsp").forward(request, response);
+							// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
+						} else if (minigame.getType().equalsIgnoreCase("affinitygame")) {
+							request.getRequestDispatcher("/Affinitygame.jsp").forward(request, response);
+							// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
+
+						} else {
+
+							// TODO errore
+						}
+
+					} else {
+						// TODO: errore
+					}
+
 				} else {
-					// TODO: errore
+					//TODO : ERRORE
 				}
-	
-			} else {
-				//TODO : ERRORE
+			}else { //minigame è già in sessione
+				if (minigame.getType().equalsIgnoreCase("hangmangame")) {
+					// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
+					request.getRequestDispatcher("/Hangmangame.jsp").forward(request, response);
+				} else if (minigame.getType().equalsIgnoreCase("quizgame")) {
+					request.getRequestDispatcher("/Quizgame.jsp").forward(request, response);
+					// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
+				} else if (minigame.getType().equalsIgnoreCase("affinitygame")) {
+					request.getRequestDispatcher("/Affinitygame.jsp").forward(request, response);
+					// request.getRequestDispatcher("/Minigame.jsp").forward(request, response);
+
+				} else {
+
+					// TODO errore
+				}
+
+				
 			}
 		}
 	}
