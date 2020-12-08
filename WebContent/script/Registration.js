@@ -2,34 +2,34 @@ var serverPath = 'http://localhost:8080/EscapeGameProject';
 
 //REGISTRAZIONE STUDENTE
 function loadStudent(){ //altrimenti da errore visto che listener non legge nulla se clicchiamo il link del docente
-	var registraStudente = document.getElementById("registra1");	
-	registraStudente.addEventListener('click', registrazioneStudente, false);
+	var registerStudent = document.getElementById("register1");	
+	registerStudent.addEventListener('click', studentRegistration, false);
 
 }
 
 
-function registrazioneStudente() {
+function studentRegistration() {
 
-	var name = document.FormStudente.name.value;
-	var surname = document.FormStudente.surname.value;
-	var username = document.FormStudente.username.value;
-	var password = document.FormStudente.pwd1.value;
-	var passwordRipetuta = document.FormStudente.pwd2.value;
+	var name = document.studentForm.name.value;
+	var surname = document.studentForm.surname.value;
+	var username = document.studentForm.username.value;
+	var password = document.studentForm.pwd1.value;
+	var repetedPassword = document.studentForm.pwd2.value;
 	var type = "studente";
 
 
 
-	if (password != passwordRipetuta) {
+	if (password != repetedPassword) {
 		error_pwd.style.display = "block";
 		return false;
 	}
 	
-	 if ( name == '' || surname == '' || username == '' ||  password == '' || passwordRipetuta == '') {
+	 if ( name == '' || surname == '' || username == '' ||  password == '' || repetedPassword == '') {
 		return false;
 	} 
 
 	x = new XMLHttpRequest();
-	x.onreadystatechange = getRegistrazioneStudente;
+	x.onreadystatechange = getstudentRegistration;
 	x.open('POST', serverPath + '/Registration');
 	//Send the proper header information along with the request
 	x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -37,7 +37,7 @@ function registrazioneStudente() {
 	x.send(params);
 }
 
-function getRegistrazioneStudente() {
+function getstudentRegistration() {
 	if (x.readyState == 4 && x.status == 200) {
 		console.log(x.responseText);
 		var response = JSON.parse(x.responseText);
@@ -51,13 +51,13 @@ function getRegistrazioneStudente() {
 }
 
 //REGISTRAZIONE DOCENTE
-var inserisciCodice = document.getElementById("ok");
-inserisciCodice.addEventListener('click', inizializzazione, false);
+var insertCode = document.getElementById("ok");
+insertCode.addEventListener('click', initialization, false);
 
 //1. INSERIMENTO CODICE
 
 
-function inizializzazione() {
+function initialization() {
 	
 	var code = document.Form.code.value;
 	
@@ -67,7 +67,7 @@ function inizializzazione() {
 	
 	
 x = new XMLHttpRequest();
-	x.onreadystatechange = VerificaCodice;
+	x.onreadystatechange = codeVerify;
 	x.open('POST', serverPath + '/Registration');
 	//Send the proper header information along with the request
 	x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -75,7 +75,7 @@ x = new XMLHttpRequest();
 	x.send(params);
 }
 
-function VerificaCodice() {
+function codeVerify() {
 	if (x.readyState == 4 && x.status == 200) {
 		console.log(x.responseText);
 		var response = JSON.parse(x.responseText);
@@ -98,30 +98,30 @@ function VerificaCodice() {
 //REGISTRAZIONE EFFETTIVA DOCENTE
 
 
-var registraDocente = document.getElementById("registra2");	
-	registraDocente.addEventListener('click', registrazioneDocente, false);
+var registerProf = document.getElementById("register2");	
+	registerProf.addEventListener('click', profRegistration, false);
 	
-	function registrazioneDocente() {
+	function profRegistration() {
 
 	var name = document.Form2.name.value;
 	var surname = document.Form2.surname.value;
 	var username = document.Form2.username.value;
 	var password = document.Form2.pwd1.value;
-	var passwordRipetuta = document.Form2.pwd2.value;
+	var repetedPassword = document.Form2.pwd2.value;
 	var type = "docente";
 
 
-	if (password != passwordRipetuta) {
+	if (password != repetedPassword) {
 		error_pwd.style.display = "block";
 		return false;
 	}
 	
-	 if ( name == '' || surname == '' ||  username == '' ||  password == '' || passwordRipetuta == '') {
+	 if ( name == '' || surname == '' ||  username == '' ||  password == '' || repetedPassword == '') {
 		return false;
 	} 
 
 	x = new XMLHttpRequest();
-	x.onreadystatechange = getRegistrazioneDocente;
+	x.onreadystatechange = getprofRegistration;
 	x.open('POST', serverPath + '/Registration');
 	//Send the proper header information along with the request
 	x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -129,7 +129,7 @@ var registraDocente = document.getElementById("registra2");
 	x.send(params);
 }
 
-function getRegistrazioneDocente() {
+function getprofRegistration() {
 	if (x.readyState == 4 && x.status == 200) {
 		console.log(x.responseText);
 		var response = JSON.parse(x.responseText);

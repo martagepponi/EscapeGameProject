@@ -34,9 +34,9 @@ public class Hangmangame extends AbstractMinigame {
 		hintSelected = false;
 	}
 
-	protected String buildDisplay(String parola) {
+	protected String buildDisplay(String word) {
 		String retval = "";
-		for(int i = 0; i< parola.length(); i++) {
+		for(int i = 0; i< word.length(); i++) {
 			retval += "#";
 		}
 		return retval;

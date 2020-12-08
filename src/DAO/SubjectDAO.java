@@ -22,11 +22,11 @@ public class SubjectDAO {
 	
 	
 	
-	//METODO PER REPERIRE OGGETTI E MURI DI SUBJECT DATO UN ID STANZA 
+	//METODO PER REPERIRE objects E MURI DI SUBJECT DATO UN ID STANZA 
 	
 	public Subject findAllSubjectByIdRoom (int idroom){
 		
-		String query = "SELECT S.idsubject, S.muro1, S.muro2, S.muro3, S.muro4, S.name, S.object1, S.object2, S.object3, S.object4, S.year FROM escapegame.subject AS S JOIN escapegame.room AS R ON S.idsubject= R.idsubject WHERE R.idroom= ? LIMIT 1;";
+		String query = "SELECT S.idsubject, S.wall1, S.wall2, S.wall3, S.wall4, S.name, S.object1, S.object2, S.object3, S.object4, S.year FROM escapegame.subject AS S JOIN escapegame.room AS R ON S.idsubject= R.idsubject WHERE R.idroom= ? LIMIT 1;";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		Subject subject= null;
@@ -42,10 +42,10 @@ public class SubjectDAO {
 				String object2= result.getString("object2");
 				String object3= result.getString("object3");
 				String object4= result.getString("object4");
-				String wall1= result.getString("muro1");
-				String wall2= result.getString("muro2");
-				String wall3= result.getString("muro3");
-				String wall4= result.getString("muro4");
+				String wall1= result.getString("wall1");
+				String wall2= result.getString("wall2");
+				String wall3= result.getString("wall3");
+				String wall4= result.getString("wall4");
 				
 	        	subject = new Subject(idsubject, name, year, object1, object2, object3, object4, wall1,wall2,wall3,wall4);
 				

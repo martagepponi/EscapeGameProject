@@ -55,28 +55,25 @@ public class Game extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession(true);
+ HttpSession session = request.getSession(true);
 		
 		session.removeAttribute("Minigame");
 
-	    session.getAttribute("subject");
+         //session.getAttribute("subject");
 		//System.out.println("MATERIAAAAA:" + session.getAttribute("subject"));
-		String prima_volta = (String) session.getAttribute("prima_volta");
-		
+		//String first_time = (String) session.getAttribute("first_time");
 		
 		
 		request.getRequestDispatcher("/Game.jsp").forward(request, response);
-		
-		
-		
+//		
+//		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
 		User user =(User) session.getAttribute("user");
-		System.out.println(user.getUsername());
-
+		
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
 		if(session.isNew() || user == null) {
 			System.out.println("redirect a login -...");
@@ -84,57 +81,57 @@ public class Game extends HttpServlet {
 		}else { //se sessione non è nuova e utente è in sessione
 		
 			session.removeAttribute("Minigame");
-			String id_stanza = request.getParameter("id_stanza");
-			System.out.println("id_stanza:" + id_stanza);
-			int idstanza = Integer.parseInt(id_stanza);
+			String id_room = request.getParameter("id_room");
+			System.out.println("id_room:" + id_room);
+			int idroom = Integer.parseInt(id_room);
 			
 			SubjectDAO subjectDAO = new SubjectDAO(connection);
 	
-			Subject subject =subjectDAO.findAllSubjectByIdRoom(idstanza);
+			Subject subject =subjectDAO.findAllSubjectByIdRoom(idroom);
 			
-			System.out.println(subject.getMuro1());
+			System.out.println(subject.getWall1());
 			if(subject != null) {
 				session.setAttribute("subject", subject);
-				session.setAttribute("id_stanza", "" + id_stanza);
+				session.setAttribute("id_room", "" + id_room);
 				//controllo se ho già fatto accesso ad almeno un minigioco
 				RankingDAO rankingDAO = new RankingDAO(connection);
-				Ranking ranking = rankingDAO.findRankingByRoomAndUser(user.getIduser() , idstanza);
+				Ranking ranking = rankingDAO.findRankingByRoomAndUser(user.getIduser() , idroom);
 				if (ranking == null) {
-					session.setAttribute("prima_volta", "SI");
+					session.setAttribute("first_time", "YES");
 					request.getRequestDispatcher("/Game.jsp").forward(request, response);
 				} else {
 					if (ranking.getTotalrank() == 0) {
-						session.setAttribute("prima_volta", "NO");
+						session.setAttribute("first_time", "NO");
 						RoomDAO roomDAO = new RoomDAO(connection);
-						Room room = roomDAO.selectById(idstanza, connection);
+						Room room = roomDAO.selectById(idroom, connection);
 						if (room != null) {
 							MiniGameDAO minigameDAO = new MiniGameDAO(connection);
 							if (ranking.getRank4() == 0) {
 								if (ranking.getRank3()  == 0) {
 									if (ranking.getRank2() == 0) {
 										if (ranking.getRank1() == 0) {
-											session.setAttribute("prima_volta", "SI");
-											session.removeAttribute("numeroMinigame");
-											session.removeAttribute("muro");
+											session.setAttribute("first_time", "YES");
+											session.removeAttribute("minigameNumber");
+											session.removeAttribute("wall");
 										} else {
-											session.setAttribute("numeroMinigame", "1");
-											session.setAttribute("muro", "2");
+											session.setAttribute("minigameNumber", "1");
+											session.setAttribute("wall", "2");
 											AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame1());
 											if (minigame != null) {
 												session.setAttribute("prize", minigame.getPrize());
 											}
 										}
 									} else {
-										session.setAttribute("numeroMinigame", "2");
-										session.setAttribute("muro", "3");
+										session.setAttribute("minigameNumber", "2");
+										session.setAttribute("wall", "3");
 										AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame2());
 										if (minigame != null) {
 											session.setAttribute("prize", minigame.getPrize());
 										}
 									}
 								} else {
-									session.setAttribute("numeroMinigame", "3");
-									session.setAttribute("muro", "4");
+									session.setAttribute("minigameNumber", "3");
+									session.setAttribute("wall", "4");
 									AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame3());
 									if (minigame != null) {
 										session.setAttribute("prize", minigame.getPrize());
@@ -142,7 +139,7 @@ public class Game extends HttpServlet {
 								}
 							} else {
 								//TODO registrare total rank
-								//mostrare punbteggio totale raggiunto
+								//showre punbteggio totale raggiunto
 								//torna alla Home
 	
 							}
@@ -158,7 +155,8 @@ public class Game extends HttpServlet {
 				}
 				
 			} else {
-				//TODO gestire caso se subject non trovata e costruita....
+				
+				request.getRequestDispatcher("/ErrorPage.html").forward(request,response);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ String answer2 = minigame.getWrong1();
 String answer3 = minigame.getWrong2();
 
 //   String question2 = minigame.getHint();
-int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
+int initialAttempts = Quizgame.MAX_NUM_ERROR;
 %>
 <!DOCTYPE html>
 <html>
@@ -47,7 +47,7 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 	// 				alert("Sessione scaduta!");
 	// 				document.location.href="/Login.html";
 	// 			} else {
-	// 				if (response.esito) {
+	// 				if (response.outcome) {
 
 	// 					document.getElementById("question2").innerHTML = response.question2;
 	// 					document.getElementById("question2").style.display = "block";
@@ -61,7 +61,7 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 
 	
 	
-	function carica(){
+	function load(){
 		 var music = document.getElementById("myAudio"); 
 	     music.play();
 	}
@@ -111,35 +111,35 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 				alert("Sessione scaduta!");
 				document.location.href = "/Login.html";
 			} else {
-				if (response.esito) {
+				if (response.outcome) {
 					alert("Vinto!");
 					//	alert("punti di errore: " + response.errorNumber);
-					//	alert("Punteggio ottenuto: " + response.punteggio );
+					//	alert("Punteggio ottenuto: " + response.score );
 					//	document.getElementById("arpa").style.display="block";
 					document.getElementById("closechest").style.display = "none";
 					document.getElementById("openchest").style.display = "block";
 					// 				document.getElementById("div2").style.display="none";
-					// 				document.getElementById("punteggio").innerHTML = response.punteggio;
+					// 				document.getElementById("score").innerHTML = response.score;
 					// 				document.getElementById("divTentativi").style.display="none";
 					// 				document.getElementById("question2").style.display="none";
 				} else {
-					if (response.esitoFinale == "P") {
+					if (response.finalOutcome == "P") {
 						alert("Perso!");
 						// 					alert("la parola corretta era: " + response.correctWord)
 						// 					alert("punti di errore: " + response.errorNumber);
-						// 					alert("Punteggio ottenuto: " + response.punteggio );
+						// 					alert("Punteggio ottenuto: " + response.score );
 						// 					document.getElementById("arpa").style.display="block";
 						// 					document.getElementById("divMain").style.display="none";
 						// 					document.getElementById("div2").style.display="none";
 						// 					document.getElementById("correctWord").innerHTML = response.correctWord;
 						// 					document.getElementById("showWord").style.display="block";
-						// 					document.getElementById("punteggio").innerHTML = response.punteggio;
+						// 					document.getElementById("score").innerHTML = response.score;
 						// 					document.getElementById("divTentativi").style.display="none";
 						// 					document.getElementById("question2").style.display="none";
 					} else {
-						var tentativi = response.tentativiRimasti;
-						alert("numero tentativi rimasti" + tentativi);
-						document.getElementById("tentativi").innerHTML = tentativi;
+						var attempts = response.attemptsRemained;
+						alert("number attempts rimasti" + attempts);
+						document.getElementById("attempts").innerHTML = attempts;
 
 					}
 				}
@@ -178,17 +178,17 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 
 	// function hint() {
 	// 	// chiamata al controller per visionareil suggerimento
-	// 	// esito : suggerimento
+	// 	// outcome: suggerimento
 	// 	makeCall("GET", "QuizGame?action=hint", hintResponse);
 
 	// }
 </script>
 </head>
-<body onload="carica()">
+<body onload="load()">
 
 	<div id="Div">
 
-		<div id="chiavi" align="center">
+		<div id="keys" align="center">
 
 			<table cellspacing="100" cellpadding="2" width="560" border="0">
 				<tbody>
@@ -215,7 +215,7 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 		<div id="divTentativi" align="center">
 
 			<p>
-				NUMERO TENTATIVI RIMASTI: <span id="tentativi"><%=tentativiIniziali%></span>
+				number TENTATIVI RIMASTI: <span id="attempts"><%=initialAttempts%></span>
 			</p>
 		</div>
 
@@ -263,7 +263,7 @@ int tentativiIniziali = Quizgame.MAX_NUM_ERRORI;
 	
 <!-- 		<p id="showWord" style="display: none;">La parola corretta era: <span id="correctWord"></span></p> 		 -->
 
-<!-- 		<p>Punteggio ottenuto: <span id="punteggio"></span></p> 		 -->
+<!-- 		<p>Punteggio ottenuto: <span id="score"></span></p> 		 -->
 
 		<img src="images/<%=minigame.getPrize()%>.png" height="500"
 			width="300">

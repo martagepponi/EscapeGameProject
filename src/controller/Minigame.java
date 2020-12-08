@@ -56,7 +56,10 @@ public class Minigame extends HttpServlet {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
 		User user =(User) session.getAttribute("user");
-		System.out.println(user.getUsername());
+		
+		
+		int idUser = user.getIduser();
+	
 
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
 		if(session.isNew() || user == null) {
@@ -66,52 +69,53 @@ public class Minigame extends HttpServlet {
 
 			AbstractMinigame minigame = (AbstractMinigame) session.getAttribute("Minigame");
 			if(minigame==null) {
-				String id_stanzaString = (String) session.getAttribute("id_stanza");
-				int id_stanza = Integer.parseInt(id_stanzaString);
+				String id_roomString = (String) session.getAttribute("id_room");
+				int id_room = Integer.parseInt(id_roomString);
 
 				RoomDAO roomDAO = new RoomDAO(connection);
-				Room room = roomDAO.selectById(id_stanza, connection);
+				Room room = roomDAO.selectById(id_room, connection);
 				if ( room != null) {
-					String prima_volta = (String) session.getAttribute("prima_volta");
-					session.setAttribute("prima_volta", "NO"); // COSì GAME.JSP SA CHE DEVE ATTIVARE LA SECONDA MAP
-					System.out.println("primavolta:" + prima_volta);
+					String first_time = (String) session.getAttribute("first_time");
+					session.setAttribute("first_time", "NO"); // COSì GAME.JSP SA CHE DEVE ATTIVARE LA SECONDA MAP
+					System.out.println("primavolta:" + first_time);
 
-					int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
-					System.out.println("numeroMinigame: " + numeroMinigame);
+					int minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
+					System.out.println("minigameNumber: " + minigameNumber);
 
-					int numeroMuro = Integer.parseInt((String) session.getAttribute("muro"));
-					++ numeroMuro;
-					session.setAttribute("muro", "" + numeroMuro);
-					System.out.println("*************************************numeroMuro: " + numeroMuro);
+					int wallNumber = Integer.parseInt((String) session.getAttribute("wall"));
+					++ wallNumber;
+					session.setAttribute("wall", "" + wallNumber);
+					System.out.println("*************************************wallNumber: " + wallNumber);
 
 
 					int Id_minigame = 0;
 					RankingDAO rankingDAO = new RankingDAO(connection);
-					rankingDAO.InsertRank(numeroMinigame, -1, user.getIduser() , id_stanza);
-					if (numeroMinigame == 1) {
+					rankingDAO.InsertRank(minigameNumber, -1, user.getIduser() , id_room);
+					if (minigameNumber == 1) {
 
 						Id_minigame = room.getMinigame1();
 
-					} else if (numeroMinigame == 2) {
+					} else if (minigameNumber == 2) {
 						Id_minigame = room.getMinigame2();
 
-					} else if (numeroMinigame == 3) {
+					} else if (minigameNumber == 3) {
 
 						Id_minigame = room.getMinigame3();
 
-					} else if (numeroMinigame == 4) {
+					} else if (minigameNumber == 4) {
 
-						int id_user = user.getIduser();
+						
 
-						System.out.println("iduser"+ id_user);
-						Ranking ranking = rankingDAO.findRankingByRoomAndUser(id_user, id_stanza);
+						System.out.println("iduser"+ idUser);
+						Ranking ranking = rankingDAO.findRankingByRoomAndUser(idUser, id_room);
 
-						session.setAttribute("ranking", ranking);
-
-
+						
+						int totalRank=  ranking.getRank1() + ranking.getRank2() + ranking.getRank3() + ranking.getRank4();
+						
+						rankingDAO.insertTotalRank(totalRank, idUser, id_room);
+						Ranking ranking2 = rankingDAO.findRankingByRoomAndUser(idUser, id_room);
+						session.setAttribute("ranking", ranking2);
 						request.getRequestDispatcher("/finalPage.jsp").forward(request, response);
-
-
 
 					}
 					System.out.println("minigame1 qui" + Id_minigame);
@@ -135,15 +139,15 @@ public class Minigame extends HttpServlet {
 
 						} else {
 
-							// TODO errore
+							request.getRequestDispatcher("/ErrorPage.html").forward(request,response);
 						}
 
 					} else {
-						// TODO: errore
+						request.getRequestDispatcher("/ErrorPage.html").forward(request,response);
 					}
 
 				} else {
-					//TODO : ERRORE
+					request.getRequestDispatcher("/ErrorPage.html").forward(request,response);
 				}
 			}else { //minigame è già in sessione
 				if (minigame.getType().equalsIgnoreCase("hangmangame")) {
@@ -158,7 +162,7 @@ public class Minigame extends HttpServlet {
 
 				} else {
 
-					// TODO errore
+					request.getRequestDispatcher("/ErrorPage.html").forward(request,response);
 				}
 
 				

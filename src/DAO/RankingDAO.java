@@ -133,13 +133,13 @@ return Rankings;
 		//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 
 		
 		
-				public void InsertRank(int numeroMinigioco, int punteggio,int iduser,int idroom) {
+				public void InsertRank(int minigameNumber, int score,int iduser,int idroom) {
 					
 					
 					
 					String querySelect = "SELECT * FROM escapegame.ranking WHERE user =? AND idroom =?";			
-					String queryInsert = "INSERT INTO escapegame.ranking (user, rank"+numeroMinigioco+", idroom) VALUES(?,?,?)";
-					String queryUpdate = "UPDATE escapegame.ranking SET rank"+numeroMinigioco+"=? WHERE idranking= ?";
+					String queryInsert = "INSERT INTO escapegame.ranking (user, rank"+minigameNumber+", idroom) VALUES(?,?,?)";
+					String queryUpdate = "UPDATE escapegame.ranking SET rank"+minigameNumber+"=? WHERE idranking= ?";
 					PreparedStatement pstatement = null;
 					PreparedStatement pstatement2 = null;
 					ResultSet rs = null;
@@ -155,7 +155,7 @@ return Rankings;
 						if(rs.next()) {
 						      int idranking= rs.getInt("idranking");
 						      pstatement2 = connection.prepareStatement(queryUpdate);
-						      pstatement2.setInt(1, punteggio);
+						      pstatement2.setInt(1, score);
 						      pstatement2.setInt(2, idranking);
 						      
 						      pstatement2.executeUpdate();
@@ -165,7 +165,7 @@ return Rankings;
 						
 							pstatement2 = connection.prepareStatement(queryInsert);
 							pstatement2.setInt(1, iduser);
-							pstatement2.setInt(2, punteggio);
+							pstatement2.setInt(2, score);
 							pstatement2.setInt(3, idroom);
 						
 							pstatement2.executeUpdate();
@@ -201,66 +201,112 @@ return Rankings;
 					
 				}
 				
-				//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 2
-
-				public void InsertRank2(int punteggio,int iduser,int idroom) {
+				//inserisco in tabella il valore del score finale 
+				
+				public void insertTotalRank(int totalRank,int idUser, int idRoom) {
 					
-					String query = "INSERT INTO ranking(user, rank2, idroom) VALUES(?,?,?)";
+					String queryUpdate = "UPDATE escapegame.ranking SET totalrank=? WHERE user= ? AND idroom = ?";	
 					PreparedStatement pstatement = null;
 					
-					try {
+					
+	try {
 						
-						pstatement = connection.prepareStatement(query);
-						pstatement.setInt(1, iduser);
-						pstatement.setInt(2, punteggio);
-						pstatement.setInt(3, idroom);
+						pstatement = connection.prepareStatement(queryUpdate);
+						pstatement.setInt(1, totalRank);
+						pstatement.setInt(2, idUser);
+						pstatement.setInt(3, idRoom);
 						
 						pstatement.executeUpdate();
-						
-					} catch (SQLException e) {
-						
-						e.printStackTrace();
-					} finally {
-						try {
-							pstatement.close();
-						} catch (Exception e) {
-							
-							e.printStackTrace();
-						}
-					}
 					
-				}		
+	}catch (SQLException e) {
+		
+		e.printStackTrace();
+	} finally {
+		try {
+			
+			if(pstatement!= null) {
+				pstatement.close();
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+	}
+					
+					
+				}
 				
 				
-				//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 3
-
-						public void InsertRank3(int punteggio,int iduser,int idroom) {
-							
-							String query = "INSERT INTO ranking(user, rank3, idroom) VALUES(?,?,?)";
-							PreparedStatement pstatement = null;
-							
-							try {
-								
-								pstatement = connection.prepareStatement(query);
-								pstatement.setInt(1, iduser);
-								pstatement.setInt(2, punteggio);
-								pstatement.setInt(3, idroom);
-								
-								pstatement.executeUpdate();
-								
-							} catch (SQLException e) {
-								
-								e.printStackTrace();
-							} finally {
-								try {
-									pstatement.close();
-								} catch (Exception e) {
-									
-									e.printStackTrace();
-								}
-							}
-							
-						}		
+				
+				
+				
+				
+				
+				
+				
+				
+				
+//				//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 2
+//
+//				public void InsertRank2(int score,int iduser,int idroom) {
+//					
+//					String query = "INSERT INTO ranking(user, rank2, idroom) VALUES(?,?,?)";
+//					PreparedStatement pstatement = null;
+//					
+//					try {
+//						
+//						pstatement = connection.prepareStatement(query);
+//						pstatement.setInt(1, iduser);
+//						pstatement.setInt(2, score);
+//						pstatement.setInt(3, idroom);
+//						
+//						pstatement.executeUpdate();
+//						
+//					} catch (SQLException e) {
+//						
+//						e.printStackTrace();
+//					} finally {
+//						try {
+//							pstatement.close();
+//						} catch (Exception e) {
+//							
+//							e.printStackTrace();
+//						}
+//					}
+//					
+//				}		
+//				
+//				
+//				//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 3
+//
+//						public void InsertRank3(int score,int iduser,int idroom) {
+//							
+//							String query = "INSERT INTO ranking(user, rank3, idroom) VALUES(?,?,?)";
+//							PreparedStatement pstatement = null;
+//							
+//							try {
+//								
+//								pstatement = connection.prepareStatement(query);
+//								pstatement.setInt(1, iduser);
+//								pstatement.setInt(2, score);
+//								pstatement.setInt(3, idroom);
+//								
+//								pstatement.executeUpdate();
+//								
+//							} catch (SQLException e) {
+//								
+//								e.printStackTrace();
+//							} finally {
+//								try {
+//									pstatement.close();
+//								} catch (Exception e) {
+//									
+//									e.printStackTrace();
+//								}
+//							}
+//							
+//						}		
 		
 		
 		

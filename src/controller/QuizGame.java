@@ -28,6 +28,10 @@ import DAO.RankingDAO;
 @WebServlet("/QuizGame")
 public class QuizGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int MAX_NUM_ERROR = 2;
+	private static final int MAX_SCORE = 30;
+	private static final int POINTS_ERROR = 15;
+	
 	private Connection connection = null;
     
     public QuizGame() {
@@ -58,17 +62,16 @@ public class QuizGame extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 				HttpSession session = request.getSession();
-				String idst = (String) session.getAttribute("id_stanza");
-				int idStanza =  Integer.parseInt(idst) ;
+				String idRm = (String) session.getAttribute("id_room");
+				int idroom =  Integer.parseInt(idRm) ;
 				User user =(User) session.getAttribute("user");
 				int iduser = user.getIduser();		
-				int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
+				int minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
 				
 				
 		QuizGameResponse retval = new QuizGameResponse();
 		if(session.isNew() || user == null) {
 			System.out.println("redirect a login -...");
-//			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
 			retval.setSessionExpired(true);
 		}else {
 			
@@ -78,53 +81,51 @@ public class QuizGame extends HttpServlet {
 			Quizgame minigame = (Quizgame)session.getAttribute("Minigame");
 			String correctAnswer= minigame.getRightAnswer();
 			int errorNumber = minigame.getErrorNumber();
-			int tentativiRimasti = Quizgame.MAX_NUM_ERRORI - errorNumber;
-			//String hint = minigame.getHint();
-			//System.out.println("SUGGERIMENTO:"+ hint);
+			int attemptsRemained = Quizgame.MAX_NUM_ERROR - errorNumber;
+			
 
 		 	String action = request.getParameter("action");
 		 	if ("insertAnswer".equals(action)) {
 		 		String answer = request.getParameter("answer");
 			
 				if(answer.equalsIgnoreCase(correctAnswer)) {
-
 					
-					//CALCOLA PUNTEGGIO
+					
+					minigame.setOutcome(AbstractMinigame.WON);	
+					int score=  scoreEstimate(minigame.getErrorNumber());
+					RankingDAO rankingDAO = new RankingDAO(connection);
+		 			rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
 				
-					retval.setEsito(true);
-					retval.setEsitoFinale(AbstractMinigame.VINTO);
-					//retval.setPunteggio(punteggio);
+					retval.setOutcome(true);
+					retval.setFinalOutcome(AbstractMinigame.WON);
+					retval.setScore(score);
 					retval.setErrorNumber(errorNumber);
-					retval.setTentativiRimasti(tentativiRimasti);
+					retval.setAttemptsRemained(attemptsRemained);
 				}else {
 					errorNumber++;
-					tentativiRimasti--;
+					attemptsRemained--;
 					minigame.setErrorNumber(errorNumber);
-					retval.setEsito(false);
+					retval.setOutcome(false);
 					retval.setErrorNumber(errorNumber);
-				     retval.setTentativiRimasti(tentativiRimasti);
-					if(errorNumber >= Quizgame.MAX_NUM_ERRORI) {
+				     retval.setAttemptsRemained(attemptsRemained);
+				     
+					if(errorNumber >= Quizgame.MAX_NUM_ERROR) {
 						
-						//int punteggio=  calcolaPunteggio(minigame.getErrorNumber(), minigame.isHintSelected());	 				
-		 				//RankingDAO rankingDAO = new RankingDAO(connection);
-			 			//rankingDAO.InsertRank(numeroMinigame, punteggio, iduser, idStanza);
+						minigame.setOutcome(AbstractMinigame.LOSE);
+						int score=  scoreEstimate(minigame.getErrorNumber());	 				
+		 				RankingDAO rankingDAO = new RankingDAO(connection);
+			 			rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
 												
-						retval.setEsitoFinale(AbstractMinigame.PERSO);
-					//	retval.setPunteggio(punteggio);
+						retval.setFinalOutcome(AbstractMinigame.LOSE);
+						retval.setScore(score);
 						retval.setCorrectAnswer(answer);
 					}
 				}
-//		 	} else if ("hint".equals(action)) {
-//	 			minigame.setHintSelected(true);
-//	 			
-//		 		retval.setEsito(true);
-//	 			retval.setErrorNumber(errorNumber);
-//	 			retval.setQuestion2(hint);
-//	 			System.out.println("SUGGERIMENTO:"+ hint);
+
 		 		
 		 	} else {
 		 		// TODO: gestione risposta su azione sconosciuta
-		 		retval.setEsito(false);
+		 		retval.setOutcome(false);
 	 			retval.setErrorNumber(errorNumber);
 		 	}
 		}
@@ -141,6 +142,14 @@ public class QuizGame extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
+	}
+	
+	protected int scoreEstimate(int errorNumber ) {
+		int retval = MAX_SCORE;
+		retval -= (errorNumber * POINTS_ERROR);
+		
+		
+		return retval;
 	}
 
 }

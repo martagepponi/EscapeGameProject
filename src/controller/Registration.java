@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Bean.User;
 import DAO.RegistrationDAO;
 
 
@@ -55,7 +56,15 @@ public class Registration extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
+		HttpSession session = request.getSession();
+		User user =(User) session.getAttribute("user");
 		
+		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
+		if(session.isNew() || user == null) {
+			System.out.println("redirect a login -...");
+			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
+		}else { //se sessione non è nuova e utente è in sessione
 		
 		//VALIDAZIONE CODICE INIZIALE
 	    String Stringcode = request.getParameter("code");
@@ -68,8 +77,6 @@ public class Registration extends HttpServlet {
 		
 		
 		if(code == 102030) {
-			
-			HttpSession session = request.getSession(true);
 			System.out.println("Codice corretto!");
 			out2.println("[{\"error\":0}]");
 		} else { 
@@ -93,16 +100,16 @@ public class Registration extends HttpServlet {
 	  		System.out.println("type:   "+ type);
 	  		
 	  		RegistrationDAO registrationDAO = new RegistrationDAO(connection);
-	  		boolean erroreRegistrazione = registrationDAO.register(username);
+	  		boolean registrationError = registrationDAO.register(username);
 	  		PrintWriter out = response.getWriter();
 	  		
-	  		System.out.println("risultato query:  "+ erroreRegistrazione);
+	  		System.out.println("risultato query:  "+ registrationError);
 	  		
-	  		if (!erroreRegistrazione) {
+	  		if (!registrationError) {
 	  			out.println("[{\"error\":1}]");
 	  		
 	  			//INSERIMENTO STUDENTE/DOCENTE NEL DB
-	  		}else if(erroreRegistrazione){
+	  		}else if(registrationError){
 	  			registrationDAO.addUser(name, surname, username, password, type);
 	  			out.println("[{\"error\":0}]");
 	  		} }else {
@@ -111,7 +118,7 @@ public class Registration extends HttpServlet {
 	  			//ERRORE CAMPI NON RIEMPITI
 	  		}
 	}
-		
+	}
 	
 	public void destroy() {
 		try {

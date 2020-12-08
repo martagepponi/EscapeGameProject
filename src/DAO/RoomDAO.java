@@ -19,7 +19,7 @@ public class RoomDAO {
 
 	
 	//LEGGO TUTTE LE ROOMS PRESENTI IN DATABASE
-	//invece che idsubject e idprof esce nome materia e nome prof
+	//invece che idsubject e idprof esce name subject e name prof
 	public List<Room> findAllRooms() {
 		
 	
@@ -39,7 +39,7 @@ public class RoomDAO {
 				Date date = result.getDate("date");
 				System.out.println("date  " + date);
 				String subject = result.getString("subject.name");
-				System.out.println("materia  " + subject);
+				System.out.println("subject  " + subject);
 				String profName = result.getString("user.name");
 				System.out.println("prof   " + profName);
 				String password = result.getString("password");
@@ -92,7 +92,7 @@ public class RoomDAO {
 		String query ="SELECT `user`.`name`, `user`.`surname`, `room`.`idroom`, `room`.`date`, `room`.`thumbnail`, `subject`.`name` AS `subject`, `subject`.`year` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` WHERE `escapegame`.`room`.`idprof`=`escapegame`.`user`.`iduser` AND `escapegame`.`room`.`idsubject`= `escapegame`.`subject`.`idsubject` AND `escapegame`.`room`.`idprof`= ?;";
 		
 		
-		List<Room> createdRooms = new ArrayList<Room>();
+		List<Room> createtedRooms = new ArrayList<Room>();
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		try {
@@ -107,11 +107,11 @@ public class RoomDAO {
 				Date date = result.getDate("date");
 				System.out.println("date  " + date);
 				String subject = result.getString("subject");
-				System.out.println("materia  " + subject);
+				System.out.println("subject  " + subject);
 				String profName = result.getString("user.name");
 				System.out.println("prof   " + profName);
 				String profSurname = result.getString("user.surname");
-				System.out.println("cognome   " + profSurname);
+				System.out.println("cogname   " + profSurname);
 				int year = result.getInt("year");
 				System.out.println("year:  " + year);
 				String thumbnail = result.getString("thumbnail");
@@ -120,7 +120,7 @@ public class RoomDAO {
 			
 				Room room = new Room(idRoom, date, subject, profName, profSurname, year, thumbnail);
 		
-				createdRooms.add(room);
+				createtedRooms.add(room);
 			
 				
 				
@@ -141,7 +141,7 @@ public class RoomDAO {
 				  e3.printStackTrace();
 			  }
 		}
-		return createdRooms;
+		return createtedRooms;
 	}
 	
 	

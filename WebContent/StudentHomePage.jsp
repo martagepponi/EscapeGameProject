@@ -27,62 +27,62 @@ cursor: pointer;
 </style>
 
 <script type="text/javascript">
-	var id_stanza = localStorage.getItem("id_stanza");
-	var password_stanza = localStorage.getItem("password_stanza");
+	var id_room = localStorage.getItem("id_room");
+	var room_password = localStorage.getItem("room_password");
 
-	function carica() {
-		document.getElementById('blocco_2').style.display = "none";
-		document.getElementById('blocco_3').style.display = "none";
-		document.getElementById('blocco_4').style.display = "none";
-		/*if (id_stanza != null && password_stanza != null){
-			mostra(2);}*/
+	function load() {
+		document.getElementById('block_2').style.display = "none";
+		document.getElementById('block_3').style.display = "none";
+		document.getElementById('block_4').style.display = "none";
+		/*if (id_room != null && room_password != null){
+			show(2);}*/
 	}
 
-	function mostra(numero) {
-		if (numero == 2) {
-			document.getElementById('blocco_2').style.display = "block";
-			document.getElementById('blocco_4').style.display = "none";
+	function show(number) {
+		if (number == 2) {
+			document.getElementById('block_2').style.display = "block";
+			document.getElementById('block_4').style.display = "none";
 		}
-		if (numero == 3) {
-			document.getElementById('blocco_2').style.display = "none";
-			document.getElementById('blocco_3').style.display = "block";
-			document.getElementById('blocco_4').style.display = "none";
+		if (number == 3) {
+			document.getElementById('block_2').style.display = "none";
+			document.getElementById('block_3').style.display = "block";
+			document.getElementById('block_4').style.display = "none";
 		}
-		if (numero == 4) {
-			document.getElementById('blocco_2').style.display = "none";
-			document.getElementById('blocco_3').style.display = "none";
-			document.getElementById('blocco_4').style.display = "block";
+		if (number == 4) {
+			document.getElementById('block_2').style.display = "none";
+			document.getElementById('block_3').style.display = "none";
+			document.getElementById('block_4').style.display = "block";
 
 		}
 	}
 
-	function spostaPassword(immagine) {
-		var numero_immagine = immagine.id.split('_')[1];
-		id_stanza = document.getElementById('id_stanza_' + numero_immagine).value;
-		password_stanza = document.getElementById('password_stanza_'
-				+ numero_immagine).value;
-		localStorage.setItem("id_stanza", id_stanza);
-		localStorage.setItem("password_stanza", password_stanza);
+	function movePassword(image) {
+		var number_image = image.id.split('_')[1];
+		id_room = document.getElementById('id_room_' + number_image).value;
+		room_password = document.getElementById('room_password_'
+				+ number_image).value;
+		localStorage.setItem("id_room", id_room);
+		localStorage.setItem("room_password", room_password);
 
 	}
 
 	function logout() {
 
-		localStorage.removeItem("id_stanza");
-		localStorage.removeItem("password_stanza");
+		localStorage.removeItem("id_room");
+		localStorage.removeItem("room_password");
 		window.location.href = "./Login.html";
 	}
-	function controlloPassword() {
+	function passwordCheck() {
 		var password = document.getElementById('password').value;
 		if (password != '') {
 			
-			if (password != password_stanza ) {
+			if (password != room_password ) {
 				alert('password non valida!');
 				return false;
 			}else{
 				
-			document.getElementById('id_stanza').value = localStorage.getItem("id_stanza");
-			document.getElementById("blocco_3").submit();
+			document.getElementById('id_room').value = localStorage.getItem("id_room");
+			document.getElementById("block_3").submit();
 		}
 		}else{
 			alert('password non valida!');
@@ -91,7 +91,7 @@ cursor: pointer;
 	}
 </script>
 </head>
-<body onload="carica()">
+<body onload="load()">
 
 	<div name="main" id="blocco_1">
 		<table width="110%" border="0" cellpadding="0" cellspacing="0">
@@ -113,11 +113,11 @@ cursor: pointer;
 								</tr>
 								<tr>
 									<td><input type="button" value="Lista Stanze" id="listaS"
-										onclick="mostra(2)"></td>
+										onclick="show(2)"></td>
 								</tr>
 								<tr>
 									<td><input type="button" value="Punteggi" id="listaP"
-										onclick="mostra(4)"></td>
+										onclick="show(4)"></td>
 								</tr>
 							</table>
 						</div>
@@ -135,28 +135,28 @@ cursor: pointer;
 
 
 
-	<div id="blocco_2">
+	<div id="block_2">
 		<%
 			List<Room> Rooms = new ArrayList<>();
 		Rooms = (List<Room>) request.getAttribute("Rooms");
-		int contaStanza = 1;
+		int roomCount = 1;
 		for (Room room : Rooms) {
 		%>
 		<p>
-			<b>Stanza:</b><a><img id="immagine_<%=contaStanza%>" height="62"
+			<b>Stanza:</b><a><img id="image_<%=roomCount%>" height="62"
 				width="62" src="images/<%=room.getThumbnail()%>.jpg"
 				alt="<%=room.getThumbnail()%> "
-				onclick="mostra(3); spostaPassword(this)"></a><br> <br>
+				onclick="show(3); movePassword(this)"></a><br> <br>
 		<p>
 			<b>Creatore stanza:</b><%=room.getProfName()%><br> <br>
 		<p>
 			<b>Materia:</b><%=room.getSubject()%><br> <br> <input
-				id="id_stanza_<%=contaStanza%>" type="hidden"
+				id="id_room_<%=roomCount%>" type="hidden"
 				value="<%=room.getIdRoom()%>"> <input
-				id="password_stanza_<%=contaStanza%>" type="hidden"
+				id="room_password_<%=roomCount%>" type="hidden"
 				value="<%=room.getPassword()%>">
 			<%
-				contaStanza++;
+				roomCount++;
 			}
 			%>
 		
@@ -166,13 +166,13 @@ cursor: pointer;
 
 
 
-	<form id="blocco_3" action="./Game" method="POST" onsubmit="return false;">
+	<form id="block_3" action="./Game" method="POST" onsubmit="return false;">
 	
 		<div style ="margin: auto;">
 		<h1>Password di accesso</h1>
 		<input type="password" id="password" value="" placeholder="password" />
-		<input id="id_stanza" name="id_stanza" type="hidden" value= "">
-		<input type="submit" id="button" name="accedi" value="Accedi" onclick="controlloPassword()" />
+		<input id="id_room" name="id_room" type="hidden" value= "">
+		<input type="submit" id="button" name="accedi" value="Accedi" onclick="passwordCheck()" />
 	   </div>
 
 	</form>
@@ -182,7 +182,7 @@ cursor: pointer;
 
 
 
-	<div id="blocco_4">
+	<div id="block_4">
 		<%
 			List<Ranking> Rankings = new ArrayList<>();
 		Rankings = (List<Ranking>) request.getAttribute("Rankings");
@@ -190,7 +190,7 @@ cursor: pointer;
 		%>
 
 		<p>
-			<b>Stanza: </b><img id="immagine" height="62" width="62"
+			<b>Stanza: </b><img id="image" height="62" width="62"
 				src="images/matematica/<%=ranking.getThumbnail()%>.jpg"
 				alt="<%=ranking.getThumbnail()%>">
 		</p>

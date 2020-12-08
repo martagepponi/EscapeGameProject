@@ -4,43 +4,37 @@ public class QuizGameResponse {
 
 	
 	
-	protected boolean esito;
+	protected boolean outcome;
 	//protected String question2;  //suggerimento: la risposta è tra 1 e 2 (ne toglie una)
 	protected int errorNumber;
-	protected int tentativiRimasti;
-	protected String esitoFinale;
-	protected int punteggio;
+	protected int attemptsRemained;
+	protected String finalOutcome;
+	protected int score;
 	protected String correctAnswer;
 	protected boolean sessionExpired;
 	
 	public QuizGameResponse() {
 		super();
-		this.esito = false;
+		this.outcome= false;
 		//this.question2 = "";
 		this.errorNumber = 0;
-		this.punteggio = 0;
-		this.esitoFinale = "";
+		this.score = 0;
+		this.finalOutcome = "";
 		this.correctAnswer = "";
 		this.sessionExpired = false;
-		this.tentativiRimasti = Quizgame.MAX_NUM_ERRORI;
+		this.attemptsRemained = Quizgame.MAX_NUM_ERROR;
 		
 	}
 
-	public boolean isEsito() {
-		return esito;
+	public boolean isOutcome() {
+		return outcome;
 	}
 
-	public void setEsito(boolean esito) {
-		this.esito = esito;
+	public void setOutcome(boolean outcome) {
+		this.outcome= outcome;
 	}
 
-//	public String getQuestion2() {
-//		return question2;
-//	}
-//
-//	public void setQuestion2(String question2) {
-//		this.question2 = question2;
-//	}
+
 
 	public int getErrorNumber() {
 		return errorNumber;
@@ -50,20 +44,20 @@ public class QuizGameResponse {
 		this.errorNumber = errorNumber;
 	}
 
-	public String getEsitoFinale() {
-		return esitoFinale;
+	public String getFinalOutcome() {
+		return finalOutcome;
 	}
 
-	public void setEsitoFinale(String esitoFinale) {
-		this.esitoFinale = esitoFinale;
+	public void setFinalOutcome(String finalOutcome) {
+		this.finalOutcome = finalOutcome;
 	}
 
-	public int getPunteggio() {
-		return punteggio;
+	public int getScore() {
+		return score;
 	}
 
-	public void setPunteggio(int punteggio) {
-		this.punteggio = punteggio;
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public String getCorrectAnswer() {
@@ -82,12 +76,12 @@ public class QuizGameResponse {
 		this.sessionExpired = sessionExpired;
 	}
 
-	public int getTentativiRimasti() {
-		return tentativiRimasti;
+	public int getAttemptsRemained() {
+		return attemptsRemained;
 	}
 
-	public void setTentativiRimasti(int tentativiRimasti) {
-		this.tentativiRimasti = tentativiRimasti;
+	public void setAttemptsRemained(int attemptsRemained) {
+		this.attemptsRemained = attemptsRemained;
 	}
 	
 

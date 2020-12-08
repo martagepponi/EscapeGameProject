@@ -1,7 +1,7 @@
 package Bean;
 
 public class Affinitygame extends AbstractMinigame {
-	public static final int MAX_NUM_ERRORI = 3;
+	public static final int MAX_NUM_ERROR = 3;
 
 	protected int idAffgame;
 	protected String word1;

@@ -4,9 +4,9 @@ var login = document.getElementById("login_button");
 
 // Click su ACCEDI
 
-login.addEventListener('click', autenticazione, false);
+login.addEventListener('click', authentication, false);
  
-function autenticazione() {
+function authentication() {
 
 	var username = document.Form1.username.value;
 	var password = document.Form1.pwd.value;

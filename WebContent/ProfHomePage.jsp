@@ -23,20 +23,20 @@ User user = (User) session.getAttribute("user");
 	
 	
 	
-	function carica(){
-		document.getElementById('blocco2').style.display= "none";
-		document.getElementById('blocco3').style.display= "none";
+	function load(){
+		document.getElementById('block2').style.display= "none";
+		document.getElementById('block3').style.display= "none";
 	}
 	
-	function mostra(numero){
-		if (numero==2) {
-		document.getElementById('blocco2').style.display = "block";
-		document.getElementById('blocco3').style.display= "none";
+	function show(number){
+		if (number==2) {
+		document.getElementById('block2').style.display = "block";
+		document.getElementById('block3').style.display= "none";
 		}
 		
-		if(numero==3){ 
-			document.getElementById('blocco2').style.display= "none";
-			document.getElementById('blocco3').style.display = "block";
+		if(number==3){ 
+			document.getElementById('block2').style.display= "none";
+			document.getElementById('block3').style.display = "block";
 		}
 	}
 	
@@ -46,9 +46,9 @@ User user = (User) session.getAttribute("user");
 	}
 </script>
 </head>
-<body onload="carica()">
+<body onload="load()">
 
-	<div name="main" id="blocco1">
+	<div name="main" id="block1">
 		<table width="110%" border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>&nbsp; Benvenuto Prof.  <%= user.getSurname()%> <%= user.getName()%>  
@@ -67,17 +67,17 @@ User user = (User) session.getAttribute("user");
 									<th align="center">MENU'</th>
 								</tr>
 								<tr>
-									<td><input type="button" value="Stanze create"
-										id="stanze" onclick="mostra(2)"></td>
+									<td><input type="button" value="Stanze createte"
+										id="stanze" onclick="show(2)"></td>
 								</tr>
 								<tr>
 									<td><input type="button" value="Visualizza punteggi"
-										id="listaPunteggi" onclick="mostra(3)"></td>
+										id="listaPunteggi" onclick="show(3)"></td>
 									
 								</tr>
 
 								<tr>
-									<td><input type="button" value="Crea stanza" id="crea"></td>
+									<td><input type="button" value="Crea stanza" id="create"></td>
 									<!-- CAMBIA FUNZIONE MOSTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
 								</tr>
 							</table>
@@ -91,19 +91,19 @@ User user = (User) session.getAttribute("user");
 	</div>
 
 
-	<div id="blocco2">
+	<div id="block2">
 
 		<%
 	
 
-List<Room> createdRooms = new ArrayList<>();
-createdRooms = (List<Room>) request.getAttribute("createdRooms");
+List<Room> createtedRooms = new ArrayList<>();
+createtedRooms = (List<Room>) request.getAttribute("createtedRooms");
 			
-		for (Room room : createdRooms) {
+		for (Room room : createtedRooms) {
 		%>
 
 		<p>
-			<b>Stanza: </b><img id="immagine" height="62" width="62"
+			<b>Stanza: </b><img id="image" height="62" width="62"
 				src="images/<%= room.getThumbnail()  %>.jpg"
 				alt="<%=room.getThumbnail()%>">
 		</p>
@@ -136,7 +136,7 @@ createdRooms = (List<Room>) request.getAttribute("createdRooms");
 	
 	
 	
-<div id="blocco3">
+<div id="block3">
 
 		<%
 	
@@ -148,7 +148,7 @@ Rankings = (List<Ranking>) request.getAttribute("rankings");
 		%>
 
 		<p>
-			<b>Stanza: </b><img id="immagine" height="62" width="62"
+			<b>Stanza: </b><img id="image" height="62" width="62"
 				src="images/matematica/<%= ranking.getThumbnail()  %>.jpg"
 				alt="<%=ranking.getThumbnail()%>">
 		</p>

@@ -2,7 +2,7 @@ package Bean;
 
 public class Quizgame extends AbstractMinigame {
 	
-	public static final int MAX_NUM_ERRORI =2;
+	public static final int MAX_NUM_ERROR =2;
 	protected int idQuiz;
 	protected String question;
 	protected String rightAnswer;

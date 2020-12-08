@@ -10,18 +10,18 @@
 	Subject subject = null;
 		    
     subject = (Subject) session.getAttribute("subject");
-      System.out.println(subject.getMuro1());
+      System.out.println(subject.getWall1());
       String object1 = subject.getObject1();
       String object2 = subject.getObject2();
       String object3 = subject.getObject3();
       String object4 = subject.getObject4();
-      String wall1  = subject.getMuro1();
-      String wall2  = subject.getMuro2();
-      String wall3  = subject.getMuro3();
-      String wall4  = subject.getMuro4();
+      String wall1  = subject.getWall1();
+      String wall2  = subject.getWall2();
+      String wall3  = subject.getWall3();
+      String wall4  = subject.getWall4();
       String prize = "";
-      String id_stanza = (String) session.getAttribute("id_stanza");
-      System.out.println("ID STANZAAAAAAA: "+ id_stanza);
+      String id_room = (String) session.getAttribute("id_room");
+      System.out.println("ID STANZAAAAAAA: "+ id_room);
      
  %>
 <meta charset="ISO-8859-1">
@@ -62,7 +62,7 @@ img {
 }
 
 /* comandi per scorrimento spiegazioni */
-#immagine_start {
+#image_start {
 	cursor: pointer;
 	position: absolute;
 	top: 40%;
@@ -84,38 +84,38 @@ img {
 	z-index: 1;
 }
 
-#inizia {
+#start2 {
 	position: absolute;
 	top: 70%;
 	left: 47%;
 	z-index: 1;
 }
 
-#muro {
+#wall {
 	filter: grayscale(100%);
 	-webkit-filter: grayscale(100%);
 }
 
-.freccia {
+.arrow {
 	cursor: pointer;
 	position: absolute;
 	height: 100px;
 	width: 100px;
 }
 
-#freccia_destra {
+#right_arrow {
 	top: 40%;
 	right: 150px;
 	z-index: 1;
 }
 
-#freccia_sinistra {
+#left_arrow {
 	top: 40%;
 	left: 150px;
 	z-index: 1;
 }
 
-#alto_dx {
+#top_right {
 	/*Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazare div (o altro) in modo dinamico*/
 	position: absolute;
 	/*Grazie al posizionamento fluid (ovvero con percentuali) il nostro div si adattera' automaticamente allo schermo di tutte le risoluzioni*/
@@ -130,13 +130,13 @@ img {
 	-webkit-filter: grayscale(100%);
 }
 
-th.inventario {
+th.inventory {
 	border-bottom: 3px solid #000;
 	padding-bottom: 20px;
 	margin-bottom: 20px;
 }
 
-#riquadro {
+#panel {
 	position: absolute;
 	border: black solid;
 	left: 2%;
@@ -157,71 +157,72 @@ th.box {
 
 <script>
 <%
-String oggetti = "";
-if("SI".equals(session.getAttribute("prima_volta"))) {
-	oggetti = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
+String objects = "";
+if("YES".equals(session.getAttribute("first_time"))) {
+	objects = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
 } else {
-	int numeroMinigame = Integer.parseInt((String)session.getAttribute("numeroMinigame"));
-	if (numeroMinigame == 1) {
-		oggetti = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
-	} else if (numeroMinigame == 2) {
-		oggetti = "[\"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
-	} else if (numeroMinigame == 3) {
-		oggetti = "[\"" + object3 + "\", \"" + object4 +"\"]";
+	int minigameNumber = Integer.parseInt((String)session.getAttribute("minigameNumber"));
+	if (minigameNumber == 1) {
+		objects = "[\"" + object1 + "\", \"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
+	} else if (minigameNumber == 2) {
+		objects = "[\"" + object2 + "\", \"" + object3 + "\", \"" + object4 +"\"]";
+	} else if (minigameNumber == 3) {
+		objects = "[\"" + object3 + "\", \"" + object4 +"\"]";
 	} else {
-		oggetti = "[\"" + object4 +"\"]";
+		objects = "[\"" + object4 +"\"]";
 	}
 }
 %>
-	var oggetti = <%= oggetti %>;
-	var nonPrimaVolta = false;
-	 localStorage.setItem("listaOggetti", JSON.stringify(oggetti));
+	var objects = <%= objects %>;
+	var notFirstTime = false;
+	 localStorage.setItem("objectsList", JSON.stringify(objects));
 
 <% 
     
 
-    if(session.getAttribute("prima_volta").equals("NO")){
+    if(session.getAttribute("first_time").equals("NO")){
     	prize = (String) session.getAttribute("prize");    %>
    //  alert("non prima volta");
-     var oggettiJSON = localStorage.getItem("listaOggetti");
-     oggetti = JSON.parse(oggettiJSON);
-     oggetti.shift();
-     nonPrimaVolta= true;
-     var numeroMuroAumentato = parseInt("<%=session.getAttribute("muro")%>");
-   //  alert( "numero muro: " + numeroMuroAumentato);
+     var objectsJSON = localStorage.getItem("objectsList");
+     objects = JSON.parse(objectsJSON);
+     objects.shift();
+     notFirstTime= true;
+     var wallNumberIncreased = parseInt("<%=session.getAttribute("wall")%>");
+   //  alert( "number wall: " + wallNumberIncreased);
     
      
      
 <%}%>
 
-var oggettiEMuro = {"<%=object1%>":"<%=wall1%>", "<%=object2%>":"<%=wall2%>", "<%=object3%>":"<%=wall3%>", "<%=object4%>":"<%=wall4%>"};
-//alert("oggetti"+ oggetti);
-//localStorage.setItem("ordineClick", JSON.stringify(oggettiEMuro));
- localStorage.setItem("listaOggetti", JSON.stringify(oggetti));
+var objectsAndWall = {"<%=object1%>":"<%=wall1%>", "<%=object2%>":"<%=wall2%>", "<%=object3%>":"<%=wall3%>", "<%=object4%>":"<%=wall4%>"};
+//alert("objects"+ objects);
+//localStorage.setItem("ordineClick", JSON.stringify(objectsAndWall));
+ localStorage.setItem("objectsList", JSON.stringify(objects));
 // var a = JSON.parse(localStorage.getItem("ordineClick"));
 
-console.log(oggetti);
+console.log(objects);
 
 
-//FUNZIONE PER CONTROLLARE CORRISPONDENZA OGGETTO-MURO
+//FUNZIONE PER CONTROLLARE CORRISPONDENZA OGGETTO-wall
 
-function controllaOggettoEMuro(oggetto, muroDaControllare, ordineClick){
-	var controllo = false;
-	var muro = ordineClick[oggetto];
-	if(muro == muroDaControllare){
-		controllo = true;
+function checkObjectsAndWall(object, wallToCheck, clickOrder){
+	var check = false;
+	var wall = clickOrder[object];
+	alert("muro da controllare: " + wallToCheck + " oggetto: " + object + " corrisp. :" + wall);
+	if(wall == wallToCheck){
+		check = true;
 	}
-	return controllo;
+	return check;
 }
 
-function carica(){
+function load(){
 
 	 document.getElementById("rules").style.display = 'none';
-	 document.getElementById("inizia").style.display = 'none';
-	 document.getElementById("frecce").style.display = 'none';
+	 document.getElementById("start2").style.display = 'none';
+	 document.getElementById("arrows").style.display = 'none';
 	 document.getElementById("musicButton").style.display = 'none';
-	if(nonPrimaVolta){
-		document.getElementById("frecce").style.display = 'block';
+	if(notFirstTime){
+		document.getElementById("arrows").style.display = 'block';
 		document.getElementById("musicButton").style.display = 'block';
 		 var music = document.getElementById("myAudio"); 
 	     music.play();
@@ -230,10 +231,10 @@ function carica(){
 
 function startGame1(){ 
 	
-    document.getElementById("immagine_start").style.display = 'none';
+    document.getElementById("image_start").style.display = 'none';
     document.getElementById("rules").style.display  = 'block';
-    document.getElementById("inizia").style.display = 'block';
-    document.getElementById("frecce").style.display = 'none';
+    document.getElementById("start2").style.display = 'block';
+    document.getElementById("arrows").style.display = 'none';
     document.getElementById("musicButton").style.display = 'none';
 	
 }
@@ -241,135 +242,133 @@ function startGame1(){
 
 function startGame2(){ 
 	
-    document.getElementById("immagine_start").style.display = 'none';
+    document.getElementById("image_start").style.display = 'none';
     document.getElementById("rules").style.display  = 'none';
-    document.getElementById("inizia").style.display = 'none';
-    document.getElementById("frecce").style.display = 'block';
+    document.getElementById("start2").style.display = 'none';
+    document.getElementById("arrows").style.display = 'block';
     document.getElementById("musicButton").style.display = 'block';
      // MODO PER ELIMINARE EFFETTO GRIGIO
-    document.getElementById("alto_dx").style["filter"]      = "none";
-    document.getElementById("muro").style["-webkit-filter"] = "none";
-    document.getElementById("riquadro").style["filter"]      = "none";
-   // document.getElementById("muro").style["-webkit-filter"] = "none";
+    document.getElementById("top_right").style["filter"] = "none";
+    document.getElementById("wall").style["-webkit-filter"] = "none";
+    document.getElementById("panel").style["filter"]      = "none";
+   // document.getElementById("wall").style["-webkit-filter"] = "none";
     
 }
 
 
 //SCORRIMENTO IMMAGINI MURI 
 
-	function scorriImmagini(elemento) {
+	function imageScroll(element) {
 
-		var muro = document.getElementById("muro");
-		var numeroMuro = document.getElementById("muro").src;
-		var numero = parseInt(numeroMuro.substring(numeroMuro.indexOf(".") - 1, numeroMuro.indexOf(".")));
+		var wall = document.getElementById("wall");
+		var wallNumber = document.getElementById("wall").src;
+		var number = parseInt(wallNumber.substring(wallNumber.indexOf(".") - 1, wallNumber.indexOf(".")));
 
 		
-		if(elemento.id === "freccia_sinistra"){
-			-- numero;
+		if(element.id === "left_arrow"){
+			-- number;
 		}
 		
-		if(elemento.id === "freccia_destra"){
-			++ numero;
+		if(element.id === "right_arrow"){
+			++ number;
 		}
 		
-		if (numero == 0){
-			numero = 4;
+		if (number == 0){
+			number = 4;
 		}
 		
-		if (numero == 5){
-			numero = 1;
+		if (number == 5){
+			number = 1;
 		}
 			//scorrimento muri
-		muro.src = "images/<%=subject.getName()%>/muro" +numero+ ".jpg";
+		wall.src = "images/<%=subject.getName()%>/muro" +number+ ".jpg";
 		
 		//COntrollare ordine di cliccabilità
-		var nomeOggetto = oggetti[0];
-		var muroDiRiferimento = "muro" + numero;
-		var muroGiusto = oggettiEMuro[oggetti[0]];
-		if(muroGiusto != muroDiRiferimento){   //se muro non è quello giusto inserisco mappa vuota
-			muro.setAttribute("usemap", "");
+		var objectName = objects[0];
+		var referenceWall = "muro" + number;
+		var correctWall = objectsAndWall[[0]];
+		if(correctWall != referenceWall){   //se wall non è quello giusto inserisco mappa vuota
+			wall.setAttribute("usemap", "");
 		}
 		
-		if(!controllaOggettoEMuro(nomeOggetto, muroDiRiferimento, oggettiEMuro)){
+		if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
 			//
-			var mappa ="#obj" + numero;
-		    muro.setAttribute("usemap", mappa);
+			var map ="#obj" + number;
+		    wall.setAttribute("usemap", map);
 			return false;
 		}
-		//alert(nomeOggetto + " presente nel " + muroDiRiferimento);
+		//alert(objectName + " presente nel " + referenceWall);
 		//aggiungo mappa
 		
-		var mappa ="#point" + numero;
-		muro.setAttribute("usemap", mappa);
+		var map ="#point" + number;
+		wall.setAttribute("usemap", map);
 	}
 	
 	
 	
 
 	//------------------------PERCORSI :--------------------------------
-	function caricaOggettiCliccabili(id_stanza){
+	function loadClickableObjects(id_room){
+		var wallNumber = document.getElementById("wall").src;
+		var number = parseInt(wallNumber.substring(wallNumber.indexOf(".") - 1, wallNumber.indexOf(".")));
 	
-		var numeroMuro = document.getElementById("muro").src;
-		var numero = parseInt(numeroMuro.substring(numeroMuro.indexOf(".") - 1, numeroMuro.indexOf(".")));
-	
-			if(nonPrimaVolta){
-			   numero = numeroMuroAumentato;
+			if(notFirstTime){
+			   number = wallNumberIncreased
 			}
-			var muroDiRiferimento = "muro" + numero;
-			
-			var nomeOggetto = oggetti[0];
-			if(!controllaOggettoEMuro(nomeOggetto, muroDiRiferimento, oggettiEMuro))
+			var referenceWall = "muro" + number;
+			var objectName = objects[0];
+			if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
 				return false;
-			
-		//	alert(nomeOggetto + " presente nel " + muroDiRiferimento);
+			}
+			alert(objectName + " presente nel " + referenceWall);
 		
-			document.getElementById("area" + numero).coords= getObject(oggetti[0]);	
-		//	alert(document.getElementById("area" + numero).coords);
-			//conto numero di minigame
+			document.getElementById("area" + number).coords= getObject(objects[0]);	
+			alert(document.getElementById("area" + number).coords);
+			//conto number di minigame
 			<% 
-			int numeroMinigame = 1;
-			if(session.getAttribute("prima_volta").equals("NO")){
-			  numeroMinigame = Integer.parseInt((String)session.getAttribute("numeroMinigame"));
-			  ++ numeroMinigame;
-			  session.setAttribute("numeroMinigame", "" + numeroMinigame);
+			int minigameNumber = 1;
+			if(session.getAttribute("first_time").equals("NO")){
+			  minigameNumber = Integer.parseInt((String)session.getAttribute("minigameNumber"));
+			  ++ minigameNumber;
+			  session.setAttribute("minigameNumber", "" + minigameNumber);
 		
 			}else{
 				//è la prima volta
-				System.out.println("metto muro prima volta");
-				session.setAttribute("numeroMinigame", "1");
-				session.setAttribute("muro", "1");
+				System.out.println("metto wall prima volta");
+				session.setAttribute("minigameNumber", "1");
+				session.setAttribute("wall", "1");
 			}
 			%>
-			numeroMinigame = "<%= numeroMinigame%>";
+			minigameNumber = "<%= minigameNumber%>";
 			//
-			document.getElementById("area"+ numero).href="./Minigame";
-			//alert("#point" + numero);
+			document.getElementById("area"+ number).href="./Minigame";
+			alert("#point" + number);
 			
-			if(muroDiRiferimento == "<%=subject.getMuro1()%>")
-			  document.getElementById("muro").setAttribute("usemap", "#point" + numero);
+			if(referenceWall == "<%=subject.getWall1()%>")
+			  document.getElementById("wall").setAttribute("usemap", "#point" + number);
 	
 	}
 	
 
 
 
-//FUNZIONE PER CARICARE IMMAGINI OGGETTI NELL'INFO BOX	
+//FUNZIONE PER CARICARE IMMAGINI objects NELL'INFO BOX	
 function viewObject(object){
 
-	var cella = document.getElementById("cella");
-	removeChild(cella);
+	var cell = document.getElementById("cell");
+	removeChild(cell);
 	
 	
-	// MURO1--------------
+	// wall1--------------
 	if(object.id === "paint"){
 	 	var img = document.createElement('img');
 	    img.src = "images/paint.png";
 	    img.id ="paint";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Un vecchio quadro, non c'è niente dietro...");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -377,11 +376,11 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/mobile.png";
 	   img.id ="mobile";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Un mobile vintage, non puoi aprire i cassetti...");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -389,22 +388,22 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/bird.png";
 	 img.id ="bird";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Un piccione, non ti è d'aiuto!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	if(object.id === "plants"){
 	 	var img = document.createElement('img');
 	    img.src = "images/plants.png";
 	   img.id ="plants";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Carine queste piante, peccato che non ci sia niente di utile!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -412,24 +411,24 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/box.png";
 	   img.id ="box";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Questo baule non si apre...Chissà cosa ci sarà dentro!?");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
-// MURO2--------------
+// wall2--------------
 	if(object.id === "fiammiferi"){
 	 	var img = document.createElement('img');
 	    img.src = "images/fiammiferi.png";
 	    img.id ="fiammiferi";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Mmmmh... dei fiammiferi! Peccato che il fuoco sia già acceso!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -437,11 +436,11 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/chair.png";
 	    img.id ="chair";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Mmmmmh non credo sia il momento giusto per mettersi comodi!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -449,11 +448,11 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/flower.png";
 	    img.id ="flower";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Che lampadario bizzarro! Chissà come fanno quei fiori a non essere ancora appassiti!?");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -461,24 +460,24 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/horse.png";
 	    img.id ="horse";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Che bel cavallino...Mmmh non c'è tempo da perdere, al lavoro!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
-// MURO3--------------
+// wall3--------------
 	
 	if(object.id === "pc"){
 	 	var img = document.createElement('img');
 	    img.src = "images/pc.png";
 	    img.id ="pc";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Un laptop...scarico! Che sfortuna!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 
@@ -487,11 +486,11 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/dog.png";
 	    img.id ="dog";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Questo cane non sembra amichevole... Sembra molto geloso delle sue cose...");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -499,24 +498,24 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/photo.png";
 	    img.id ="photo";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Che bei quadri... Purtoppo però non c'è nessun indizio!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
-// MURO4--------------
+// wall4--------------
 
 	if(object.id === "phone"){
 	 	var img = document.createElement('img');
 	    img.src = "images/phone.png";
 	    img.id ="phone";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Purtroppo questo telefono non funziona!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -524,11 +523,11 @@ function viewObject(object){
 	 	var img = document.createElement('img');
 	    img.src = "images/lavagna.png";
 	    img.id ="lavagna";
-	    cella.appendChild(img);
+	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("A cosa serve una lavagna senza un gesso?!");			
 		p.appendChild(a);	
-		cella.appendChild(p);
+		cell.appendChild(p);
 	
 	}
 	
@@ -540,9 +539,9 @@ function viewObject(object){
 
 
 
-function removeChild(cella){					//funzione che elimina i figli di un elemento
-	for(j=0; j<cella.childElementCount; j=j){			//j non ha bisognio di aumentare visto che il numero dei figli diminuirà
-		cella.removeChild(cella.childNodes[0]); 	//elimino sempre il primo elemento della pila di figli
+function removeChild(cell){					//funzione che elimina i figli di un elemento
+	for(j=0; j<cell.childElementCount; j=j){			//j non ha bisognio di aumentare visto che il number dei figli diminuirà
+		cell.removeChild(cell.childNodes[0]); 	//elimino sempre il primo elemento della pila di figli
 	}														//il secondo elemento automaticamente diventerà il prime e verrà eliminato al ciclo successivo
 }	
 	
@@ -558,19 +557,19 @@ function removeChild(cella){					//funzione che elimina i figli di un elemento
 	
 	
 
-	function getObject(nome){
-		//alert(nome);
-		var coordinate;
-		if(nome == "asse")
-			coordinate = "572,535,679,655";
-		if(nome == "fuoco")
-			coordinate = "225,404,284,530";
-		if(nome == "cane")
-			coordinate = "67,556,156,612";
-		if(nome == "archibugio")
-			coordinate = "455,338,515,609";
-		//aggiungi altri oggetti
-		return coordinate;
+	function getObject(name){
+		//alert(name);
+		var coordinates;
+		if(name == "asse")
+			coordinates = "572,535,679,655";
+		if(name == "fuoco")
+			coordinates = "225,404,284,530";
+		if(name == "cane")
+			coordinates = "67,556,156,612";
+		if(name == "archibugio")
+			coordinates = "455,338,515,609";
+		//aggiungi altri objects
+		return coordinates;
 		
 	}
 	
@@ -581,31 +580,31 @@ function removeChild(cella){					//funzione che elimina i figli di un elemento
 
 
 </head>
-<body onload="carica()">
+<body onload="load()">
 
 	<%if(subject != null){ %>
 
 
 	<div id="start">
-		<img id="immagine_start" src="images/start.png" onclick="startGame1()">
+		<img id="image_start" src="images/start.png" onclick="startGame1()">
 		<p id="rules">
 			<b> Benvenuto in questa escape room didattica! Cerca di osservare
-				tutta la stanza e gli oggetti che la compongono, se noti che c'è
+				tutta la stanza e gli objects che la compongono, se noti che c'è
 				qualcosa di strano o se qualcosa attira la tua attenzione clicca
 				quell'area. Se la tua intuizione è giusta sarai rimandato ad un
 				minigioco, risolvilo e ottiene un oggetto in cambio. Infine usa
 				quell'oggetto dove ti sembra più utile e sblocca altri minigiochi.
 				Attento però, durante i minigiochi cerca di fare meno errori
-				possibili per ottenere un alto punteggio a fine partita! Che il
+				possibili per ottenere un alto score a fine partita! Che il
 				gioco abbia inizio...</b>
 		</p>
 	</div>
 
 
 
-	<div id="inizia">
-		<input id="bottoneInizia" type="button" value="Inizia il gioco"
-			onclick="startGame2();caricaOggettiCliccabili(<%=id_stanza%>); startMusic() ">
+	<div id="start2">
+		<input id="startButton" type="button" value="Inizia il gioco"
+			onclick="startGame2();loadClickableObjects(<%=id_room%>); startMusic() ">
 	</div>
 
 
@@ -622,26 +621,26 @@ function removeChild(cella){					//funzione che elimina i figli di un elemento
 		<button onclick="startMusic()" type="button">Play Audio</button>
 	</div>
 
-	<div id="gioco">
+	<div id="game">
 
-		<img id="muro"
-			src="images/<%=subject.getName()%>/<%=subject.getMuro1()%>.jpg">
-		<div id="frecce">
-			<img class="freccia" id="freccia_sinistra"
-				src="images/left-arrow.png" onclick="scorriImmagini(this)"> <img
-				class="freccia" id="freccia_destra" src="images/right-arrow.png"
-				onclick="scorriImmagini(this)">
+		<img id="wall"
+			src="images/<%=subject.getName()%>/<%=subject.getWall1()%>.jpg">
+		<div id="arrows">
+			<img class="arrow" id="left_arrow"
+				src="images/left-arrow.png" onclick="imageScroll(this)"> <img
+				class="arrow" id="right_arrow" src="images/right-arrow.png"
+				onclick="imageScroll(this)">
 		</div>
 
 	</div>
 
 
-	<div id="alto_dx">
+	<div id="top_right">
 		<table>
 			<tr>
-				<th class="inventario">INVENTARIO</th>
+				<th class="inventory">INVENTARIO</th>
 			</tr>
-			<% if(session.getAttribute("prima_volta").equals("NO")){%>
+			<% if(session.getAttribute("first_time").equals("NO")){%>
 			<tr>
 				<td><img src="images/<%=prize%>.png" class="<%=prize%>"></td>
 			</tr>
@@ -652,15 +651,15 @@ function removeChild(cella){					//funzione che elimina i figli di un elemento
 	<%} %>
 
 
-	<!-- RIQUADRO INFO BOX -->
+	<!-- PANEL INFO BOX -->
 
-	<div id="riquadro">
+	<div id="panel">
 		<table>
 			<tr>
 				<th class="box">INFO BOX</th>
 			</tr>
 			<tr>
-				<td id="cella"></td>
+				<td id="cell"></td>
 			</tr>
 		</table>
 	</div>
@@ -669,7 +668,7 @@ function removeChild(cella){					//funzione che elimina i figli di un elemento
 
 
 
-	<!-- CREAZIONE MAPPA CON AREA MINIGIOCO SENZA COORDINATE E AREE ALTRI OGGETTI CON COORDINATE -->
+	<!-- CREAZIONE MAPPA CON AREA MINIGIOCO SENZA COORDINATE E AREE ALTRI objects CON COORDINATE -->
 
 	<map id="point1" name="point1">
 		<area id="area1" shape="rect" coords="" href="">
@@ -775,10 +774,10 @@ function removeChild(cella){					//funzione che elimina i figli di un elemento
 	</map>
 
 	<script>
-if(nonPrimaVolta){
+if(notFirstTime){
 	
 	startGame2();
-	caricaOggettiCliccabili(<%=id_stanza%>);
+	loadClickableObjects(<%=id_room%>);
 }
 	</script>
 </body>

@@ -1,14 +1,14 @@
 package Bean;
 
 public abstract class AbstractMinigame implements MiniGame{
-	public static final String VINTO = "V";
-	public static final String PERSO = "P";
+	public static final String WON = "W";
+	public static final String LOSE = "L";
 	
 	protected int idminigame;
 	protected String type;
 	protected int idsubject;
-	protected Subject materia;
-	protected String esito;
+	protected Subject subject;
+	protected String outcome;
 	protected String prize;
 	
 	
@@ -18,12 +18,12 @@ public abstract class AbstractMinigame implements MiniGame{
 		this.idminigame = idminigame;
 		this.type = type;
 		this.idsubject = idsubject;
-		this.esito = "";
+		this.outcome= "";
 	}
 
 	public AbstractMinigame() {
 		super();
-		this.esito = "";
+		this.outcome= "";
 		
 	}
 
@@ -51,20 +51,20 @@ public abstract class AbstractMinigame implements MiniGame{
 		this.idsubject = idsubject;
 	}
 
-	public Subject getMateria() {
-		return materia;
+	public Subject getSubject() {
+		return subject;
 	}
 
-	public void setMateria(Subject materia) {
-		this.materia = materia;
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 
-	public String getEsito() {
-		return esito;
+	public String getOutcome() {
+		return outcome;
 	}
 
-	public void setEsito(String esito) {
-		this.esito = esito;
+	public void setOutcome(String outcome) {
+		this.outcome= outcome;
 	}
 
 	public String getPrize() {

@@ -65,7 +65,7 @@ public class HomePage extends HttpServlet {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
 		User user =(User) session.getAttribute("user");
-		System.out.println(user.getUsername());
+		
 
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
 		if(session.isNew() || user == null) {
@@ -97,12 +97,12 @@ public class HomePage extends HttpServlet {
 			}else { //se è un docente...
 				
 				RoomDAO roomDAO = new RoomDAO(connection);
-				List<Room> createdRooms = roomDAO.findCreatedRooms(user.getIduser());
+				List<Room> createtedRooms = roomDAO.findCreatedRooms(user.getIduser());
 				RankingDAO rankingDAO = new RankingDAO(connection);
 				List<Ranking> Rankings = rankingDAO.findRankingByProf(user.getIduser());
 				
 				request.setAttribute("rankings", Rankings);
-				request.setAttribute("createdRooms", createdRooms);
+				request.setAttribute("createtedRooms", createtedRooms);
 				
 				request.getRequestDispatcher("/ProfHomePage.jsp").forward(request, response);
 				

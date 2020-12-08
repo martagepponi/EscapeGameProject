@@ -28,13 +28,13 @@ session.setAttribute("prize", minigame.getPrize());
 	var wrong_guesses = 0;
 	var correctWord = "";
 	var hintRequested = 0;
-	var esitoFinale = "";
-	var punteggio = 0;
+	var finalOutcome = "";
+	var score = 0;
 
 	
 	
 	
-	function carica(){
+	function load(){
 		 var music = document.getElementById("myAudio"); 
 	     music.play();
 	}
@@ -53,7 +53,7 @@ session.setAttribute("prize", minigame.getPrize());
 					alert("Sessione scaduta!");
 					document.location.href="/Login.html";
 				} else {
-					if (response.esito) {
+					if (response.outcome) {
 						
 						document.getElementById("question2").innerHTML = response.question2;
 						document.getElementById("question2").style.display = "block";
@@ -79,15 +79,15 @@ session.setAttribute("prize", minigame.getPrize());
 				} else {
 					display_word = response.displayWord;					
 					wrong_guesses = response.errorNumber;
-					if (response.esito) {
-						if (response.esitoFinale == "V") {
-							esitoFinale = "V";
-							punteggio = response.punteggio;
+					if (response.outcome) {
+						if (response.finalOutcome == "W") {
+							finalOutcome = "W";
+							score = response.score;
 						}
 					} else {
-						if (response.esitoFinale == "P") {
-							esitoFinale = "P";
-							punteggio = response.punteggio;
+						if (response.finalOutcome == "L") {
+							finalOutcome = "L";
+							score = response.score;
 							correctWord = response.correctWord;
 						}
 					}
@@ -96,10 +96,10 @@ session.setAttribute("prize", minigame.getPrize());
 				
 				document.game.displayWord.value = display_word;
 				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
-				if (esitoFinale == "V") {
+				if (finalOutcome == "W") {
 					alert("Vinto!");
 					alert("punti di errore: " + wrong_guesses);
-					alert("Punteggio ottenuto: " + punteggio );
+					alert("Punteggio ottenuto: " + score );
 					can_play = false;
 					
 					document.getElementById("fireExtinguisher").style.display="block";
@@ -108,11 +108,11 @@ session.setAttribute("prize", minigame.getPrize());
 					
 					
 					
-				} else if (esitoFinale == "P") {
+				} else if (finalOutcome == "L") {
 					alert("Perso!");
 					alert("la parola corretta era: " + correctWord)
 					alert("punti di errore: " + wrong_guesses);
-					alert("Punteggio ottenuto: " + punteggio );
+					alert("Punteggio ottenuto: " + score );
 					can_play = false;
 					
 					document.getElementById("fireExtinguisher").style.display="block";
@@ -145,7 +145,7 @@ session.setAttribute("prize", minigame.getPrize());
 
 	function hint() {
 		// chiamata al controller per visionareil suggerimento
-		// esito : suggerimento
+		// outcome: suggerimento
 		makeCall("GET", "HangmanGame?action=hint", hintResponse);
 
 	}
@@ -178,7 +178,7 @@ function makeCall(method, url, cback) {
 }
 </script>
 </head>
-<body onload="carica()">
+<body onload="load()">
 
 
 	<div id="Hangmangame" align="center">

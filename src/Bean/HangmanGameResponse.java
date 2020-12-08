@@ -2,31 +2,31 @@ package Bean;
 
 public class HangmanGameResponse {
 	
-	protected boolean esito;
+	protected boolean outcome;
 	protected String question2;
 	protected String displayWord;
 	protected int errorNumber;
-	protected String esitoFinale;
-	protected int punteggio;
+	protected String finalOutcome;
+	protected int score;
 	protected String correctWord;
 	protected boolean sessionExpired;
 	
 	public HangmanGameResponse() {
 		super();
-		this.esito = false;
+		this.outcome= false;
 		this.errorNumber = 0;
-		this.punteggio = 0;
-		this.esitoFinale = "";
+		this.score = 0;
+		this.finalOutcome = "";
 		this.correctWord = "";
 		this.sessionExpired = false;
 	}
 
-	public boolean isEsito() {
-		return esito;
+	public boolean isOutcome() {
+		return outcome;
 	}
 
-	public void setEsito(boolean esito) {
-		this.esito = esito;
+	public void setOutcome(boolean outcome) {
+		this.outcome= outcome;
 	}
 
 	public String getQuestion2() {
@@ -53,20 +53,20 @@ public class HangmanGameResponse {
 		this.errorNumber = errorNumber;
 	}
 
-	public String getEsitoFinale() {
-		return esitoFinale;
+	public String getFinalOutcome() {
+		return finalOutcome;
 	}
 
-	public void setEsitoFinale(String esitoFinale) {
-		this.esitoFinale = esitoFinale;
+	public void setFinalOutcome(String finalOutcome) {
+		this.finalOutcome = finalOutcome;
 	}
 
-	public int getPunteggio() {
-		return punteggio;
+	public int getScore() {
+		return score;
 	}
 
-	public void setPunteggio(int punteggio) {
-		this.punteggio = punteggio;
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public String getCorrectWord() {

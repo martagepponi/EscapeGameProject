@@ -26,9 +26,9 @@ import DAO.RankingDAO;
 @WebServlet("/AffinityGame")
 public class AffinityGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final int MAX_PUNTEGGIO = 30;
-	private static final int PUNTI_ERRORE = 6;
-	private static final int PUNTI_HINT = 12;
+	private static final int MAX_SCORE = 30;
+	private static final int POINTS_ERROR = 6;
+	private static final int POINTS_HINT = 12;
 	
 	private Connection connection; 
        
@@ -58,11 +58,11 @@ public class AffinityGame extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
-		String idst = (String) session.getAttribute("id_stanza");
-		int idStanza =  Integer.parseInt(idst) ;
+		String idRm = (String) session.getAttribute("id_room");
+		int idRoom =  Integer.parseInt(idRm) ;
 		User user =(User) session.getAttribute("user");
 		int iduser = user.getIduser();		
-		int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
+		int minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
 		
 		AffinityGameResponse retval = new AffinityGameResponse();
 		if(session.isNew() || user == null) {
@@ -73,7 +73,7 @@ public class AffinityGame extends HttpServlet {
 			Affinitygame minigame = (Affinitygame)session.getAttribute("Minigame");
 			String correctWord= minigame.getRightAnswer();
 			int errorNumber = minigame.getErrorNumber();
-			int tentativiRimasti = Affinitygame.MAX_NUM_ERRORI - errorNumber;
+			int attemptsRemained = Affinitygame.MAX_NUM_ERROR - errorNumber;
 			String hint = minigame.getHint();
 
 		 	String action = request.getParameter("action");
@@ -83,44 +83,44 @@ public class AffinityGame extends HttpServlet {
 				if(word.equalsIgnoreCase(correctWord)) {
 					
 					
-					int punteggio=  calcolaPunteggio(minigame.getErrorNumber(), minigame.isHintSelected());
+					int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
 	 				
 	 				RankingDAO rankingDAO = new RankingDAO(connection);
-		 			rankingDAO.InsertRank(numeroMinigame, punteggio, iduser, idStanza);
+		 			rankingDAO.InsertRank(minigameNumber, score, iduser, idRoom);
 				
-					retval.setEsito(true);
-					retval.setEsitoFinale(AbstractMinigame.VINTO);
-					retval.setPunteggio(punteggio);
+					retval.setOutcome(true);
+					retval.setFinalOutcome(AbstractMinigame.WON);
+					retval.setScore(score);
 					retval.setErrorNumber(errorNumber);
-					retval.setTentativiRimasti(tentativiRimasti);
+					retval.setAttemptsRemained(attemptsRemained);
 				}else {
 					errorNumber++;
-					tentativiRimasti--;
+					attemptsRemained--;
 					minigame.setErrorNumber(errorNumber);
-					retval.setEsito(false);
+					retval.setOutcome(false);
 					retval.setErrorNumber(errorNumber);
-					retval.setTentativiRimasti(tentativiRimasti);
-					if(errorNumber >= Affinitygame.MAX_NUM_ERRORI) {
+					retval.setAttemptsRemained(attemptsRemained);
+					if(errorNumber >= Affinitygame.MAX_NUM_ERROR) {
 						
-						int punteggio=  calcolaPunteggio(minigame.getErrorNumber(), minigame.isHintSelected());	 				
+						int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());	 				
 		 				RankingDAO rankingDAO = new RankingDAO(connection);
-			 			rankingDAO.InsertRank(numeroMinigame, punteggio, iduser, idStanza);
+			 			rankingDAO.InsertRank(minigameNumber, score, iduser, idRoom);
 												
-						retval.setEsitoFinale(AbstractMinigame.PERSO);
-						retval.setPunteggio(punteggio);
+						retval.setFinalOutcome(AbstractMinigame.LOSE);
+						retval.setScore(score);
 						retval.setCorrectWord(correctWord);
 					}
 				}
 		 	} else if ("hint".equals(action)) {
 	 			minigame.setHintSelected(true);
 	 			
-		 		retval.setEsito(true);
+		 		retval.setOutcome(true);
 	 			retval.setErrorNumber(errorNumber);
 	 			retval.setQuestion2(hint);
 		 		
 		 	} else {
 		 		// TODO: gestione risposta su azione sconosciuta
-		 		retval.setEsito(false);
+		 		retval.setOutcome(false);
 	 			retval.setErrorNumber(errorNumber);
 		 	}
 		}
@@ -145,10 +145,10 @@ public class AffinityGame extends HttpServlet {
 		catch(SQLException e) {}
 	}
 	
-	protected int calcolaPunteggio(int numeroErrori, boolean requestedHint) {
-		int retval = MAX_PUNTEGGIO;
-		retval -= (numeroErrori * PUNTI_ERRORE);
-		retval -= (requestedHint ? PUNTI_HINT : 0);
+	protected int scoreEstimate(int errorNumber, boolean requestedHint) {
+		int retval = MAX_SCORE;
+		retval -= (errorNumber * POINTS_ERROR);
+		retval -= (requestedHint ? POINTS_HINT : 0);
 		
 		return retval;
 	}

@@ -12,7 +12,7 @@ session.setAttribute("prize", minigame.getPrize());
     String word4 = minigame.getWord4();
     
     String question2 = minigame.getHint();
-    int tentativiIniziali = Affinitygame.MAX_NUM_ERRORI- minigame.getErrorNumber();
+    int initialAttempts = Affinitygame.MAX_NUM_ERROR- minigame.getErrorNumber();
      
 %>
 <!DOCTYPE html>
@@ -103,7 +103,7 @@ var hintRequested = 0;
 
 
 
-function carica(){
+function load(){
 	 var music = document.getElementById("myAudio"); 
      music.play();
 }
@@ -120,7 +120,7 @@ function hintResponse(req) {
 				alert("Sessione scaduta!");
 				document.location.href="/Login.html";
 			} else {
-				if (response.esito) {
+				if (response.outcome) {
 					
 					document.getElementById("question2").innerHTML = response.question2;
 					document.getElementById("question2").style.display = "block";
@@ -128,6 +128,7 @@ function hintResponse(req) {
 			}
 		} else {
 			// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
+			// TODO: FABIO.
 		}
 	}		
 }
@@ -149,34 +150,34 @@ function wordResponse(req){
 			alert("Sessione scaduta!");
 			document.location.href="/Login.html";
 		} else {
-			if(response.esito) {
+			if(response.outcome) {
 				alert("Vinto!");
 				alert("punti di errore: " + response.errorNumber);
-				alert("Punteggio ottenuto: " + response.punteggio );
-				document.getElementById("arpa").style.display="block";
+				alert("Punteggio ottenuto: " + response.score );
+				document.getElementById("prize").style.display="block";
 				document.getElementById("divMain").style.display="none";
 				document.getElementById("div2").style.display="none";
-				document.getElementById("punteggio").innerHTML = response.punteggio;
-				document.getElementById("divTentativi").style.display="none";
+				document.getElementById("score").innerHTML = response.score;
+				document.getElementById("divAttempts").style.display="none";
 				document.getElementById("question2").style.display="none";
 			} else  {
-				if (response.esitoFinale == "P") {
+				if (response.finalOutcome == "L") {
 					alert("Perso!");
 					alert("la parola corretta era: " + response.correctWord)
 					alert("punti di errore: " + response.errorNumber);
-					alert("Punteggio ottenuto: " + response.punteggio );
-					document.getElementById("arpa").style.display="block";
+					alert("Punteggio ottenuto: " + response.score );
+					document.getElementById("prize").style.display="block";
 					document.getElementById("divMain").style.display="none";
 					document.getElementById("div2").style.display="none";
 					document.getElementById("correctWord").innerHTML = response.correctWord;
 					document.getElementById("showWord").style.display="block";
-					document.getElementById("punteggio").innerHTML = response.punteggio;
-					document.getElementById("divTentativi").style.display="none";
+					document.getElementById("score").innerHTML = response.score;
+					document.getElementById("divAttempts").style.display="none";
 					document.getElementById("question2").style.display="none";
 				} else {
-					var tentativi = response.tentativiRimasti;
-					alert("numero tentativi rimasti" + tentativi);
-					document.getElementById("tentativi").innerHTML = tentativi;
+					var attempts = response.attemptsRemained;
+					alert("number attempts rimasti" + attempts);
+					document.getElementById("attempts").innerHTML = attempts;
 					
 				}
 			}
@@ -213,7 +214,7 @@ function makeCall(method, url, cback) {
 
 function hint() {
 	// chiamata al controller per visionareil suggerimento
-	// esito : suggerimento
+	// outcome: suggerimento
 	makeCall("GET", "AffinityGame?action=hint", hintResponse);
 
 }
@@ -223,7 +224,7 @@ function hint() {
 
 
 
-<body onload="carica()">
+<body onload="load()">
 	<div id="divMain" class="line-1 anim-typewriter">
 		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
 	
@@ -257,11 +258,11 @@ function hint() {
 
 
 
-	<div id="arpa" align="center" style="display: none;">
+	<div id="prize" align="center" style="display: none;">
 	
 		<p id="showWord" style="display: none;">La parola corretta era: <span id="correctWord"></span></p> 		
 
-		<p>Punteggio ottenuto: <span id="punteggio"></span></p> 		
+		<p>Punteggio ottenuto: <span id="score"></span></p> 		
 
 		<img src="images/<%=minigame.getPrize()%>.png" height="500"
 			width="300">
@@ -282,9 +283,9 @@ function hint() {
 
 
 
-	<div id="divTentativi" align="center">
+	<div id="divAttempts" align="center">
 
- 		<p>NUMERO TENTATIVI RIMASTI: <span id="tentativi"><%= tentativiIniziali %></span></p>
+ 		<p>number TENTATIVI RIMASTI: <span id="attempts"><%= initialAttempts %></span></p>
 	</div>
 
 

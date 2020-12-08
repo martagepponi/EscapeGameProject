@@ -27,10 +27,10 @@ import Bean.Hangmangame;
 @WebServlet("/HangmanGame")
 public class HangmanGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final int MAX_NUM_ERRORI = 10;
-	private static final int MAX_PUNTEGGIO = 30;
-	private static final int PUNTI_ERRORE = 2;
-	private static final int PUNTI_HINT = 10;
+	private static final int MAX_NUM_ERROR = 10;
+	private static final int MAX_SCORE = 30;
+	private static final int POINTS_ERROR = 2;
+	private static final int POINTS_HINT = 10;
 	private Connection connection = null;
   
     public HangmanGame() {
@@ -61,13 +61,13 @@ public class HangmanGame extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
-		String idst = (String) session.getAttribute("id_stanza");
-		int idStanza =  Integer.parseInt(idst) ;
+		String idRm = (String) session.getAttribute("id_room");
+		int idroom =  Integer.parseInt(idRm) ;
 		User user =(User) session.getAttribute("user");
 		int iduser = user.getIduser();
 
 		
-		int numeroMinigame = Integer.parseInt((String) session.getAttribute("numeroMinigame"));
+		int minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
 		
 		System.out.println(user.getUsername());
 
@@ -83,7 +83,7 @@ public class HangmanGame extends HttpServlet {
 		 	String displayWord = minigame.getDisplayWord();
 		 	String question1 = minigame.getQuestion1();
 		 	String question2 = minigame.getQuestion2();
-		 	int numeroErrori = minigame.getErrorNumber();
+		 	int errorNumber = minigame.getErrorNumber();
 		 	String prize = minigame.getPrize();
 		 	System.out.println("question2:" + question2);
 		 	System.out.println("prize:" + prize);
@@ -105,40 +105,40 @@ public class HangmanGame extends HttpServlet {
 			 			}
 			 			displayWord = temp_mask;
 			 			minigame.setDisplayWord(temp_mask);
-			 			retval.setEsito(true);
+			 			retval.setOutcome(true);
 			 			retval.setDisplayWord(displayWord);
 			 			retval.setErrorNumber(minigame.getErrorNumber());
 			 			if (temp_mask.indexOf("#") == -1) {
-			 				minigame.setEsito(AbstractMinigame.VINTO);		 				
-			 				int punteggio=  calcolaPunteggio(minigame.getErrorNumber(), minigame.isHintSelected());
+			 				minigame.setOutcome(AbstractMinigame.WON);		 				
+			 				int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
 			 				
 			 				RankingDAO rankingDAO = new RankingDAO(connection);
-				 			rankingDAO.InsertRank(numeroMinigame, punteggio, iduser, idStanza);
+				 			rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
 				 			
 			 				retval.setCorrectWord(word);
-			 				retval.setEsitoFinale(AbstractMinigame.VINTO);
-			 				retval.setPunteggio(punteggio);
+			 				retval.setFinalOutcome(AbstractMinigame.WON);
+			 				retval.setScore(score);
 			 			}
 			 		} else {
-			 			numeroErrori++;
-			 			minigame.setErrorNumber(numeroErrori);
-			 			retval.setEsito(false);
+			 			errorNumber++;
+			 			minigame.setErrorNumber(errorNumber);
+			 			retval.setOutcome(false);
 			 			retval.setDisplayWord(displayWord);
 			 			retval.setErrorNumber(minigame.getErrorNumber());
-			 			if (MAX_NUM_ERRORI <= numeroErrori) {
-			 				minigame.setEsito(AbstractMinigame.PERSO);
-                            int punteggio=  calcolaPunteggio(minigame.getErrorNumber(), minigame.isHintSelected());
+			 			if (MAX_NUM_ERROR <= errorNumber) {
+			 				minigame.setOutcome(AbstractMinigame.LOSE);
+                            int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
 			 				
 			 				RankingDAO rankingDAO = new RankingDAO(connection);
-				 			rankingDAO.InsertRank(numeroMinigame, punteggio, iduser, idStanza);
+				 			rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
 
 			 				retval.setCorrectWord(word);
-			 				retval.setEsitoFinale(AbstractMinigame.PERSO);
-			 				retval.setPunteggio(punteggio);
+			 				retval.setFinalOutcome(AbstractMinigame.LOSE);
+			 				retval.setScore(score);
 			 			}
 			 		}
 		 		} else {
-		 			retval.setEsito(false);
+		 			retval.setOutcome(false);
 		 			retval.setDisplayWord(displayWord);
 		 			retval.setErrorNumber(minigame.getErrorNumber());
 		 		}
@@ -148,14 +148,14 @@ public class HangmanGame extends HttpServlet {
 	 			
 	 			
 	 			
-		 		retval.setEsito(true);
+		 		retval.setOutcome(true);
 	 			retval.setDisplayWord(displayWord);
 	 			retval.setErrorNumber(minigame.getErrorNumber());
 	 			retval.setQuestion2(question2);
 	 			
 		 	} else {
 		 		// TODO: gestione risposta su azione sconosciuta
-		 		retval.setEsito(false);
+		 		retval.setOutcome(false);
 	 			retval.setDisplayWord(displayWord);
 	 			retval.setErrorNumber(minigame.getErrorNumber());
 		 	}
@@ -171,10 +171,10 @@ public class HangmanGame extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	protected int calcolaPunteggio(int numeroErrori, boolean requestedHint) {
-		int retval = MAX_PUNTEGGIO;
-		retval -= (numeroErrori * PUNTI_ERRORE);
-		retval -= (requestedHint ? PUNTI_HINT : 0);
+	protected int scoreEstimate(int errorNumber, boolean requestedHint) {
+		int retval = MAX_SCORE;
+		retval -= (errorNumber * POINTS_ERROR);
+		retval -= (requestedHint ? POINTS_HINT : 0);
 		
 		return retval;
 	}

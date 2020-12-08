@@ -7,7 +7,7 @@
 <%
 User user= (User)session.getAttribute("user");
 String name= user.getName();
-String cognome = user.getSurname();
+String surname = user.getSurname();
 String username = user.getUsername();
 int idUser= user.getIduser();
 
@@ -58,7 +58,7 @@ Minigioco 1: <%=rank1 %>/30<br>
 Minigioco 2:<%=rank2 %>/30<br>
 Minigioco 3:<%=rank3 %>/30<br>
 Finalgame :<%=rank4 %>/30<br>
-Il tuo punteggio totale è: <%=totalRank %>/100!<br>
+Il tuo score totale è: <%=totalRank %>/100!<br>
 
 
 <input type="button" value="Torna alla Home Page" >
