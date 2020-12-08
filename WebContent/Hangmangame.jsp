@@ -12,7 +12,7 @@ session.setAttribute("prize", minigame.getPrize());
 	String question1 = minigame.getQuestion1();
 	String question2 = minigame.getQuestion2();
 	System.out.println("question2:" + question2);
-	
+	String errorNumber =""+minigame.getErrorNumber();
 %>
 <!DOCTYPE html>
 <html>
@@ -61,6 +61,7 @@ session.setAttribute("prize", minigame.getPrize());
 				}
 			} else {
 				// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
+				// location errorPage.jsp con tasto di ritorna a login e invalida sessione
 			}
 		}		
 	}
@@ -95,7 +96,7 @@ session.setAttribute("prize", minigame.getPrize());
 			
 				
 				document.game.displayWord.value = display_word;
-				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
+				eval(document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
 				if (finalOutcome == "W") {
 					alert("Vinto!");
 					alert("punti di errore: " + wrong_guesses);
@@ -188,7 +189,7 @@ function makeCall(method, url, cback) {
 		<h2 id="question1"><%=question1 %></h2>
 		<h2 id="question2" style="display: none;"></h2>
 		<p>
-			<img src="images/hangmangame/hmstart.gif" height="125" width="75"
+			<img src="images/hangmangame/hm<%= errorNumber %>.gif" height="125" width="75"
 				name="hm">
 		</p>
 		<form name="game">

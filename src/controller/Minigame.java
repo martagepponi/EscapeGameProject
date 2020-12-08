@@ -70,6 +70,11 @@ public class Minigame extends HttpServlet {
 			AbstractMinigame minigame = (AbstractMinigame) session.getAttribute("Minigame");
 			if(minigame==null) {
 				String id_roomString = (String) session.getAttribute("id_room");
+				
+				//TODO controllo se id_room non presente in sessione
+			    //if di controllo e forward a error page jsp con tasto di ritorno a login e ivalida sessione
+				
+				
 				int id_room = Integer.parseInt(id_roomString);
 
 				RoomDAO roomDAO = new RoomDAO(connection);
