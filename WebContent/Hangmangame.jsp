@@ -96,7 +96,7 @@ session.setAttribute("prize", minigame.getPrize());
 			
 				
 				document.game.displayWord.value = display_word;
-				eval(document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
+				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
 				if (finalOutcome == "W") {
 					alert("Vinto!");
 					alert("punti di errore: " + wrong_guesses);
