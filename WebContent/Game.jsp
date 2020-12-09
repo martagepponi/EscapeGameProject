@@ -28,6 +28,12 @@
 <title>EscapeGame</title>
 
 <style>
+#demo {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 0px;
+}
+
 
 body { 
 background-color: grey; 
@@ -320,16 +326,20 @@ function startGame2(){
 			if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
 				return false;
 			}
-			alert(objectName + " presente nel " + referenceWall);
+			//alert(objectName + " presente nel " + referenceWall);
 		
 			document.getElementById("area" + number).coords= getObject(objects[0]);	
-			alert(document.getElementById("area" + number).coords);
+			//alert(document.getElementById("area" + number).coords);
 			//conto number di minigame
 			<% 
 			int minigameNumber = 1;
 			if(session.getAttribute("first_time").equals("NO")){
 			  minigameNumber = Integer.parseInt((String)session.getAttribute("minigameNumber"));
 			  ++ minigameNumber;
+			  if(minigameNumber == 4){%>
+			  alert("funzione timer");
+				 timerStart();
+				  <%   }
 			  session.setAttribute("minigameNumber", "" + minigameNumber);
 		
 			}else{
@@ -342,15 +352,41 @@ function startGame2(){
 			minigameNumber = "<%= minigameNumber%>";
 			//
 			document.getElementById("area"+ number).href="./Minigame";
-			alert("#point" + number);
+			//alert("#point" + number);
 			
 			if(referenceWall == "<%=subject.getWall1()%>")
 			  document.getElementById("wall").setAttribute("usemap", "#point" + number);
 	
 	}
 	
+function timerStart(){
+	  var now = new Date().getTime();
+	// Set the date we're counting down to
+	var countDownDate = now + 30000;
 
+	// Update the count down every 1 second
+	var x = setInterval(function() {
 
+	  // Get today's date and time
+	  var now = new Date().getTime();
+	    
+	  // Find the distance between now and the count down date
+	  var distance = countDownDate - now;
+	    
+	  // Time calculations for days, hours, minutes and seconds
+
+	  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	    
+	  // Output the result in an element with id="demo"
+	  document.getElementById("demo").innerHTML = seconds + "s ";
+	    
+	  // If the count down is over, write some text 
+	  if (distance < 0) {
+	    clearInterval(x);
+	    document.getElementById("demo").innerHTML = "TEMPO SCADUTO";
+	  }
+	}, 1000);
+}
 
 //FUNZIONE PER CARICARE IMMAGINI objects NELL'INFO BOX	
 function viewObject(object){
@@ -589,7 +625,7 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 		<img id="image_start" src="images/start.png" onclick="startGame1()">
 		<p id="rules">
 			<b> Benvenuto in questa escape room didattica! Cerca di osservare
-				tutta la stanza e gli objects che la compongono, se noti che c'è
+				tutta la stanza e gli oggetti che la compongono, se noti che c'è
 				qualcosa di strano o se qualcosa attira la tua attenzione clicca
 				quell'area. Se la tua intuizione è giusta sarai rimandato ad un
 				minigioco, risolvilo e ottiene un oggetto in cambio. Infine usa
@@ -619,6 +655,8 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 		<button onclick="pauseMusic()" type="button">Pause Audio</button>
 
 		<button onclick="startMusic()" type="button">Play Audio</button>
+		
+		<div id="demo"></div>
 	</div>
 
 	<div id="game">
@@ -642,6 +680,7 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 			</tr>
 			<% if(session.getAttribute("first_time").equals("NO")){%>
 			<tr>
+			
 				<td><img src="images/<%=prize%>.png" class="<%=prize%>"></td>
 			</tr>
 			<%} %>

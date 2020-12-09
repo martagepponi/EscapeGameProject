@@ -123,7 +123,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 					// 				document.getElementById("divTentativi").style.display="none";
 					// 				document.getElementById("question2").style.display="none";
 				} else {
-					if (response.finalOutcome == "P") {
+					if (response.finalOutcome == "L") {
 						alert("Perso!");
 						// 					alert("la parola corretta era: " + response.correctWord)
 						// 					alert("punti di errore: " + response.errorNumber);
