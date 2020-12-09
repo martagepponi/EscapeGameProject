@@ -18,12 +18,30 @@ User user = (User) session.getAttribute("user");
 %>
 
 <style>
+
+
+#welcome{
+text-align: "center";
+position: absolute;
+    top: 17%;
+    left: 43%;
+
+}
 img {
 	cursor: pointer;
 }
 button{
 cursor: pointer;
 }
+
+
+/* body{ */
+/* background-image: url("images/backgroundHome.jpg"); */
+/* background-repeat: no-repeat; */
+/* background-size: cover;  */
+/* } */
+
+
 </style>
 
 <script type="text/javascript">
@@ -34,8 +52,6 @@ cursor: pointer;
 		document.getElementById('block_2').style.display = "none";
 		document.getElementById('block_3').style.display = "none";
 		document.getElementById('block_4').style.display = "none";
-		/*if (id_room != null && room_password != null){
-			show(2);}*/
 	}
 
 	function show(number) {
@@ -93,46 +109,15 @@ cursor: pointer;
 </head>
 <body onload="load()">
 
-	<div name="main" id="blocco_1">
-		<table width="110%" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-				<td>&nbsp; Benvenuto <%=user.getName()%> !
-				</td>
-				<td align="center"><input type="button" name="esci"
-					value="Logout" onClick="logout()" /></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<div id="maindiv" name="maindiv"
-						style="width: 100%; display: flex; height: 200px; margin-top: 5px;">
-						<div id="menu"
-							style="margin: 0px; width: 20%; height: 100%; border: 1px black solid;">
-							<table>
-								<tr>
-									<th align="center">MENU'</th>
-								</tr>
-								<tr>
-									<td><input type="button" value="Lista Stanze" id="listaS"
-										onclick="show(2)"></td>
-								</tr>
-								<tr>
-									<td><input type="button" value="Punteggi" id="listaP"
-										onclick="show(4)"></td>
-								</tr>
-							</table>
-						</div>
-						<div id="content" style="width: 80%; margin: 0px; height: 100%;">
-						</div>
-					</div>
-				</td>
-			</tr>
-		</table>
+	<div name="main" id="block_1">
+		
+		<p id="welcome"> Benvenuto <%=user.getName()%>! </p>
+		<input type="button" name="esci" value="Logout" onClick="logout()" />
+		<input type="button" value="Lista Stanze" id="listaS" onclick="show(2)"> 
+		<input type="button" value="Punteggi" id="listaP" onclick="show(4)">
+
 	</div>
-
-
-
-
-
+	
 
 
 	<div id="block_2">
@@ -186,6 +171,10 @@ cursor: pointer;
 		<%
 			List<Ranking> Rankings = new ArrayList<>();
 		Rankings = (List<Ranking>) request.getAttribute("Rankings");
+		if(Rankings.isEmpty()){%>
+		<div> Non sono presenti punteggi!</div>
+		<%
+		}
 		for (Ranking ranking : Rankings) {
 		%>
 
