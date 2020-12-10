@@ -89,10 +89,13 @@ public class Game extends HttpServlet {
 	
 			Subject subject =subjectDAO.findAllSubjectByIdRoom(idroom);
 			
-			System.out.println(subject.getWall1());
 			if(subject != null) {
 				session.setAttribute("subject", subject);
 				session.setAttribute("id_room", "" + id_room);
+				RoomDAO roomDAO = new RoomDAO(connection);
+				Room room1 = roomDAO.selectById(idroom, connection);
+				session.setAttribute("title", room1.getTitle());
+				
 				//controllo se ho già fatto accesso ad almeno un minigioco
 				RankingDAO rankingDAO = new RankingDAO(connection);
 				Ranking ranking = rankingDAO.findRankingByRoomAndUser(user.getIduser() , idroom);
@@ -102,7 +105,7 @@ public class Game extends HttpServlet {
 				} else {
 					if (ranking.getTotalrank() == 0) {
 						session.setAttribute("first_time", "NO");
-						RoomDAO roomDAO = new RoomDAO(connection);
+						
 						Room room = roomDAO.selectById(idroom, connection);
 						if (room != null) {
 							MiniGameDAO minigameDAO = new MiniGameDAO(connection);

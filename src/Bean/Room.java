@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Room {
 	private int idRoom;
+	private String title;
 	private Date date;
 	private String subject;
 	private String profName;  
@@ -18,9 +19,10 @@ public class Room {
 
 
 
-	public Room(int idRoom, Date date,String subject, String profName, String password, int minigame1, int minigame2,
+	public Room(int idRoom, String title, Date date,String subject, String profName, String password, int minigame1, int minigame2,
 			int minigame3, int finalgame, String thumbnail) {
 		this.idRoom = idRoom;
+		this.title= title;
 		this.date = date;
 		this.subject = subject;
 		this.profName = profName;
@@ -33,8 +35,9 @@ public class Room {
 	}
 
 	
-	public Room(int idRoom, Date date,String subject, String profName, String profSurname, int year, String thumbnail) {
+	public Room(int idRoom,String title, Date date,String subject, String profName, String profSurname, int year, String thumbnail) {
 		this.idRoom = idRoom;
+		this.title= title;
 		this.date = date;
 		this.subject = subject;
 		this.profName = profName;
@@ -50,6 +53,16 @@ public class Room {
 
 	
 	
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 
 	public String getProfSurname() {
 		return profSurname;

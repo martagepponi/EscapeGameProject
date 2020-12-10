@@ -34,12 +34,11 @@ button{
 cursor: pointer;
 }
 
-
-/* body{ */
-/* background-image: url("images/backgroundHome.jpg"); */
-/* background-repeat: no-repeat; */
-/* background-size: cover;  */
-/* } */
+ body{ 
+ background-image: url("images/backgroundHome.jpg"); 
+ background-repeat: no-repeat; 
+ background-size: cover;  
+ } 
 
 
 </style>

@@ -24,7 +24,7 @@ public class RoomDAO {
 		
 	
 		
-	String query = "SELECT `idroom`, `date`, `subject`.`name`, `user`.`name`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject`;";
+	String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject`;";
 		List<Room> Rooms = new ArrayList<Room>();
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -35,13 +35,15 @@ public class RoomDAO {
 			
 				
 				int idRoom = result.getInt("idroom"); 
-				System.out.println("idRoom  "+ idRoom);
+				//System.out.println("idRoom  "+ idRoom);
+				String title = result.getString("title");
+				System.out.println("titolo  "+ title);
 				Date date = result.getDate("date");
-				System.out.println("date  " + date);
+				//System.out.println("date  " + date);
 				String subject = result.getString("subject.name");
-				System.out.println("subject  " + subject);
+				//System.out.println("subject  " + subject);
 				String profName = result.getString("user.name");
-				System.out.println("prof   " + profName);
+				//System.out.println("prof   " + profName);
 				String password = result.getString("password");
 			//	System.out.println("pwd  " + password);
 				int minigame1 = result.getInt("minigame1");
@@ -56,7 +58,7 @@ public class RoomDAO {
 				System.out.println("imm   " + thumbnail);
 
 			
-				Room room = new Room(idRoom, date, subject,profName , password, minigame1, minigame2, minigame3, finalgame, thumbnail);
+				Room room = new Room(idRoom,title, date, subject,profName , password, minigame1, minigame2, minigame3, finalgame, thumbnail);
 		
 				Rooms.add(room);
 				System.out.println("rooms DAO:  "+ Rooms);
@@ -89,7 +91,7 @@ public class RoomDAO {
 	//LEGGO TUTTE LE ROOMS CREATE DAL PROF LOGGATO
 
 	public List<Room> findCreatedRooms(int iduser) {
-		String query ="SELECT `user`.`name`, `user`.`surname`, `room`.`idroom`, `room`.`date`, `room`.`thumbnail`, `subject`.`name` AS `subject`, `subject`.`year` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` WHERE `escapegame`.`room`.`idprof`=`escapegame`.`user`.`iduser` AND `escapegame`.`room`.`idsubject`= `escapegame`.`subject`.`idsubject` AND `escapegame`.`room`.`idprof`= ?;";
+		String query ="SELECT `user`.`name`, `user`.`surname`, `room`.`idroom`,`room`.`title`, `room`.`date`, `room`.`thumbnail`, `subject`.`name` AS `subject`, `subject`.`year` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` WHERE `escapegame`.`room`.`idprof`=`escapegame`.`user`.`iduser` AND `escapegame`.`room`.`idsubject`= `escapegame`.`subject`.`idsubject` AND `escapegame`.`room`.`idprof`= ?;";
 		
 		
 		List<Room> createtedRooms = new ArrayList<Room>();
@@ -104,6 +106,7 @@ public class RoomDAO {
 				
 				int idRoom = result.getInt("idroom"); 
 				System.out.println("idRoom  "+ idRoom);
+				String title = result.getString("title");
 				Date date = result.getDate("date");
 				System.out.println("date  " + date);
 				String subject = result.getString("subject");
@@ -118,7 +121,7 @@ public class RoomDAO {
 				System.out.println("imm   " + thumbnail);
 
 			
-				Room room = new Room(idRoom, date, subject, profName, profSurname, year, thumbnail);
+				Room room = new Room(idRoom, title, date, subject, profName, profSurname, year, thumbnail);
 		
 				createtedRooms.add(room);
 			
@@ -163,6 +166,7 @@ public class RoomDAO {
 			if (result.next()) {
 				t = new Room();
 				t.setIdRoom(result.getInt("idroom"));
+				t.setTitle(result.getString("title"));
 				t.setDate(result.getDate("date"));
 				//t.setSubject(result.getString("subject"));
 				//t.setProfName(result.getString("prof"));

@@ -21,8 +21,8 @@
       String wall4  = subject.getWall4();
       String prize = "";
       String id_room = (String) session.getAttribute("id_room");
-      System.out.println("ID STANZAAAAAAA: "+ id_room);
-     
+      String title = (String) session.getAttribute("title");
+     System.out.println("titolo"+ title);
  %>
 <meta charset="ISO-8859-1">
 <title>EscapeGame</title>
@@ -34,6 +34,31 @@
   margin-top: 0px;
 }
 
+
+.typewriter {
+  color: #fff;
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange }
+}
 
 body { 
 background-color: grey; 
@@ -214,7 +239,7 @@ console.log(objects);
 function checkObjectsAndWall(object, wallToCheck, clickOrder){
 	var check = false;
 	var wall = clickOrder[object];
-	alert("muro da controllare: " + wallToCheck + " oggetto: " + object + " corrisp. :" + wall);
+	//alert("muro da controllare: " + wallToCheck + " oggetto: " + object + " corrisp. :" + wall);
 	if(wall == wallToCheck){
 		check = true;
 	}
@@ -222,7 +247,7 @@ function checkObjectsAndWall(object, wallToCheck, clickOrder){
 }
 
 function load(){
-
+     //document.getElementById("title").style.display = 'block';
 	 document.getElementById("rules").style.display = 'none';
 	 document.getElementById("start2").style.display = 'none';
 	 document.getElementById("arrows").style.display = 'none';
@@ -231,6 +256,7 @@ function load(){
 		document.getElementById("arrows").style.display = 'block';
 		document.getElementById("musicButton").style.display = 'block';
 		 var music = document.getElementById("myAudio"); 
+		 document.getElementById("title").style.display = 'none';
 	     music.play();
 	}
 }
@@ -619,6 +645,22 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 <body onload="load()">
 
 	<%if(subject != null){ %>
+	
+	
+	
+	
+    <div id="title"> 
+    <%= title %> <br>
+    <%if(title.equalsIgnoreCase("Un brutto risveglio")){ %>
+    <p class="typewriter">
+    Sei un giovane investigatore troppo vicino a scoprire chi si cela dietro a una serie di omicidi nella tua città.
+    Questa mattina ti sei risvegliato in una strana casa e con un bernoccolo in testa, trova il modo per uscire prima che l'assassino colpisca ancora! </p>
+    <%} %>
+    
+   </div>
+
+
+
 
 
 	<div id="start">
