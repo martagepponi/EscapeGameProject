@@ -24,7 +24,7 @@ public class RoomDAO {
 		
 	
 		
-	String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject`;";
+	String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject`;";
 		List<Room> Rooms = new ArrayList<Room>();
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -37,29 +37,18 @@ public class RoomDAO {
 				int idRoom = result.getInt("idroom"); 
 				//System.out.println("idRoom  "+ idRoom);
 				String title = result.getString("title");
-				System.out.println("titolo  "+ title);
 				Date date = result.getDate("date");
-				//System.out.println("date  " + date);
 				String subject = result.getString("subject.name");
-				//System.out.println("subject  " + subject);
 				String profName = result.getString("user.name");
-				//System.out.println("prof   " + profName);
+				String profSurname = result.getString("user.surname");
 				String password = result.getString("password");
-			//	System.out.println("pwd  " + password);
 				int minigame1 = result.getInt("minigame1");
-				//System.out.println("mg1  " + minigame1);
 				int minigame2 = result.getInt("minigame2");
-				//System.out.println("mg2  " + minigame2);
 				int minigame3 = result.getInt("minigame3");
-				//System.out.println("mg3  " + minigame3);
 				int finalgame = result.getInt("finalgame");
-				//System.out.println("fg   " + finalgame);
 				String thumbnail = result.getString("thumbnail");
-				System.out.println("imm   " + thumbnail);
-
 			
-				Room room = new Room(idRoom,title, date, subject,profName , password, minigame1, minigame2, minigame3, finalgame, thumbnail);
-		
+				Room room = new Room(idRoom,title, date, subject,profName , profSurname, password, minigame1, minigame2, minigame3, finalgame, thumbnail);
 				Rooms.add(room);
 				System.out.println("rooms DAO:  "+ Rooms);
 				
@@ -105,24 +94,15 @@ public class RoomDAO {
 			
 				
 				int idRoom = result.getInt("idroom"); 
-				System.out.println("idRoom  "+ idRoom);
 				String title = result.getString("title");
 				Date date = result.getDate("date");
-				System.out.println("date  " + date);
 				String subject = result.getString("subject");
-				System.out.println("subject  " + subject);
 				String profName = result.getString("user.name");
-				System.out.println("prof   " + profName);
 				String profSurname = result.getString("user.surname");
-				System.out.println("cogname   " + profSurname);
 				int year = result.getInt("year");
-				System.out.println("year:  " + year);
 				String thumbnail = result.getString("thumbnail");
-				System.out.println("imm   " + thumbnail);
 
-			
 				Room room = new Room(idRoom, title, date, subject, profName, profSurname, year, thumbnail);
-		
 				createtedRooms.add(room);
 			
 				

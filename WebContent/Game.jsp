@@ -31,37 +31,87 @@
 #demo {
   text-align: center;
   font-size: 60px;
-  margin-top: 0px;
+  
 }
 
 
-.typewriter {
-  color: #fff;
-  font-family: monospace;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
-  animation: 
-    typing 3.5s steps(30, end),
-    blink-caret .5s step-end infinite;
+
+/* TITOLO   */
+#title{
+text-align: center;
+margin-top:20px;
+font-size: 100px;
+
 }
 
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+/*  FINE TITOLO   */
+
+/*  INTRODUZIONE   */
+
+
+/* /* Google Fonts */
+
+/* @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);  */
+/*  Global  */
+/* html { */
+/* 	min-height: 100%; */
+/* 	overflow: hidden; */
+/* } */
+
+/*  body {  */
+/*  	height: calc(100vh - 8em);  */
+/*  	padding: 4em;  */
+ 	
+/*  	font-family: 'Anonymous Pro', monospace;  */
+/*  }  */
+
+.line-1 {
+	position: relative;
+	top: 50%;
+	width: 24em;
+	margin: 0 auto;
+	border-right: 2px solid rgba(255, 255, 255, .75);
+	font-size: 180%;
+ 	text-align: center; 
+	white-space: nowrap;
+	overflow: hidden;
+	transform: translateY(-50%);
 }
 
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange }
+
+
+/* Animation */
+.anim-typewriter {
+	animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor
+		500ms steps(44) infinite normal;
 }
+
+@keyframes typewriter {
+	from {width: 0;
+}
+
+to {
+	width: 24em;
+}
+
+}
+@keyframes blinkTextCursor {
+	from {border-right-color: rgba(255, 255, 255, .75);
+}
+
+to {
+	border-right-color: transparent;
+}
+}
+
+
+/*  FINE INTRODUZIONE   */
+
+
 
 body { 
-background-color: grey; 
+background-color: #2F4F4F; 
+font-family: 'Anonymous Pro', monospace;
  } 
 img {
 	display: block;
@@ -103,17 +153,9 @@ img {
 	z-index: 1;
 }
 
-.start {
-	margin: 0px auto;
-	text-align: center;
-}
 
-#rules {
-	position: absolute;
-	top: 40%;
-	left: 47%;
-	z-index: 1;
-}
+
+
 
 #start2 {
 	position: absolute;
@@ -214,6 +256,7 @@ if("YES".equals(session.getAttribute("first_time"))) {
     if(session.getAttribute("first_time").equals("NO")){
     	prize = (String) session.getAttribute("prize");    %>
    //  alert("non prima volta");
+    
      var objectsJSON = localStorage.getItem("objectsList");
      objects = JSON.parse(objectsJSON);
      objects.shift();
@@ -246,25 +289,39 @@ function checkObjectsAndWall(object, wallToCheck, clickOrder){
 	return check;
 }
 
+
+
+
+
+    
+    
 function load(){
-     //document.getElementById("title").style.display = 'block';
-	 document.getElementById("rules").style.display = 'none';
+     document.getElementById("panel").style.display = 'none';
+     document.getElementById("top_right").style.display = 'none';
+     document.getElementById("game").style.display = 'none';
 	 document.getElementById("start2").style.display = 'none';
 	 document.getElementById("arrows").style.display = 'none';
 	 document.getElementById("musicButton").style.display = 'none';
 	if(notFirstTime){
+	    document.getElementById("titleDiv").style.display  = 'none';
 		document.getElementById("arrows").style.display = 'block';
 		document.getElementById("musicButton").style.display = 'block';
+		 document.getElementById("game").style.display = 'block';
+	     document.getElementById("panel").style.display = 'block';
+	     document.getElementById("top_right").style.display = 'block';
 		 var music = document.getElementById("myAudio"); 
-		 document.getElementById("title").style.display = 'none';
+		// document.getElementById("title").style.display = 'none';
 	     music.play();
 	}
 }
 
 function startGame1(){ 
 	
-    document.getElementById("image_start").style.display = 'none';
-    document.getElementById("rules").style.display  = 'block';
+//     document.getElementById("image_start").style.display = 'none';
+     document.getElementById("panel").style.display = 'block';
+	 document.getElementById("top_right").style.display = 'block';
+    document.getElementById("game").style.display = 'block';
+     document.getElementById("titleDiv").style.display  = 'none';
     document.getElementById("start2").style.display = 'block';
     document.getElementById("arrows").style.display = 'none';
     document.getElementById("musicButton").style.display = 'none';
@@ -274,8 +331,8 @@ function startGame1(){
 
 function startGame2(){ 
 	
-    document.getElementById("image_start").style.display = 'none';
-    document.getElementById("rules").style.display  = 'none';
+    //document.getElementById("image_start").style.display = 'none';
+   
     document.getElementById("start2").style.display = 'none';
     document.getElementById("arrows").style.display = 'block';
     document.getElementById("musicButton").style.display = 'block';
@@ -410,6 +467,8 @@ function timerStart(){
 	  if (distance < 0) {
 	    clearInterval(x);
 	    document.getElementById("demo").innerHTML = "TEMPO SCADUTO";
+	    window.location = '/EscapeGameProject/finalPage.jsp';
+	    //document.location.href = "/finalPage.jsp";
 	  }
 	}, 1000);
 }
@@ -645,43 +704,43 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 <body onload="load()">
 
 	<%if(subject != null){ %>
-	
-	
-	
-	
-    <div id="title"> 
-    <%= title %> <br>
-    <%if(title.equalsIgnoreCase("Un brutto risveglio")){ %>
-    <p class="typewriter">
-    Sei un giovane investigatore troppo vicino a scoprire chi si cela dietro a una serie di omicidi nella tua città.
-    Questa mattina ti sei risvegliato in una strana casa e con un bernoccolo in testa, trova il modo per uscire prima che l'assassino colpisca ancora! </p>
-    <%} %>
-    
-   </div>
 
 
 
 
+	<div id="titleDiv">
+		<br>
+		<%
+			if (title.equalsIgnoreCase("Un brutto risveglio")) {
+		%>
+		<h1 id="title">
+			"<%=title %>"
+		</h1>
 
-	<div id="start">
-		<img id="image_start" src="images/start.png" onclick="startGame1()">
-		<p id="rules">
-			<b> Benvenuto in questa escape room didattica! Cerca di osservare
-				tutta la stanza e gli oggetti che la compongono, se noti che c'è
-				qualcosa di strano o se qualcosa attira la tua attenzione clicca
-				quell'area. Se la tua intuizione è giusta sarai rimandato ad un
-				minigioco, risolvilo e ottiene un oggetto in cambio. Infine usa
-				quell'oggetto dove ti sembra più utile e sblocca altri minigiochi.
-				Attento però, durante i minigiochi cerca di fare meno errori
-				possibili per ottenere un alto score a fine partita! Che il
-				gioco abbia inizio...</b>
-		</p>
+
+
+		<div id="introduction">
+			<p class="line-1 anim-typewriter">
+			Sei un giovane investigatore 
+			<p class="line-1 anim-typewriter">e sei stato rapito </p> 
+			<p class="line-1 anim-typewriter">prima di poter rivelare </p> 
+			<p class="line-1 anim-typewriter">il nome dell'assassino!</p>
+			<p class="line-1 anim-typewriter"> ESCI DALLA STANZA </p> 
+			<p class="line-1 anim-typewriter"> E SVELA AL MONDO LA SUA IDENTITA'</p> 
+			<p class="line-1 anim-typewriter"> PRIMA CHE COLPISCA ANCORA!</p>
+            <input type="button"  id="avanti" value="Salta" onclick="startGame1()">
+		</div>
+		
+
+		<%
+			}
+		%>
 	</div>
 
 
 
 	<div id="start2">
-		<input id="startButton" type="button" value="Inizia il gioco"
+		<input id="startButton" type="button" value="Inizia"
 			onclick="startGame2();loadClickableObjects(<%=id_room%>); startMusic() ">
 	</div>
 
@@ -697,8 +756,6 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 		<button onclick="pauseMusic()" type="button">Pause Audio</button>
 
 		<button onclick="startMusic()" type="button">Play Audio</button>
-		
-		<div id="demo"></div>
 	</div>
 
 	<div id="game">
@@ -706,6 +763,7 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 		<img id="wall"
 			src="images/<%=subject.getName()%>/<%=subject.getWall1()%>.jpg">
 		<div id="arrows">
+		<div id="demo"></div>
 			<img class="arrow" id="left_arrow"
 				src="images/left-arrow.png" onclick="imageScroll(this)"> <img
 				class="arrow" id="right_arrow" src="images/right-arrow.png"

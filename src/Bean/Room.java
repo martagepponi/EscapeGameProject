@@ -19,13 +19,14 @@ public class Room {
 
 
 
-	public Room(int idRoom, String title, Date date,String subject, String profName, String password, int minigame1, int minigame2,
+	public Room(int idRoom, String title, Date date,String subject, String profName,  String profSurname, String password, int minigame1, int minigame2,
 			int minigame3, int finalgame, String thumbnail) {
 		this.idRoom = idRoom;
 		this.title= title;
 		this.date = date;
 		this.subject = subject;
 		this.profName = profName;
+		this.profSurname = profSurname;
 		this.password = password;
 		this.minigame1 = minigame1;
 		this.minigame2 = minigame2;

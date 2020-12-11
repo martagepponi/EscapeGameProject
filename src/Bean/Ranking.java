@@ -14,6 +14,7 @@ public class Ranking {
 	private int totalrank;
 	private int idroom;
 	private String thumbnail;
+	private String title;
 
 
 
@@ -34,7 +35,7 @@ public Ranking(int idRanking, int user, Date date, int rank1, int rank2,
 
 
 public Ranking(String thumbnail, int idRanking, int user, Date date, int rank1, int rank2,
-		int rank3, int rank4,int totalrank, int idroom) {
+		int rank3, int rank4,int totalrank, int idroom, String title) {
 	this.thumbnail = thumbnail;
 	this.idRanking = idRanking;
 	this.user = user;
@@ -45,6 +46,7 @@ public Ranking(String thumbnail, int idRanking, int user, Date date, int rank1, 
 	this.rank4 = rank4;
 	this.totalrank = totalrank;
 	this.idroom = idroom;
+	this.title = title;
 	
 }
 
@@ -152,6 +154,16 @@ public int getIdroom() {
 
 public void setIdroom(int idroom) {
 	this.idroom = idroom;
+}
+
+
+public String getTitle() {
+	return title;
+}
+
+
+public void setTitle(String title) {
+	this.title = title;
 }
 
 
