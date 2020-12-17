@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@page import="Bean.*"%>
 <%@page import="java.util.ArrayList"%>
@@ -37,7 +37,9 @@ function playVideo(){
 	}
 }
 
-
+function returnHome(){
+	 window.location = '/EscapeGameProject/HomePage';
+}
 
 
 
@@ -61,7 +63,7 @@ Finalgame :<%=rank4 %>/30<br>
 Il tuo score totale è: <%=totalRank %>/100!<br>
 
 
-<input type="button" value="Torna alla Home Page" >
+<input type="button" id="returnHome" value="Torna alla Home Page" onclick="returnHome()">
 </div>
 
 

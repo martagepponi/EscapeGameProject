@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -74,23 +75,50 @@ public class HomePage extends HttpServlet {
 		}else { //se sessione non è nuova e utente è in sessione
 			if(user.getType().equals("studente")) { //se è uno studente....
 
+		
+		
+				
 				//RIPRENDO DAO 
 				RoomDAO roomDAO = new RoomDAO(connection);
 				//RIPRENDO LA LISTA DELLE STANZE 
-				List<Room> Rooms = roomDAO.findAllRooms();
-				//LA RICHIESTA INCAPSULA LA LISTA DELLE STANZE
-				session.setAttribute("Rooms", Rooms ); //NON TESTATO
-				
-				
-				
+				List<Room> Rooms1 = roomDAO.findAllRooms();
+				 
 				
 				RankingDAO rankingDAO = new RankingDAO(connection);
+				
+				List<Integer> allIdRooms = new ArrayList();
+				for(Room room : Rooms1) { 
+					
+				    int idroom = room.getIdRoom();
+				    allIdRooms.add(idroom);
+				    }
+				
+				List<Integer> userIdRooms= rankingDAO.idRoomList(user.getIduser());
+				
+				//SOTTRAZIONE TRA TUTTE LE STANZE E QUELLE GIA' GIOCATE DA UTENTE
+				
+				
+				allIdRooms.removeAll(userIdRooms);
+				
+				List<Room> Rooms = new ArrayList();
+				
+				for(Integer idroom : allIdRooms) { 
+					Room room = roomDAO.selectById(idroom, connection);
+					Rooms.add(room);
+				   
+				    }
+				
+				session.setAttribute("Rooms", Rooms );
+				
+				
 				List<Ranking> Rankings = rankingDAO.findAllRanking(user.getIduser());
 				session.setAttribute("Rankings", Rankings);
-				
-			
-
 				request.getRequestDispatcher("/StudentHomePage.jsp").forward(request, response);
+				
+
+		
+
+				
 
 			}else { //se è un docente...
 				

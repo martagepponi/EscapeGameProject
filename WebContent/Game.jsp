@@ -37,6 +37,9 @@
 
 
 /* TITOLO   */
+
+
+
 #title{
 text-align: center;
 margin-top:20px;
@@ -49,60 +52,8 @@ font-size: 100px;
 /*  INTRODUZIONE   */
 
 
-/* /* Google Fonts */
-
-/* @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);  */
-/*  Global  */
-/* html { */
-/* 	min-height: 100%; */
-/* 	overflow: hidden; */
-/* } */
-
-/*  body {  */
-/*  	height: calc(100vh - 8em);  */
-/*  	padding: 4em;  */
- 	
-/*  	font-family: 'Anonymous Pro', monospace;  */
-/*  }  */
-
-.line-1 {
-	position: relative;
-	top: 50%;
-	width: 24em;
-	margin: 0 auto;
-	border-right: 2px solid rgba(255, 255, 255, .75);
-	font-size: 180%;
- 	text-align: center; 
-	white-space: nowrap;
-	overflow: hidden;
-	transform: translateY(-50%);
-}
-
-
-
-/* Animation */
-.anim-typewriter {
-	animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor
-		500ms steps(44) infinite normal;
-}
-
-@keyframes typewriter {
-	from {width: 0;
-}
-
-to {
-	width: 24em;
-}
-
-}
-@keyframes blinkTextCursor {
-	from {border-right-color: rgba(255, 255, 255, .75);
-}
-
-to {
-	border-right-color: transparent;
-}
-}
+ 
+ 
 
 
 /*  FINE INTRODUZIONE   */
@@ -330,9 +281,7 @@ function startGame1(){
 
 
 function startGame2(){ 
-	
-    //document.getElementById("image_start").style.display = 'none';
-   
+	   
     document.getElementById("start2").style.display = 'none';
     document.getElementById("arrows").style.display = 'block';
     document.getElementById("musicButton").style.display = 'block';
@@ -340,7 +289,6 @@ function startGame2(){
     document.getElementById("top_right").style["filter"] = "none";
     document.getElementById("wall").style["-webkit-filter"] = "none";
     document.getElementById("panel").style["filter"]      = "none";
-   // document.getElementById("wall").style["-webkit-filter"] = "none";
     
 }
 
@@ -468,7 +416,6 @@ function timerStart(){
 	    clearInterval(x);
 	    document.getElementById("demo").innerHTML = "TEMPO SCADUTO";
 	    window.location = '/EscapeGameProject/finalPage.jsp';
-	    //document.location.href = "/finalPage.jsp";
 	  }
 	}, 1000);
 }
@@ -695,6 +642,7 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 	}
 	
 
+	
 
 </script>
 
@@ -719,15 +667,12 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 
 
 
-		<div id="introduction">
-			<p class="line-1 anim-typewriter">
-			Sei un giovane investigatore 
-			<p class="line-1 anim-typewriter">e sei stato rapito </p> 
-			<p class="line-1 anim-typewriter">prima di poter rivelare </p> 
-			<p class="line-1 anim-typewriter">il nome dell'assassino!</p>
-			<p class="line-1 anim-typewriter"> ESCI DALLA STANZA </p> 
-			<p class="line-1 anim-typewriter"> E SVELA AL MONDO LA SUA IDENTITA'</p> 
-			<p class="line-1 anim-typewriter"> PRIMA CHE COLPISCA ANCORA!</p>
+		<div id="introduction" class="wrapper">
+			<p id="p">
+			Sei un giovane investigatore e sei stato rapito <br>
+			prima di poter rivelare il nome di un famigerato assassino.<br>
+			ESCI DALLA STANZAE SVELA AL MONDO LA SUA IDENTITA'<br>
+		    PRIMA CHE COLPISCA ANCORA!</p>
             <input type="button"  id="avanti" value="Salta" onclick="startGame1()">
 		</div>
 		

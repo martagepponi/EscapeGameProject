@@ -195,7 +195,7 @@ function makeCall(method, url, cback) {
 		<form name="game">
 			<p>
 				Parola: <input id="word" type="text" name="displayWord" value="<%=displayWord %>" readonly="true" /><br>
-				Lettere: <input type="text" name="usedLetters">
+				Lettere: <input type="text" name="usedLetters" readonly="true">
 			</p>
 		</form>
 

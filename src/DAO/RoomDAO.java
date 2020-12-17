@@ -52,7 +52,6 @@ public class RoomDAO {
 				Rooms.add(room);
 				System.out.println("rooms DAO:  "+ Rooms);
 				
-				
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,8 +71,6 @@ public class RoomDAO {
 		}
 		return Rooms;
 	}
-	
-	//
 	
 	
 
@@ -136,7 +133,7 @@ public class RoomDAO {
 	
 	public Room selectById(int idRoom, Connection connection) {
 		Room t = null;
-		String query = "SELECT * FROM `room` where `idroom` = ?";
+		String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject` WHERE `escapegame`.`room`.`idroom` = ? ;";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		try {
@@ -148,12 +145,17 @@ public class RoomDAO {
 				t.setIdRoom(result.getInt("idroom"));
 				t.setTitle(result.getString("title"));
 				t.setDate(result.getDate("date"));
-				//t.setSubject(result.getString("subject"));
-				//t.setProfName(result.getString("prof"));
+				t.setSubject(result.getString("subject.name"));
+				t.setProfName(result.getString("user.name"));
+				t.setProfSurname(result.getString("user.surname"));
+				t.setPassword( result.getString("password"));
 				t.setMinigame1(result.getInt("minigame1"));
 				t.setMinigame2(result.getInt("minigame2"));
 				t.setMinigame3(result.getInt("minigame3"));
 				t.setFinalgame(result.getInt("finalgame"));
+				t.setThumbnail(result.getString("thumbnail"));
+				
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,6 +175,4 @@ public class RoomDAO {
 		return t;
 	}
 
-
-	
 }

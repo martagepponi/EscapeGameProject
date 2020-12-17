@@ -129,7 +129,47 @@ return Rankings;
 		}
 		
 		
-		
+	// METODO PER OTTENERE ID STANZE GIOCATE DA UN UTENTE SPECIFICO, CON TOTAL RANK DIVERSO DA 0
+	public List<Integer> idRoomList (int iduser){
+			
+			String query = "SELECT escapegame.ranking.idroom  FROM escapegame.ranking AS ranking WHERE ranking.totalrank != 0 AND ranking.user =?;";
+			List<Integer> idRoomList = new ArrayList<>();
+			ResultSet result = null;
+			PreparedStatement pstatement = null;
+			try {
+				pstatement = connection.prepareStatement(query);
+				pstatement.setInt(1, iduser);
+				result = pstatement.executeQuery();
+				while (result.next()) {
+					int idroom = result.getInt("idroom");
+					
+					
+					//AGGIUNGO ALLA LISTA TUTTI ID RISULTANTI DALLA QUERY
+					idRoomList.add(idroom);
+					
+					
+				}
+				System.out.println("Lista idroom, fine query");
+					
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					  try {
+						  result.close();
+					  } 
+					  catch (Exception e2) {
+						  e2.printStackTrace();
+					  }
+					  try {
+						  pstatement.close();
+					  } 
+					  catch (Exception e3) {
+						  e3.printStackTrace();
+					  }
+				}
+	return idRoomList;
+	
+		}
 		
 		
 		//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 
