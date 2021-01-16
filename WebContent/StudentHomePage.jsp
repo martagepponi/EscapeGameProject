@@ -5,11 +5,18 @@
 <%@page import="Bean.Ranking"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
+     <link rel="stylesheet" href="css/Style.css">
+	 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <meta charset="ISO-8859-1">
 <title>HomePage</title>
+      <script type="text/javascript" src="script/StudentHomePageScript.js" ></script>
+	  <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	  
 
 <%
 	//LISTA ROOM 
@@ -23,36 +30,9 @@ List<Ranking> Rankings = new ArrayList<>();
 Rankings = (List<Ranking>) session.getAttribute("Rankings");
 %>
 
-<style>
-#welcome {
-text-align: center;
-margin-top: 15%;
-font-family: fantasy;
 
 
-}
-
-#block_1{
-text-align: center;
-}
-
-img {
-	cursor: pointer;
-}
-
-button {
-	cursor: pointer;
-}
-
-
-body {
-	background-image: url("images/backgroundHome.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-</style>
-
-<script type="text/javascript">
+<!--  <script type="text/javascript">
 	var id_room = localStorage.getItem("id_room");
 	var room_password = localStorage.getItem("room_password");
 
@@ -125,80 +105,68 @@ body {
 		}
 		
 	}
-</script>
+</script>-->
 </head>
-<body onload="load()">
 
+<body >
 
-
-<h1>TITOLO SW</h1>
-	<h1 id="welcome">
+<div class="introDue" >
+<div class="HomeHead">
+<button class= "btnLogout" id= "logout" type="button" name="esci" value="Logout" onClick="logout()" >Logout</button>
+</div>
+<div class="boxStHome">
+<h1 id="welcome">
 		Benvenuto
-		<%=user.getName()%>!
+		<%=user.getName()%>,
+		 ora tocca a te!
 	</h1>
+	<button class="btnHome mb-3 " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Gioca</button>
+	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/trophy.png">Punteggi</button>
+	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/infoLogo.png">Info</button>
+		
+		
+		<!--  <input type="button" value="Stanze" id="listaS"onclick="show(2)"> 
+		<input type="button" value="Punteggi" id="listaP" onclick="show(4)">
+		<input type="button"value="Regole" id="rules" onclick="show(5)">-->
+		
 
-	<div name="main" id="block_1">
-
-		<input id= "logout" type="button" name="esci" value="Logout" onClick="logout()" />
-		<input type="button" value="Stanze" id="listaS"
-			onclick="show(2)"> <input type="button" value="Punteggi"
-			id="listaP" onclick="show(4)"> <input type="button"
-			value="Regole" id="rules" onclick="show(5)">
-
-	</div>
+</div>
 
 
 
-	<div id="block_2">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog d-flex flex-column align-items-center ">
+    
+	
 		<%if(Rooms.isEmpty()){%>
 			<p>Non ci sono stanze visualizzabili! </p>
 		<%}
 		int roomCount = 1;
 		for (Room room : Rooms) {
 		%>
-		
-		<p><b> Titolo: </b><%=room.getTitle()%> </p>
+		<div class="thumbnailRoom d-flex flex-column align-items-center p-4 mt-4 mb-4 justify-content-center">
+		<p>"<%=room.getTitle()%> "</p>
 		<p>
-			<b>Stanza:</b><a><img id="image_<%=roomCount%>" height="62"
-				width="62" src="images/<%=room.getThumbnail()%>.jpg"
-				alt="<%=room.getThumbnail()%> "
-				onclick="show(3); movePassword(this)"></a><br> <br>
+			<button class="thumbnailButton" data-bs-toggle="modal" data-bs-target="#exampleModal4" data-bs-whatever="@mdo"><img id="image_<%=roomCount%>"  src="images/<%=room.getThumbnail()%>.jpg" alt="<%=room.getThumbnail()%> " onclick=" movePassword(this)"></button>
 		<p>
-			<b>Creatore stanza:</b><%=room.getProfSurname()%> <%=room.getProfName()%><br> <br>
+			<b>Professore: </b><%=room.getProfSurname()%> <%=room.getProfName()%>
 		<p>
-			<b>Materia:</b><%=room.getSubject()%><br> <br> <input
-				id="id_room_<%=roomCount%>" type="hidden"
-				value="<%=room.getIdRoom()%>"> <input
-				id="room_password_<%=roomCount%>" type="hidden"
-				value="<%=room.getPassword()%>">
+			<b>Materia: </b><%=room.getSubject()%> <input id="id_room_<%=roomCount%>" type="hidden" value="<%=room.getIdRoom()%>"> <input id="room_password_<%=roomCount%>" type="hidden" value="<%=room.getPassword()%>">
+	    </div>
 			<%
 				roomCount++;
+			
 			}
 			%>
 		
-	</div>
-
-
-
-
-
-	<form id="block_3" action="./Game" method="POST" onsubmit="return false;">
 	
-		<div style ="margin: auto;">
-		<h1>Password di accesso</h1>
-		<input type="password" id="password" value="" placeholder="password" />
-		<input id="id_room" name="id_room" type="hidden" value= "">
-		<input type="submit" id="button" name="accedi" value="Accedi" onclick="passwordCheck()" />
-	   </div>
-
-	</form>
+</div>
+</div>
 
 
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog d-flex flex-column align-items-center p-5">
 
-
-
-
-	<div id="block_4">
 		<%if(Rankings.isEmpty()){%>
 		<p> Non sono presenti punteggi!</p>
 		<%
@@ -237,12 +205,21 @@ body {
 		%>
 
 
-	</div>
+	
 
 
+</div>
+</div>
 
-<div id="block_5">
-<p>		        Osserva la stanza e gli oggetti che la compongono, se noti
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog d-flex flex-column align-items-center ">
+ 
+ 
+
+<p class= "p-5">		      
+                
+                Osserva la stanza e gli oggetti che la compongono, se noti
 				qualcosa di strano o se qualcosa attira la tua attenzione clicca
 				quell'area.
 			    Se la tua intuizione è giusta sarai rimandato ad un
@@ -250,8 +227,50 @@ body {
 				quell'oggetto dove ti sembra più utile e sblocca altri minigiochi.
 				Attento però, durante i minigiochi cerca di fare meno errori
 				possibili per ottenere un punteggio più alto a fine partita!  </p>
+ 
+  
+  </div>
+  </div>
+  
+  <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog d-flex flex-column align-items-center" style="
+    min-height: 611px;">
+  
+  <form  id="block_3" action="./Game" method="POST" onsubmit="return false;">
+	
+		
+		<h1>Password di accesso</h1>
+		<input class="form-control text2" type="password" id="password" value="" placeholder="password" />
+		<input id="id_room" name="id_room" type="hidden" value= "">
+		<input class="btnA" type="submit" id="button" name="accedi" value="Accedi" onclick="passwordCheck()" />
+	   
+
+	</form>
+	</div>
+	</div>
+<div class="foot">
+<p>Copyright2020</p>
+</div>
 
 </div>
+
+
+
+
+
+	  
+<!-- onload="load()"
+show3(); -->
+
+
+
+
+
+	
+
+
+
+
 
 </body>
 </html>

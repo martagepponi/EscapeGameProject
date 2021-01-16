@@ -21,23 +21,15 @@ session.setAttribute("prize", minigame.getPrize());
 <meta charset="ISO-8859-1">
 <title>Affinity</title>
 
-<style>
-/* /* Google Fonts */
-
-/* @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);  */
-/*  Global  */
-html {
-	min-height: 100%;
-	overflow: hidden;
-}
-
+<style type="text/css">
 body {
 	height: calc(100vh - 8em);
 	padding: 4em;
 	color: rgba(255, 255, 255, .75);
-	font-family: 'Anonymous Pro', monospace;
+	font-family: 'Bitter';
 	background-color: rgb(25, 25, 25);
 }
+
 
 .line-1 {
 	position: relative;
@@ -95,8 +87,10 @@ to {
   padding: 15px 32px;
   text-align: center;
 
-}
+
+
 </style>
+
 
 <script>
 var hintRequested = 0;

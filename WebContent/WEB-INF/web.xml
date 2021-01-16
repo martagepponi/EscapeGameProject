@@ -19,6 +19,6 @@
     <param-value>com.mysql.cj.jdbc.Driver</param-value>
   </context-param>
   <welcome-file-list>
-    <welcome-file>Login.html</welcome-file>
+    <welcome-file>HomePage.html</welcome-file>
   </welcome-file-list>
 </web-app>

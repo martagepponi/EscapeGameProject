@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+		<link rel="stylesheet" href="css/Style.css">
+	 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <%  
 	Subject subject = null;
 		    
@@ -26,18 +28,14 @@
  %>
 <meta charset="ISO-8859-1">
 <title>EscapeGame</title>
-
+		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <style>
+/*
 #demo {
   text-align: center;
   font-size: 60px;
   
 }
-
-
-
-/* TITOLO   */
-
 
 
 #title{
@@ -47,23 +45,7 @@ font-size: 100px;
 
 }
 
-/*  FINE TITOLO   */
 
-/*  INTRODUZIONE   */
-
-
- 
- 
-
-
-/*  FINE INTRODUZIONE   */
-
-
-
-body { 
-background-color: #2F4F4F; 
-font-family: 'Anonymous Pro', monospace;
- } 
 img {
 	display: block;
 	margin: 0px auto;
@@ -93,7 +75,7 @@ img {
 	width: 150px;
 }
 
-/* comandi per scorrimento spiegazioni */
+
 #image_start {
 	cursor: pointer;
 	position: absolute;
@@ -102,22 +84,6 @@ img {
 	height: 100px;
 	width: 100px;
 	z-index: 1;
-}
-
-
-
-
-
-#start2 {
-	position: absolute;
-	top: 70%;
-	left: 47%;
-	z-index: 1;
-}
-
-#wall {
-	filter: grayscale(100%);
-	-webkit-filter: grayscale(100%);
 }
 
 .arrow {
@@ -140,13 +106,13 @@ img {
 }
 
 #top_right {
-	/*Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazare div (o altro) in modo dinamico*/
+	Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazare div (o altro) in modo dinamico
 	position: absolute;
-	/*Grazie al posizionamento fluid (ovvero con percentuali) il nostro div si adattera' automaticamente allo schermo di tutte le risoluzioni*/
+	Grazie al posizionamento fluid (ovvero con percentuali) il nostro div si adattera' automaticamente allo schermo di tutte le risoluzioni
 	right: 6%;
 	top: 4%;
 	border: black solid;
-	/*Dimensioni e background*/
+	Dimensioni e background
 	width: 200px;
 	height: 200px;
 	background-color: #92a8d1;
@@ -177,6 +143,7 @@ th.box {
 	padding-bottom: 20px;
 	margin-bottom: 20px;
 }
+*/
 </style>
 
 <script>
@@ -604,9 +571,6 @@ function viewObject(object){
 
 
 
-
-
-
 function removeChild(cell){					//funzione che elimina i figli di un elemento
 	for(j=0; j<cell.childElementCount; j=j){			//j non ha bisognio di aumentare visto che il number dei figli diminuirà
 		cell.removeChild(cell.childNodes[0]); 	//elimino sempre il primo elemento della pila di figli
@@ -643,39 +607,31 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 	
 
 	
-
 </script>
 
-
+<!-- PAGINA -->
 
 </head>
-<body onload="load()">
+
+<body class= "game" onload="load()">
 
 	<%if(subject != null){ %>
 
-
-
-
 	<div id="titleDiv">
-		<br>
-		<%
+		<div id="introduction" class="d-flex flex-column align-items-center">
+			<%
 			if (title.equalsIgnoreCase("Un brutto risveglio")) {
 		%>
 		<h1 id="title">
 			"<%=title %>"
 		</h1>
-
-
-
-		<div id="introduction" class="wrapper">
-			<p id="p">
+			<p>
 			Sei un giovane investigatore e sei stato rapito <br>
 			prima di poter rivelare il nome di un famigerato assassino.<br>
 			ESCI DALLA STANZAE SVELA AL MONDO LA SUA IDENTITA'<br>
 		    PRIMA CHE COLPISCA ANCORA!</p>
-            <input type="button"  id="avanti" value="Salta" onclick="startGame1()">
+            <button class="btn-game" id="avanti" value="Salta" onclick="startGame1()">Salta</button>
 		</div>
-		
 
 		<%
 			}
@@ -683,27 +639,19 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 	</div>
 
 
-
 	<div id="start2">
-		<input id="startButton" type="button" value="Inizia"
+		<input id="startButton" class="btn-game" type="button" value="Inizia"
 			onclick="startGame2();loadClickableObjects(<%=id_room%>); startMusic() ">
 	</div>
 
 
-
 	<audio id="myAudio">
 		<source src="music/findthem.mp3" type="audio/mpeg">
-
 	</audio>
 
 
-	<div id="musicButton" align="center">
-		<button onclick="pauseMusic()" type="button">Pause Audio</button>
-
-		<button onclick="startMusic()" type="button">Play Audio</button>
-	</div>
-
-	<div id="game">
+	
+	<div id="game" class=" ">
 
 		<img id="wall"
 			src="images/<%=subject.getName()%>/<%=subject.getWall1()%>.jpg">
@@ -716,12 +664,20 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 		</div>
 
 	</div>
+	
+	<div id="musicButton" align="center">
+		<img src="images/audioOff.png" onclick="pauseMusic()" >
+
+		<img src="images/audioOn.png" onclick="startMusic()" >
+	</div>
+	
 
 
 	<div id="top_right">
+		<p>INVENTARIO</p>
 		<table>
 			<tr>
-				<th class="inventory">INVENTARIO</th>
+				<th class="inventory"></th>
 			</tr>
 			<% if(session.getAttribute("first_time").equals("NO")){%>
 			<tr>
@@ -738,9 +694,10 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 	<!-- PANEL INFO BOX -->
 
 	<div id="panel">
+	<p>NOTE</p>
 		<table>
 			<tr>
-				<th class="box">INFO BOX</th>
+				<th class="box"></th>
 			</tr>
 			<tr>
 				<td id="cell"></td>

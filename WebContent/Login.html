@@ -1,148 +1,157 @@
 <!DOCTYPE html>
 <html>
-
-
-
 <head>
 	<link rel="stylesheet" href="css/Style.css">
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
 	<meta charset="ISO-8859-1">
 	<title>Login</title>
 	<script type="text/javascript" src="script/Login.js?v=2" defer></script>
-
-
-
-
-<style>
-@import url(http://fonts.googleapis.com/css?family=Satisfy);
-
-body {
- background-image: url("images/background.jpg");
-background-repeat: no-repeat;
-background-size: cover; 
-}
-
-.DivForm1{
-
-position: absolute;
-    top: 17%;
-    left: 35%;
-}
-
-.quote-container {
-  margin-top: 50px;
-  position: relative;
-}
-
-
-.note {
-  color: #333;
-  position: relative;
-  width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Satisfy;
-  font-size: 30px;
-  box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
-}
-
-.yellow {
-  background: #eae672;
-
-}
-
-
-.pin {
-  background-color: #aaa;
-  display: block;
-  height: 32px;
-  width: 2px;
-  position: absolute;
-  left: 50%;
-  top: -16px;
-  z-index: 1;
-}
-
-.pin:after {
-  background-color: #A31;
-  background-image: radial-gradient(25% 25%, circle, hsla(0,0%,100%,.3), hsla(0,0%,0%,.3));
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px hsla(0,0%,0%,.1),
-              inset 3px 3px 3px hsla(0,0%,100%,.2),
-              inset -3px -3px 3px hsla(0,0%,0%,.2),
-              23px 20px 3px hsla(0,0%,0%,.15);
-  content: '';
-  height: 12px;
-  left: -5px;
-  position: absolute;
-  top: -10px;
-  width: 12px;
-}
-
-
-
-
-.pin:before {
-  background-color: hsla(0,0%,0%,0.1);
-  box-shadow: 0 0 .25em hsla(0,0%,0%,.1);
-  content: '';
-
-  height: 24px;
-  width: 2px;
-  left: 0;
-  position: absolute;
-  top: 8px;
-
-  transform: rotate(57.5deg);
-  -moz-transform: rotate(57.5deg);
-  -webkit-transform: rotate(57.5deg);
-  -o-transform: rotate(57.5deg);
-  -ms-transform: rotate(57.5deg);
-
-  transform-origin: 50% 100%;
-  -moz-transform-origin: 50% 100%;
-  -webkit-transform-origin: 50% 100%;
-  -ms-transform-origin: 50% 100%;
-  -o-transform-origin: 50% 100%;
-}
-
-#username, #password{
-
-border: none;
-}
-
-
-</style>
-
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="script/Registration.js?v=1" defer></script>
 </head>
 
 <body>
 
+<div class="intro " >
 
 
+<div class="boxLogin" >
 
-	<div class="DivForm1">
+				<img src="images/logo.png">	
+				<button class="btn2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><img src="images/user.png">Accedi</button>  <br>		    
+			    <div class="btnCont">
+				<button class="btn2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/user2.png">Registrati come studente</button> <br>	
+				<button class="btn2"data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@getbootstrap"><img src="images/user2.png">Registrati come docente</button> <br>
+				</div>	
+</div>
 
+
+<!-- Modal1 -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog d-flex flex-column align-items-center ">
+    
+    
+      <form  name="Form1" onsubmit="return false;"class= "quote-container" >
+			<img src="images/logo.png">
+
+			<input type= "text" class="form-control text1" placeholder="Username" name="username" id="username" required>
+			<input type="password" class="form-control text1" placeholder="Password" name="pwd" id="password" required>	
+			<input type="submit" class="btnA" value="Accedi" id="login_button"> 	
+			
+		</form>
+       
+   
+    
+  </div>
+</div>
+
+<!-- Modal2 -->
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog d-flex flex-column align-items-center ">
+    
+    
+      <form name="studentForm" onsubmit="return false;"class= "quote-container" >
 		
+			<img src="images/logo.png">
+			<input type="text" class="form-control text2" placeholder="Name" name="name" id="name" required><br>
+			<input type="text" class ="form-control text2" placeholder="Surname" name="surname" id="surname" required><br>
+			<input type="text" class="form-control text2" placeholder="Username" name="username" id="Username" required><br>
+			<div class="error" id="error_pwd" style="display:none;">La password non corrisponde!</div>
+			<input type="password" class="form-control text2" placeholder="Password" name="pwd1" id="password" required><br>
+			<input type="password" class="form-control text2" placeholder="Repeat Password" name="pwd2" id="password2" required><br>
+			<input type="submit" class="btnA" value="Registrati" id="register1">
+			
+		</form>
+   
+    
+  </div>
+</div>
+
+
+
+<!-- Modal3 -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog d-flex flex-column align-items-center ">
+    
+    
+   	<div class="DivForm" id ="DivForm">
 		
-		
-		<form  name="Form1" onsubmit="return false;" class="quote-container">
-			 <i class="pin"></i>
-		<blockquote class="note yellow">
-			<h2 style="text-align: center;">Login</h2>
-			<label for="username" id="label_username">Username: </label>
-			<input type= "text" placeholder="Username" name="username" id="username" required> <br>
-			<label for="password" id="label_password">Password: </label>
-			<input type="password" placeholder="Password" name="pwd" id="password" required><br>		
-			<div class="button">
-				<input type="submit" value="Accedi" id="login_button"> <br>
-				
-			<a href= "./StudentRegistration.html"> Registrati come Studente </a> <br>
-			<a href= "./ProfRegistration.html"> Registrati come Docente </a>
+		<form class="pt-5" name="Form" onsubmit="return false;">
+			<label for="code" id="label_code">Inserisci codice: </label>
+			 <input type="text" class ="form-control text2" placeholder="Codice" name="code" id="code" required>
+				<div class="button1">				
+				</a> &nbsp; <input type="submit" class="btnA" value="ok" id="ok">
 			</div>
-			</blockquote>
+		</form>
+	</div>
+
+
+
+	<div class="DivForm2" id="DivForm2" style="display:none">
+	    <h1>Registrati</h1>
+		<form name="Form2" onsubmit="return false;">
+			<h2>Inserisci i tuoi dati:</h2>
+
+			
+			<label for="name" id="label_name">Nome: </label> <input type="text"
+				placeholder="Nome" name="name" id="name" required><br>
+
+			
+			<label for="surname" id="label_surname">Cogname: </label> <input
+				type="text" placeholder="Cogname" name="surname" id="surname"
+				required><br>
+
+
+            <label for="username" id="label_username">Username: </label>
+			<input type="text" placeholder="Username" name="username" id="Username" required><br>
+
+
+			<div class="error" id="error_pwd" style="display:none">La password non corrisponde!</div>
+			<label for="password" id="label_password">Password: </label> <input
+				type="password" placeholder="Password" name="pwd1" id="password"
+				required><br> 
+				
+				<label for="password2"
+				id="label_password2">Ripeti Password: </label> <input
+				type="password" placeholder="Password" name="pwd2" id="password2"
+				required><br>
+				
+				
+			<div class="button2">
+				<a href="./Login.html"><input type="button" value="Indietro">
+				</a> &nbsp; <input type="submit" value="Registrati" id="register2">
+			</div>
 		</form>
 
 	</div>
+   
+    
+  </div>
+</div>
+
+
+
+<div class=foot>
+<p>Copyright2020</p>
+</div>
+</div>
+
+	
 </body>
 
 </html>
+ <!--  <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+        -->
