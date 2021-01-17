@@ -16,7 +16,7 @@ function studentRegistration() {
 	var password = document.studentForm.pwd1.value;
 	var repetedPassword = document.studentForm.pwd2.value;
 	var type = "studente";
-
+    var error_pwd = document.getElementById("error_pwd");
 
 
 	if (password != repetedPassword) {
@@ -109,7 +109,7 @@ var registerProf = document.getElementById("register2");
 	var password = document.Form2.pwd1.value;
 	var repetedPassword = document.Form2.pwd2.value;
 	var type = "docente";
-
+    var error_pwd = document.getElementById("error_pwd");
 
 	if (password != repetedPassword) {
 		error_pwd.style.display = "block";

@@ -57,15 +57,7 @@ public class Registration extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
-		HttpSession session = request.getSession();
-		User user =(User) session.getAttribute("user");
-		
-		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
-		if(session.isNew() || user == null) {
-			System.out.println("redirect a login -...");
-			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
-		}else { //se sessione non è nuova e utente è in sessione
-		
+	
 		//VALIDAZIONE CODICE INIZIALE
 	    String Stringcode = request.getParameter("code");
 	    if (Stringcode != null) {
@@ -118,7 +110,7 @@ public class Registration extends HttpServlet {
 	  			//ERRORE CAMPI NON RIEMPITI
 	  		}
 	}
-	}
+	
 	
 	public void destroy() {
 		try {

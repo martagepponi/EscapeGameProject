@@ -243,7 +243,6 @@ function startGame1(){
     document.getElementById("start2").style.display = 'block';
     document.getElementById("arrows").style.display = 'none';
     document.getElementById("musicButton").style.display = 'none';
-	
 }
 
 
@@ -328,34 +327,40 @@ function startGame2(){
 		
 			document.getElementById("area" + number).coords= getObject(objects[0]);	
 			//alert(document.getElementById("area" + number).coords);
+			
+			//la prima volta che vedo muro1 lo carico delle mappe contenenti oggetti cliccabili ma che non portano a minigiochi
+			 //document.getElementById("wall").setAttribute("usemap", "#point" + number); //AGGIUNTA
+			
+			
+			
 			//conto number di minigame
-			<% 
-			int minigameNumber = 1;
-			if(session.getAttribute("first_time").equals("NO")){
-			  minigameNumber = Integer.parseInt((String)session.getAttribute("minigameNumber"));
-			  ++ minigameNumber;
-			  if(minigameNumber == 4){%>
+			<%int minigameNumber = 1;
+
+if (session.getAttribute("first_time").equals("NO")) {
+	minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
+	++minigameNumber;
+	if (minigameNumber == 4) {%>
 			  alert("funzione timer");
 				 timerStart();
-				  <%   }
-			  session.setAttribute("minigameNumber", "" + minigameNumber);
-		
-			}else{
+				  <%}
+				session.setAttribute("minigameNumber", "" + minigameNumber);
+
+			} else {
 				//è la prima volta
 				System.out.println("metto wall prima volta");
 				session.setAttribute("minigameNumber", "1");
 				session.setAttribute("wall", "1");
-			}
-			%>
-			minigameNumber = "<%= minigameNumber%>";
+			}%>
+			minigameNumber = "<%=minigameNumber%>";
 			//
 			document.getElementById("area"+ number).href="./Minigame";
 			//alert("#point" + number);
 			
-			if(referenceWall == "<%=subject.getWall1()%>")
-			  document.getElementById("wall").setAttribute("usemap", "#point" + number);
-	
-	}
+			if(referenceWall == "<%=subject.getWall1()%>"){
+			 document.getElementById("wall").setAttribute("usemap", "#point" + number);
+			}
+	        }
+
 	
 function timerStart(){
 	  var now = new Date().getTime();
@@ -605,15 +610,13 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 		
 	}
 	
-
-	
 </script>
 
 <!-- PAGINA -->
 
 </head>
 
-<body class= "game" onload="load()">
+<body class= "game" onload="load(); ">
 
 	<%if(subject != null){ %>
 
@@ -628,7 +631,7 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 			<p>
 			Sei un giovane investigatore e sei stato rapito <br>
 			prima di poter rivelare il nome di un famigerato assassino.<br>
-			ESCI DALLA STANZAE SVELA AL MONDO LA SUA IDENTITA'<br>
+			ESCI DALLA STANZA E SVELA AL MONDO LA SUA IDENTITA'<br>
 		    PRIMA CHE COLPISCA ANCORA!</p>
             <button class="btn-game" id="avanti" value="Salta" onclick="startGame1()">Salta</button>
 		</div>
