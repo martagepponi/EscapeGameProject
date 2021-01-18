@@ -10,6 +10,7 @@ public class Hangmangame extends AbstractMinigame {
 	protected String displayWord;
 	protected int errorNumber;
 	protected boolean hintSelected;
+	protected String selectedLetter;
 	
 	//COSTRUTTORE
 	public Hangmangame(int idMinigame, String type, int idSubject, int idHangman, String word, 
@@ -24,14 +25,19 @@ public class Hangmangame extends AbstractMinigame {
 		displayWord = this.buildDisplay(word);
 		errorNumber = 0;
 		hintSelected = false;
+		selectedLetter = "";
 		
 	}
+
+	
 
 	public Hangmangame() {
 		super();
 		// TODO Auto-generated constructor stub
 		errorNumber = 0;
 		hintSelected = false;
+		selectedLetter = "";
+		
 	}
 
 	protected String buildDisplay(String word) {
@@ -124,6 +130,14 @@ public class Hangmangame extends AbstractMinigame {
 
 	public void setHintSelected(boolean hintSelected) {
 		this.hintSelected = hintSelected;
+	}
+	
+	public String getSelectedLetter() {
+		return selectedLetter;
+	}
+
+	public void setSelectedLetter(String selectedLetter) {
+		this.selectedLetter = selectedLetter;	
 	}
 	
 	

@@ -85,6 +85,7 @@ public class HangmanGame extends HttpServlet {
 		 	String question2 = minigame.getQuestion2();
 		 	int errorNumber = minigame.getErrorNumber();
 		 	String prize = minigame.getPrize();
+		 	String selectedLetter=minigame.getSelectedLetter();
 		 	System.out.println("question2:" + question2);
 		 	System.out.println("prize:" + prize);
 		 	
@@ -93,7 +94,11 @@ public class HangmanGame extends HttpServlet {
 		 	String action = request.getParameter("action");
 		 	if ("selectLetter".equals(action)) {
 		 		String letter = request.getParameter("letterSelected");
+		 		
 		 		if (letter.length() == 1) {
+		 			selectedLetter += letter;
+		 			retval.setSelectedLetter(selectedLetter);
+		 			minigame.setSelectedLetter(selectedLetter);
 			 		if (word.indexOf(letter) != -1)
 			 		{
 			 			int pos = 0;

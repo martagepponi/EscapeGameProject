@@ -13,6 +13,7 @@ session.setAttribute("prize", minigame.getPrize());
 	String question2 = minigame.getQuestion2();
 	System.out.println("question2:" + question2);
 	String errorNumber =""+minigame.getErrorNumber();
+	String selectedLetter = minigame.getSelectedLetter();
 %>
 <!DOCTYPE html>
 <html>
@@ -78,7 +79,8 @@ session.setAttribute("prize", minigame.getPrize());
 					alert("Sessione scaduta!");
 					document.location.href="/Login.html";
 				} else {
-					display_word = response.displayWord;					
+					display_word = response.displayWord;
+					used_letters = response.selectedLetter;
 					wrong_guesses = response.errorNumber;
 					if (response.outcome) {
 						if (response.finalOutcome == "W") {
@@ -96,6 +98,7 @@ session.setAttribute("prize", minigame.getPrize());
 			
 				
 				document.game.displayWord.value = display_word;
+				document.game.usedLetters.value = used_letters;
 				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
 				if (finalOutcome == "W") {
 					alert("Vinto!");
@@ -137,8 +140,8 @@ session.setAttribute("prize", minigame.getPrize());
 			return;
 		}
 
-		used_letters += l;
-		document.game.usedLetters.value = used_letters;
+		//used_letters += l;
+		//document.game.usedLetters.value = used_letters;
 
 		makeCall("GET", "HangmanGame?action=selectLetter&letterSelected=" + l, selectLetterResponse);
 
@@ -195,7 +198,7 @@ function makeCall(method, url, cback) {
 		<form name="game">
 			<p>
 				Parola: <input id="word" type="text" name="displayWord" value="<%=displayWord %>" readonly="true" /><br>
-				Lettere: <input type="text" name="usedLetters" readonly="true">
+				Lettere: <input type="text" name="usedLetters" value="<%=selectedLetter %>" readonly="true">
 			</p>
 		</form>
 

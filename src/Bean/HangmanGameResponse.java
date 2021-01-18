@@ -10,6 +10,7 @@ public class HangmanGameResponse {
 	protected int score;
 	protected String correctWord;
 	protected boolean sessionExpired;
+	protected String selectedLetter;
 	
 	public HangmanGameResponse() {
 		super();
@@ -19,6 +20,7 @@ public class HangmanGameResponse {
 		this.finalOutcome = "";
 		this.correctWord = "";
 		this.sessionExpired = false;
+		this.selectedLetter="";
 	}
 
 	public boolean isOutcome() {
@@ -84,5 +86,14 @@ public class HangmanGameResponse {
 	public void setSessionExpired(boolean sessionExpired) {
 		this.sessionExpired = sessionExpired;
 	}
+
+	public String getSelectedLetter() {
+		return selectedLetter;
+	}
+
+	public void setSelectedLetter(String selectedLetter) {
+		this.selectedLetter = selectedLetter;
+	}
+	
 
 }
