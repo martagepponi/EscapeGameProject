@@ -82,8 +82,6 @@ public class HomePage extends HttpServlet {
 				RoomDAO roomDAO = new RoomDAO(connection);
 				//RIPRENDO LA LISTA DELLE STANZE 
 				List<Room> Rooms1 = roomDAO.findAllRooms();
-				 
-				
 				RankingDAO rankingDAO = new RankingDAO(connection);
 				
 				List<Integer> allIdRooms = new ArrayList();

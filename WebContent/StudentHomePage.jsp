@@ -147,11 +147,14 @@ Rankings = (List<Ranking>) session.getAttribute("Rankings");
 		<div class="thumbnailRoom d-flex flex-column align-items-center p-4 mt-4 mb-4 justify-content-center">
 		<p>"<%=room.getTitle()%> "</p>
 		<p>
-			<button class="thumbnailButton" data-bs-toggle="modal" data-bs-target="#exampleModal4" data-bs-whatever="@mdo"><img id="image_<%=roomCount%>"  src="images/<%=room.getThumbnail()%>.jpg" alt="<%=room.getThumbnail()%> " onclick=" movePassword(this)"></button>
+			<button class="thumbnailButton" data-bs-toggle="modal" data-bs-target="#exampleModal4" data-bs-whatever="@mdo">
+			<img id="image_<%=roomCount%>"  src="images/<%=room.getThumbnail()%>.jpg" alt="<%=room.getThumbnail()%> " onclick=" movePassword(this)"></button>
 		<p>
 			<b>Professore: </b><%=room.getProfSurname()%> <%=room.getProfName()%>
 		<p>
-			<b>Materia: </b><%=room.getSubject()%> <input id="id_room_<%=roomCount%>" type="hidden" value="<%=room.getIdRoom()%>"> <input id="room_password_<%=roomCount%>" type="hidden" value="<%=room.getPassword()%>">
+			<b>Materia: </b><%=room.getSubject()%> 
+			<input id="id_room_<%=roomCount%>" type="hidden" value="<%=room.getIdRoom()%>">
+			 <input id="room_password_<%=roomCount%>" type="hidden" value="<%=room.getPassword()%>">
 	    </div>
 			<%
 				roomCount++;

@@ -58,15 +58,8 @@ public class Game extends HttpServlet {
  HttpSession session = request.getSession(true);
 		
 		session.removeAttribute("Minigame");
-
-         //session.getAttribute("subject");
-		//System.out.println("MATERIAAAAA:" + session.getAttribute("subject"));
-		//String first_time = (String) session.getAttribute("first_time");
-		
-		
 		request.getRequestDispatcher("/Game.jsp").forward(request, response);
-//		
-//		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,6 +74,7 @@ public class Game extends HttpServlet {
 		}else { //se sessione non è nuova e utente è in sessione
 		
 			session.removeAttribute("Minigame");
+			//viene da studentHomePageScript.js
 			String id_room = request.getParameter("id_room");
 			System.out.println("id_room:" + id_room);
 			int idroom = Integer.parseInt(id_room);

@@ -306,8 +306,7 @@ function startGame2(){
 		var map ="#point" + number;
 		wall.setAttribute("usemap", map);
 	}
-	
-	
+
 	
 
 	//------------------------PERCORSI :--------------------------------
@@ -356,8 +355,14 @@ if (session.getAttribute("first_time").equals("NO")) {
 			document.getElementById("area"+ number).href="./Minigame";
 			//alert("#point" + number);
 			
-			if(referenceWall == "<%=subject.getWall1()%>"){
+			if(referenceWall == "<%=subject.getWall1()%>" ){
 			 document.getElementById("wall").setAttribute("usemap", "#point" + number);
+			} 
+			//AL RITORNO DA UN MINIGAME CARICO MAPPE CLICCABILI SU MURO1 
+			else{
+				var number = 1;
+				wall.src = "images/<%=subject.getName()%>/muro"+number+".jpg";
+				document.getElementById("wall").setAttribute("usemap", "#point" + number);
 			}
 	        }
 
