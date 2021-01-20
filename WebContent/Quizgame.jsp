@@ -18,9 +18,11 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 <!DOCTYPE html>
 <html>
 <head>
+		<link rel="stylesheet" href="css/Style.css">
+	 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <meta charset="ISO-8859-1">
 <title>Quiz</title>
-
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <style>
 .button{
  background-color: #4CAF50;

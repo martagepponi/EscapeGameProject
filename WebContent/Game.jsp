@@ -368,6 +368,8 @@ if (session.getAttribute("first_time").equals("NO")) {
 
 	
 function timerStart(){
+	
+	 document.getElementById("time").innerHTML = "Occhio al tempo!";
 	  var now = new Date().getTime();
 	// Set the date we're counting down to
 	var countDownDate = now + 30000;
@@ -386,12 +388,15 @@ function timerStart(){
 	  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 	    
 	  // Output the result in an element with id="demo"
+	 
 	  document.getElementById("demo").innerHTML = seconds + "s ";
 	    
 	  // If the count down is over, write some text 
 	  if (distance < 0) {
-	    clearInterval(x);
-	    document.getElementById("demo").innerHTML = "TEMPO SCADUTO";
+		  document.getElementById("time").innerHTML = "";
+		  document.getElementById("demo").innerHTML = "";
+	    clearInterval(x);	    
+	    document.getElementById("timeEx").innerHTML = "TEMPO SCADUTO";
 	    window.location = '/EscapeGameProject/finalPage.jsp';
 	  }
 	}, 1000);
@@ -663,12 +668,18 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 
 		<img id="wall"
 			src="images/<%=subject.getName()%>/<%=subject.getWall1()%>.jpg">
-		<div id="arrows">
-		<div id="demo"></div>
+			
+		<div id="arrows">		
 			<img class="arrow" id="left_arrow"
-				src="images/left-arrow.png" onclick="imageScroll(this)"> <img
-				class="arrow" id="right_arrow" src="images/right-arrow.png"
+				src="images/leftArrow.png" onclick="imageScroll(this)"> <img
+				class="arrow" id="right_arrow" src="images/rightArrow.png"
 				onclick="imageScroll(this)">
+		</div>
+		
+		<div id= counter>
+		<p id = timeEx></p>
+		<p id = "time"></p>
+		<p id="demo"></p>
 		</div>
 
 	</div>

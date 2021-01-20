@@ -314,6 +314,7 @@ font-family: 'Bitter'!important;
 	background-image: url(../images/bg3B.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
+	overflow: hidden!important;
 }
 
 #titleDiv {
@@ -418,8 +419,8 @@ margin-left: 5px;
 	position: absolute;
 	width: 810px;
 	height: 648px;
-	left: 294px;
-    top: 20px;
+	left: 23.6%;
+    top: 2%;
 	filter: grayscale(100%);
 	-webkit-filter: grayscale(100%);
 	border-radius: 30px;
@@ -428,19 +429,19 @@ margin-left: 5px;
 .arrow {
 	cursor: pointer;
 	position: absolute;
-	height: 100px!important;
-	width: 100px!important;
+	height: 80px!important;
+	width: 80px!important;
 }
 
 #right_arrow {
-	top: 70%;
-	right: 150px;
+	top: 67%;
+	right: 14%;
 	z-index: 1;
 }
 
 #left_arrow {
-	top: 70%;
-	left: 150px;
+	top: 67%;
+	left: 14%;
 	z-index: 1;
 }
 
@@ -448,7 +449,7 @@ margin-left: 5px;
 	/*Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazare div (o altro) in modo dinamico*/
 	/*Grazie al posizionamento fluid (ovvero con percentuali) il nostro div si adattera' automaticamente allo schermo di tutte le risoluzioni*/
 	right: 2%;
-	top: 10%;
+	top: 5%;
 	position: absolute;
 	border-radius: 30px;
 	width: 280px;
@@ -470,7 +471,7 @@ th.inventory {
 	position: absolute;
 	border-radius: 30px;
 	left: 2%;
-	top: 10%;
+	top: 5%;
 	width: 280px;
 	height: 400px;
 	background-image: url(../images/paper.png);
@@ -491,7 +492,7 @@ th.inventory {
 
 #musicButton {
 	position: absolute;
-	left: 20%;
+	left: 14%;
 	bottom: 5%;
 }
 
@@ -507,5 +508,60 @@ th.inventory {
 	transition: linear 1s ease;
 }
 
+#obj3{
+	left:5%;
+}
 
+#obj4{
+	left:8%;
+}
+#demo{	
+	font-size:40px;
+	text-align: center;	
+}
 
+#counter{
+	
+	position:absolute;
+	left: 2%;
+	font-size:20px;
+	color: #f9f9f9;
+	top:72%; 
+	align-items: center;
+	z-index: 1;
+}
+
+/*hangmanGame*/
+.hangmanGame{
+	background-image: url(../images/bgBox.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	overflow: hidden!important;
+	
+}
+.hangmanGame h1,h2{
+	margin-top: -15px!important; 
+    margin-bottom: 1.5rem; 
+    font-weight: 500;
+    line-height: 3!important;
+}
+#hngImg{
+	height: 170px!important;
+	 
+	width: 102px!important;
+}
+
+#textBoxForm {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	padding-top: 35px;
+}
+#textBoxForm input{
+    width: 80%;
+    margin: 8px 10px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    padding: 3px;
+    text-align: center;
+}

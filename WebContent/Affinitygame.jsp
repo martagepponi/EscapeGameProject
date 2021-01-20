@@ -18,9 +18,11 @@ session.setAttribute("prize", minigame.getPrize());
 <!DOCTYPE html>
 <html>
 <head>
+        <link rel="stylesheet" href="css/Style.css">
+	 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <meta charset="ISO-8859-1">
 <title>Affinity</title>
-
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
 	height: calc(100vh - 8em);

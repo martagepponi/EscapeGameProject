@@ -18,8 +18,11 @@ session.setAttribute("prize", minigame.getPrize());
 <!DOCTYPE html>
 <html>
 <head>
+		<link rel="stylesheet" href="css/Style.css">
+	 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <meta charset="ISO-8859-1">
 <title>Impiccato</title>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	//FUNZIONI HANGMANGAME
 
@@ -182,7 +185,8 @@ function makeCall(method, url, cback) {
 }
 </script>
 </head>
-<body onload="load()">
+        
+<body class= "hangmanGame" onload="load()">
 
 
 	<div id="Hangmangame" align="center">
@@ -192,13 +196,15 @@ function makeCall(method, url, cback) {
 		<h2 id="question1"><%=question1 %></h2>
 		<h2 id="question2" style="display: none;"></h2>
 		<p>
-			<img src="images/hangmangame/hm<%= errorNumber %>.gif" height="125" width="75"
-				name="hm">
+			<img id=hngImg src="images/hangmangame/hm<%= errorNumber %>.gif" name="hm">
 		</p>
-		<form name="game">
-			<p>
-				Parola: <input id="word" type="text" name="displayWord" value="<%=displayWord %>" readonly="true" /><br>
-				Lettere: <input type="text" name="usedLetters" value="<%=selectedLetter %>" readonly="true">
+		<form id="textBoxForm" name="game">
+			<p> 
+			   <label for="word">Parola</label><br>
+				 <input id="word" type="text" name="displayWord" value="<%=displayWord %>" readonly="true" /><br>
+				 <label for="usedLetters">Lettere utilizzate</label><br>
+				 <input id="usedLetters"type="text" name="usedLetters" value="<%=selectedLetter %>" readonly="true">
+				
 			</p>
 		</form>
 
@@ -242,10 +248,11 @@ function makeCall(method, url, cback) {
 	</audio>
 
 
+	
 	<div id="musicButton" align="center">
-		<button onclick="pauseMusic()" type="button">Pause Audio</button>
+		<img src="images/audioOff.png" onclick="pauseMusic()" >
 
-		<button onclick="startMusic()" type="button">Play Audio</button>
+		<img src="images/audioOn.png" onclick="startMusic()" >
 	</div>
 
 	</div>
