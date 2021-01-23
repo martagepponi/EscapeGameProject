@@ -29,122 +29,6 @@
 <meta charset="ISO-8859-1">
 <title>EscapeGame</title>
 		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<style>
-/*
-#demo {
-  text-align: center;
-  font-size: 60px;
-  
-}
-
-
-#title{
-text-align: center;
-margin-top:20px;
-font-size: 100px;
-
-}
-
-
-img {
-	display: block;
-	margin: 0px auto;
-	text-align: center;
-	height: 60%;
-	width: 60%;
-}
-
-.arpa {
-	height: 100px;
-	width: 50px;
-}
-
-.fireEx {
-	height: 100px;
-	width: 50px;
-}
-
-.ciotola {
-	height: 200px;
-	width: 150px;
-}
-
-#paint, #mobile, #bird, #phone, #plants, #box, #fiammiferi, #chair,
-	#flower, #horse, #pc, #dog, #photo, #lavagna {
-	height: 150px;
-	width: 150px;
-}
-
-
-#image_start {
-	cursor: pointer;
-	position: absolute;
-	top: 40%;
-	left: 47%;
-	height: 100px;
-	width: 100px;
-	z-index: 1;
-}
-
-.arrow {
-	cursor: pointer;
-	position: absolute;
-	height: 100px;
-	width: 100px;
-}
-
-#right_arrow {
-	top: 40%;
-	right: 150px;
-	z-index: 1;
-}
-
-#left_arrow {
-	top: 40%;
-	left: 150px;
-	z-index: 1;
-}
-
-#top_right {
-	Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazare div (o altro) in modo dinamico
-	position: absolute;
-	Grazie al posizionamento fluid (ovvero con percentuali) il nostro div si adattera' automaticamente allo schermo di tutte le risoluzioni
-	right: 6%;
-	top: 4%;
-	border: black solid;
-	Dimensioni e background
-	width: 200px;
-	height: 200px;
-	background-color: #92a8d1;
-	filter: grayscale(100%);
-	-webkit-filter: grayscale(100%);
-}
-
-th.inventory {
-	border-bottom: 3px solid #000;
-	padding-bottom: 20px;
-	margin-bottom: 20px;
-}
-
-#panel {
-	position: absolute;
-	border: black solid;
-	left: 2%;
-	top: 4%;
-	width: 250px;
-	height: 300px;
-	background-color: #92a8d1;
-	filter: grayscale(100%);
-	-webkit-filter: grayscale(100%)
-}
-
-th.box {
-	border-bottom: 3px solid #000;
-	padding-bottom: 20px;
-	margin-bottom: 20px;
-}
-*/
-</style>
 
 <script>
 <%
@@ -188,10 +72,7 @@ if("YES".equals(session.getAttribute("first_time"))) {
 
 var objectsAndWall = {"<%=object1%>":"<%=wall1%>", "<%=object2%>":"<%=wall2%>", "<%=object3%>":"<%=wall3%>", "<%=object4%>":"<%=wall4%>"};
 //alert("objects"+ objects);
-//localStorage.setItem("ordineClick", JSON.stringify(objectsAndWall));
  localStorage.setItem("objectsList", JSON.stringify(objects));
-// var a = JSON.parse(localStorage.getItem("ordineClick"));
-
 console.log(objects);
 
 
@@ -209,10 +90,6 @@ function checkObjectsAndWall(object, wallToCheck, clickOrder){
 
 
 
-
-
-    
-    
 function load(){
      document.getElementById("panel").style.display = 'none';
      document.getElementById("top_right").style.display = 'none';
@@ -228,14 +105,12 @@ function load(){
 	     document.getElementById("panel").style.display = 'block';
 	     document.getElementById("top_right").style.display = 'block';
 		 var music = document.getElementById("myAudio"); 
-		// document.getElementById("title").style.display = 'none';
 	     music.play();
 	}
 }
 
 function startGame1(){ 
 	
-//     document.getElementById("image_start").style.display = 'none';
      document.getElementById("panel").style.display = 'block';
 	 document.getElementById("top_right").style.display = 'block';
     document.getElementById("game").style.display = 'block';
@@ -313,25 +188,17 @@ function startGame2(){
 	function loadClickableObjects(id_room){
 		var wallNumber = document.getElementById("wall").src;
 		var number = parseInt(wallNumber.substring(wallNumber.indexOf(".") - 1, wallNumber.indexOf(".")));
-	
 			if(notFirstTime){
-			   number = wallNumberIncreased
+			   number = wallNumberIncreased;
 			}
 			var referenceWall = "muro" + number;
 			var objectName = objects[0];
 			if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
 				return false;
 			}
-			//alert(objectName + " presente nel " + referenceWall);
+			alert(objectName + " presente nel " + referenceWall + "coordinate " + getObject(objects[0]));
 		
 			document.getElementById("area" + number).coords= getObject(objects[0]);	
-			//alert(document.getElementById("area" + number).coords);
-			
-			//la prima volta che vedo muro1 lo carico delle mappe contenenti oggetti cliccabili ma che non portano a minigiochi
-			 //document.getElementById("wall").setAttribute("usemap", "#point" + number); //AGGIUNTA
-			
-			
-			
 			//conto number di minigame
 			<%int minigameNumber = 1;
 
@@ -342,20 +209,19 @@ if (session.getAttribute("first_time").equals("NO")) {
 			  alert("funzione timer");
 				 timerStart();
 				  <%}
-				session.setAttribute("minigameNumber", "" + minigameNumber);
+	session.setAttribute("minigameNumber", "" + minigameNumber);
 
-			} else {
-				//è la prima volta
-				System.out.println("metto wall prima volta");
-				session.setAttribute("minigameNumber", "1");
-				session.setAttribute("wall", "1");
-			}%>
+} else {
+	//è la prima volta
+	System.out.println("metto wall prima volta");
+	session.setAttribute("minigameNumber", "1");
+	session.setAttribute("wall", "1");
+}%>
 			minigameNumber = "<%=minigameNumber%>";
 			//
 			document.getElementById("area"+ number).href="./Minigame";
-			//alert("#point" + number);
-			
 			if(referenceWall == "<%=subject.getWall1()%>" ){
+			 alert("#point" + number);
 			 document.getElementById("wall").setAttribute("usemap", "#point" + number);
 			} 
 			//AL RITORNO DA UN MINIGAME CARICO MAPPE CLICCABILI SU MURO1 
@@ -397,7 +263,7 @@ function timerStart(){
 		  document.getElementById("demo").innerHTML = "";
 	    clearInterval(x);	    
 	    document.getElementById("timeEx").innerHTML = "TEMPO SCADUTO";
-	    window.location = '/EscapeGameProject/finalPage.jsp';
+	    setTimeout(function(){window.location.href = "./Minigame";}, 2000); 
 	  }
 	}, 1000);
 }
@@ -437,7 +303,7 @@ function viewObject(object){
 	if(object.id === "bird"){
 	 	var img = document.createElement('img');
 	    img.src = "images/bird.png";
-	 img.id ="bird";
+	    img.id ="bird";
 	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Un piccione, non ti è d'aiuto!");			
@@ -460,7 +326,7 @@ function viewObject(object){
 	if(object.id === "box"){
 	 	var img = document.createElement('img');
 	    img.src = "images/box.png";
-	   img.id ="box";
+	    img.id ="box";
 	    cell.appendChild(img);
 		var p =document.createElement("p");
 		var a = document.createTextNode("Questo baule non si apre...Chissà cosa ci sarà dentro!?");			
@@ -615,7 +481,17 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 			coordinates = "67,556,156,612";
 		if(name == "archibugio")
 			coordinates = "455,338,515,609";
-		//aggiungi altri objects
+		
+		//---------STANZA 2---------------
+// 		if(name == "oggetto1")
+// 			coordinates = "572,535,679,655";
+// 		if(name == "oggetto2")
+// 			coordinates = "225,404,284,530";
+// 		if(name == "oggetto3")
+// 			coordinates = "67,556,156,612";
+// 		if(name == "oggetto4")
+// 			coordinates = "455,338,515,609";
+// 		//aggiungi altri objects
 		return coordinates;
 		
 	}
@@ -643,12 +519,27 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 			prima di poter rivelare il nome di un famigerato assassino.<br>
 			ESCI DALLA STANZA E SVELA AL MONDO LA SUA IDENTITA'<br>
 		    PRIMA CHE COLPISCA ANCORA!</p>
+		    
+		    <%
+			}
+		%>
+			<%
+			if (title.equalsIgnoreCase("Il codice da Vinci")) {
+		%>
+			<h1 id="title">
+			"<%=title %>"
+		   </h1>
+			<p>
+			Sei un giovane ricercatore... Pochi passi ti separano dallo
+			 svelare il segreto di Leonardo da Vinci!</p>
+		
+		       <%
+			}
+		%>
             <button class="btn-game" id="avanti" value="Salta" onclick="startGame1()">Salta</button>
 		</div>
 
-		<%
-			}
-		%>
+		
 	</div>
 
 
@@ -679,7 +570,7 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 		<div id= counter>
 		<p id = timeEx></p>
 		<p id = "time"></p>
-		<p id="demo"></p>
+		<p id = "demo"></p>
 		</div>
 
 	</div>
