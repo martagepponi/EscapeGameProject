@@ -585,17 +585,22 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 
 	<div id="top_right">
 		<p>INVENTARIO</p>
-		<table>
+		<!--  <table>
 			<tr>
 				<th class="inventory"></th>
 			</tr>
 			<% if(session.getAttribute("first_time").equals("NO")){%>
 			<tr>
 			
-				<td><img src="images/<%=prize%>.png" class="<%=prize%>"></td>
+				<td><img id ="inventoryImage" src="images/<%=prize%>.png" class="<%=prize%>"></td>
 			</tr>
 			<%} %>
-		</table>
+		</table>-->
+		<div class="inventory">
+		<% if(session.getAttribute("first_time").equals("NO")){%>
+		<img id ="inventoryImage" src="images/<%=prize%>.png" class="<%=prize%>">
+		<%} %>
+		</div>
 	</div>
 
 	<%} %>

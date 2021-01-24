@@ -135,7 +135,7 @@ Rankings = (List<Ranking>) session.getAttribute("Rankings");
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog d-flex flex-column align-items-center ">
+  <div class="thumbnailCon modal-dialog d-flex flex-column align-items-center ">
     
 	
 		<%if(Rooms.isEmpty()){%>
@@ -236,8 +236,7 @@ Rankings = (List<Ranking>) session.getAttribute("Rankings");
   </div>
   
   <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog d-flex flex-column align-items-center" style="
-    min-height: 611px;">
+  <div class=" thumbnailCon modal-dialog d-flex flex-column align-items-center" style=" min-height: 611px;">
   
   <form  id="block_3" action="./Game" method="POST" onsubmit="return false;">
 	

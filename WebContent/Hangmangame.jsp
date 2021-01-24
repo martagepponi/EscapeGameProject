@@ -190,7 +190,7 @@ function makeCall(method, url, cback) {
 
 
 	<div id="Hangmangame" align="center">
-		<h1>Questo è il gioco dell&apos;Impiccato</h1>
+		<h1>Il gioco dell&apos;Impiccato</h1>
 
 
 		<h2 id="question1"><%=question1 %></h2>
@@ -203,7 +203,7 @@ function makeCall(method, url, cback) {
 			   <label for="word">Parola</label><br>
 				 <input id="word" type="text" name="displayWord" value="<%=displayWord %>" readonly="true" /><br>
 				 <label for="usedLetters">Lettere utilizzate</label><br>
-				 <input id="usedLetters"type="text" name="usedLetters" value="<%=selectedLetter %>" readonly="true">
+				 <input id="usedLetters"type="text" name="usedLetters" value="<%=selectedLetter %>" readonly="true" style="cursor:not-allowed;">
 				
 			</p>
 		</form>
@@ -263,16 +263,16 @@ function makeCall(method, url, cback) {
 <!-- 		DIV CON IMMAGINE ESTINTORE CHE APPARE A FINE MINIGIOCO -->
 
 
-<div id="fireExtinguisher" align="center" style="display: none;">
+<div id="fireExtinguisher" align="center" >
 
-<img src="images/<%=minigame.getPrize()%>.png" height="500" width="300">
+<img src="images/<%=minigame.getPrize()%>.png" height="250" width="150">
 
-<p align="center">  Hai trovato un oggetto.
+<p align="center">  Hai trovato un oggetto.<br>
                     Troverai questo oggetto nell'inventario, 
                     ritorna alla stanza e clicca nel punto in cui l'oggetto
                      trovato può risultarti utile! </p>
                      
-<a href="./Game"> <input type="button" value="Torna alla stanza" > </a>
+<a href="./Game"> <input type="button" class="btnA" value="Torna alla stanza" > </a>
 
 
 </div>

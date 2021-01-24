@@ -30,7 +30,7 @@
 <!-- Modal1 -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog d-flex flex-column align-items-center ">
+  <div class="LogSignForm modal-dialog d-flex flex-column align-items-center ">
     
     
       <form  name="Form1" onsubmit="return false;"class= "quote-container" >
@@ -51,7 +51,7 @@
 
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog d-flex flex-column align-items-center ">
+  <div class=" LogSignForm modal-dialog d-flex flex-column align-items-center ">
     
     
       <form name="studentForm" onsubmit="return false;"class= "quote-container" >
@@ -75,7 +75,7 @@
 
 <!-- Modal3 -->
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog d-flex flex-column align-items-center ">
+  <div class="LogSignForm modal-dialog d-flex flex-column align-items-center ">
     
     
    	<div class="DivForm" id ="DivForm">
@@ -92,38 +92,22 @@
 
 
 	<div class="DivForm2" id="DivForm2" style="display:none">
-	    <h1>Registrati</h1>
+	    
 		<form name="Form2" onsubmit="return false;">
-			<h2>Inserisci i tuoi dati:</h2>
+			<img src="images/logo.png">
 
 			
-			<label for="name" id="label_name">Nome: </label> <input type="text"
-				placeholder="Nome" name="name" id="name" required><br>
-
-			
-			<label for="surname" id="label_surname">Cogname: </label> <input
-				type="text" placeholder="Cogname" name="surname" id="surname"
-				required><br>
-
-
-            <label for="username" id="label_username">Username: </label>
-			<input type="text" placeholder="Username" name="username" id="Username" required><br>
+			<input type="text" class="form-control text2" placeholder="Nome" name="name" id="name" required><br>
+			<input type="text" class="form-control text2" placeholder="Cognome" name="surname" id="surname"required><br>
+			<input type="text" class="form-control text2" placeholder="Username" name="username" id="Username" required><br>
 
 
 			<div class="error" id="error_pwd" style="display:none">La password non corrisponde!</div>
-			<label for="password" id="label_password">Password: </label> <input
-				type="password" placeholder="Password" name="pwd1" id="password"
-				required><br> 
-				
-				<label for="password2"
-				id="label_password2">Ripeti Password: </label> <input
-				type="password" placeholder="Password" name="pwd2" id="password2"
-				required><br>
-				
-				
+            <input type="password" class="form-control text2" placeholder="Password" name="pwd1" id="password"required><br> 
+            <input type="password" class="form-control text2" placeholder="Password" name="pwd2" id="password2" required><br>	
 			<div class="button2">
-				<a href="./Login.html"><input type="button" value="Indietro">
-				</a> &nbsp; <input type="submit" value="Registrati" id="register2">
+				<!--  <a href="./Login.html"><input type="button" value="Indietro">-->
+				</a> &nbsp; <input type="submit" class="btnA" value="Registrati" id="register2">
 			</div>
 		</form>
 

@@ -23,17 +23,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 <meta charset="ISO-8859-1">
 <title>Quiz</title>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<style>
-.button{
- background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
 
-}
-
-</style>
 
 <script>
 	// var hintRequested = 0;
@@ -186,26 +176,31 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 	// }
 </script>
 </head>
-<body onload="load()">
+<body class="quizGame"  onload="load()">
+    <h2>Il gioco delle affinità</h2>
 
-	<div id="Div">
+	<div id="Div" class="quizQuestion">
+	<p>
+				Domanda:<br>
+				<%=question%>
+			</p>
 
 		<div id="keys" align="center">
 
-			<table cellspacing="100" cellpadding="2" width="560" border="0">
+			<table  width="560" border="0">
 				<tbody>
 					<tr>
-						<td valign="top" width="186"><img
-							src="images/quizgame/chiave.png" height="100" width="100"><input
-							type="button" value="<%=answer1%>" id="key1" onclick="Answer1()"></td>
+						<td  class="key" >
+						<img src="images/quizgame/chiave.png" height="100" width="100">
+							<input type="button" class="btnA" value="<%=answer1%>" id="key1" onclick="Answer1()"></td>
 
-						<td valign="top" width="186"><img
-							src="images/quizgame/chiave.png" height="100" width="100"><input
-							type="button" value="<%=answer2%>" id="key2" onclick="Answer2()"></td>
+						<td class="key" >
+						<img src="images/quizgame/chiave.png" height="100" width="100">
+							<input type="button" class="btnA" value="<%=answer2%>" id="key2" onclick="Answer2()"></td>
 
-						<td valign="top" width="186"><img
-							src="images/quizgame/chiave.png" height="100" width="100"><input
-							type="button" value="<%=answer3%>" id="key3" onclick="Answer3()"></td>
+						<td class="key" >
+						<img src="images/quizgame/chiave.png" height="100" width="100">
+							<input type="button" class="btnA" value="<%=answer3%>" id="key3" onclick="Answer3()"></td>
 
 					</tr>
 				</tbody>
@@ -217,30 +212,26 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 		<div id="divTentativi" align="center">
 
 			<p>
-				number TENTATIVI RIMASTI: <span id="attempts"><%=initialAttempts%></span>
+				 TENTATIVI RIMASTI: <span id="attempts"><%=initialAttempts%></span>
 			</p>
 		</div>
 
 
 		<div id="chest" align="center">
-			<p>
-				Domanda:
-				<%=question%>
-			</p>
+			
 			<!-- <h2 id="question2" align="center" style="display: none;"></h2> -->
 			<!-- <p><a href="javascript:hint()">Suggerimento</a></p> -->
 
 			<img id="closechest" src="images/quizgame/closechest.jpg"
-				height="600" width="700">
+				height="250" width="270">
 		</div>
 
 
 
 		<div  id="openchest" align="center" style="display: none;">
 
-			<img src="images/quizgame/openchest.jpg" height="600"
-				width="700" > <input type="button"
-				value="Ritira premio" onclick="prize()">
+			<img src="images/quizgame/openchest.jpg" height="250"width="270" > <br>
+			<input type="button" class="btnA backR " value="Ritira premio" onclick="prize()">
 
 		</div>
 		
@@ -252,11 +243,10 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 
 
 	<div id="musicButton" align="center">
-		<button onclick="pauseMusic()" type="button">Pause Audio</button>
+		<img src="images/audioOff.png" onclick="pauseMusic()" >
 
-		<button onclick="startMusic()" type="button">Play Audio</button>
+		<img src="images/audioOn.png" onclick="startMusic()" >
 	</div>
-
 	</div>
 
 
@@ -267,14 +257,14 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 
 <!-- 		<p>Punteggio ottenuto: <span id="score"></span></p> 		 -->
 
-		<img src="images/<%=minigame.getPrize()%>.png" height="500"
-			width="300">
+		<img src="images/<%=minigame.getPrize()%>.png" height="250"
+			width="150">
 
 		<p align="center">Hai trovato un oggetto. Troverai questo oggetto
 			nell'inventario, ritorna alla stanza e clicca nel punto in cui
 			l'oggetto trovato puÃ² risultarti utile!</p>
 
-		<a href="./Game"> <input type="button" class="button" value="Torna alla stanza">
+		<a href="./Game"> <input type="button" class="btnA backR" value="Torna alla stanza">
 		</a>
 
 

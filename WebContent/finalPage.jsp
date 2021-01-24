@@ -22,8 +22,11 @@ int totalRank = ranking.getTotalrank();
 <!DOCTYPE html>
 <html>
 <head>
+        <link rel="stylesheet" href="css/Style.css">
+	 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <meta charset="ISO-8859-1">
 <title>Final Page</title>
+       <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
 
 <script>
@@ -45,7 +48,7 @@ function returnHome(){
 
 </script>
 </head>
-<body onload="playVideo()">
+<body class="finalPage" onload="playVideo()">
 
 
 <video id="myVideo" width="100%" height="100%">
@@ -54,16 +57,16 @@ function returnHome(){
 
 <div id="ranking" align="center">
 
-Complimenti <%=name%> sei riuscito ad uscire dalla stanza!<br>
+<h2>Complimenti <%=name%> sei riuscito ad uscire dalla stanza!</h2><br>
 I tuoi punteggi sono stati i seguenti:<br>
 Minigioco 1: <%=rank1 %>/30<br>
 Minigioco 2:<%=rank2 %>/30<br>
 Minigioco 3:<%=rank3 %>/30<br>
 Finalgame :<%=rank4 %>/30<br>
-Il tuo score totale è: <%=totalRank %>/100!<br>
+Il tuo score totale è: <%=totalRank %>/100!<br><br><br><br>
 
 
-<input type="button" id="returnHome" value="Torna alla Home Page" onclick="returnHome()">
+<input type="button" id="returnHome" value="Torna alla Home Page" class="btnA backR" onclick="returnHome()">
 </div>
 
 

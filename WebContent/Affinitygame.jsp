@@ -24,70 +24,19 @@ session.setAttribute("prize", minigame.getPrize());
 <title>Affinity</title>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
-body {
-	height: calc(100vh - 8em);
-	padding: 4em;
-	color: rgba(255, 255, 255, .75);
-	font-family: 'Bitter';
-	background-color: rgb(25, 25, 25);
-}
-
-
-.line-1 {
-	position: relative;
-	top: 50%;
-	width: 24em;
-	margin: 0 auto;
-	border-right: 2px solid rgba(255, 255, 255, .75);
-	font-size: 180%;
-	text-align: center;
-	white-space: nowrap;
-	overflow: hidden;
-	transform: translateY(-50%);
-}
-
-.correctWord {
-	position: relative;
-	top: 50%;
-	width: 24em;
-	margin: 0 auto;
-	font-size: 180%;
-	text-align: center;
-	
-}
-
-/* Animation */
-.anim-typewriter {
-	animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor
-		500ms steps(44) infinite normal;
-}
-
-@keyframes typewriter {
-	from {width: 0;
-}
-
-to {
-	width: 24em;
-}
-
-}
-@keyframes blinkTextCursor {
-	from {border-right-color: rgba(255, 255, 255, .75);
-}
-
-to {
-	border-right-color: transparent;
-}
-}
 
 
 
-.button{
- background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -220,16 +169,17 @@ function hint() {
 
 
 
-<body onload="load()">
-	<div id="divMain" class="line-1 anim-typewriter">
+<body class= "affinityGame" onload="load()">
+       <h2>Il gioco delle affinità</h2>
+       
+	<div id="divMain" class="line-1 anim-typewriter">	     
 		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
-	
 	</div>
-	<h2 id="question2" align="center" style="display: <%= (minigame.isHintSelected() ? "block" : "none") %>;"><%=(minigame.isHintSelected() ? minigame.getHint() : "") %></h2>
+	<p id="question2" align="center" style="display: <%= (minigame.isHintSelected() ? "block" : "none") %>;"><%=(minigame.isHintSelected() ? minigame.getHint() : "") %></p>
 
 	<div id="div2" class="correctWord">
-		<input id="wordToCheck" type="text" placeholder="Inserisci parola" value="">
-		<input type="button" value="Invia" onclick="Word()">
+		<input id="wordToCheck" class=" text2" type="text" placeholder="inserisci la parola più adatta" value="">
+		<input type="button" class="btnA send" value="Invia" onclick="Word()">
 		
 		<p>
 			<a href="javascript:hint()">Suggerimento</a>
@@ -237,17 +187,18 @@ function hint() {
 		</p>
 		
 		
-<audio id="myAudio">
+<!--  <audio id="myAudio">
 		<source src="music/askingquestions.mp3" type="audio/mpeg">
 
 	</audio>
 
 
+	
 	<div id="musicButton" align="center">
-		<button onclick="pauseMusic()" type="button">Pause Audio</button>
+		<img src="images/audioOff.png" onclick="pauseMusic()" >
 
-		<button onclick="startMusic()" type="button">Play Audio</button>
-	</div>
+		<img src="images/audioOn.png" onclick="startMusic()" >
+	</div> -->
 
 	</div>
 	
@@ -260,16 +211,14 @@ function hint() {
 
 		<p>Punteggio ottenuto: <span id="score"></span></p> 		
 
-		<img src="images/<%=minigame.getPrize()%>.png" height="500"
-			width="300">
-			
-			
-<a href="./Game"> <input type="button" class="button" value="Torna alla stanza"></a>  
+		<img src="images/<%=minigame.getPrize()%>.png" height="250"width="150">					
+         
 
 
-		<p align="center">Hai trovato un oggetto. Troverai questo oggetto
+		<p align="center">Hai trovato un oggetto.<br> Troverai questo oggetto
 			nell'inventario, ritorna alla stanza e clicca nel punto in cui
-			l'oggetto trovato può risultarti utile!</p>
+			l'oggetto trovato può risultarti utile!</p><br>
+		<a href="./Game"> <input type="button" class="btnA backR " value="Torna alla stanza"></a> 
 
 	</div>
 	
@@ -281,10 +230,21 @@ function hint() {
 
 	<div id="divAttempts" align="center">
 
- 		<p>number TENTATIVI RIMASTI: <span id="attempts"><%= initialAttempts %></span></p>
+ 		<p> TENTATIVI RIMASTI: <span id="attempts"><%= initialAttempts %></span></p>
 	</div>
 
+<audio id="myAudio">
+		<source src="music/askingquestions.mp3" type="audio/mpeg">
 
+	</audio>
+
+
+	
+	<div id="musicButton" align="center">
+		<img src="images/audioOff.png" onclick="pauseMusic()" >
+
+		<img src="images/audioOn.png" onclick="startMusic()" >
+	</div>
 
 </body>
 </html>

@@ -78,7 +78,7 @@ font-family: 'Bitter'!important;
 	border-radius: 20px;
 	box-shadow:0 0 4px #333;
 	position: absolute;
-	top: calc(45% - 210px)!important;
+	top: 15%!important;
 	left: calc(50% - 200px)!important;
 
 }
@@ -195,6 +195,10 @@ font-family: 'Bitter'!important;
 .text1{
 	margin:15px!important;
 }
+.LogSignForm{
+	    position: absolute;
+    top: 11%!important;
+}
 
 
 /*StudentHomePage*/
@@ -307,7 +311,12 @@ font-family: 'Bitter'!important;
 	border:none;
 	background:transparent;
 }
-
+#exampleModal{
+	overflow:visible!important;
+}
+.thumbnailCon{
+	top: calc(30.5% - 210px)!important;
+}
 /*Game*/
 
 .game{
@@ -531,6 +540,13 @@ th.inventory {
 	z-index: 1;
 }
 
+#inventoryImage{
+	margin-top: 20%;
+    height: 190px;
+    width: 75px;
+    margin-left: 35%;
+}
+
 /*hangmanGame*/
 .hangmanGame{
 	background-image: url(../images/bgBox.jpg);
@@ -539,16 +555,16 @@ th.inventory {
 	overflow: hidden!important;
 	
 }
-.hangmanGame h1,h2{
+.hangmanGame h1, .hangmanGame h2{
 	margin-top: -15px!important; 
-    margin-bottom: 1.5rem; 
+    margin-bottom: -1.5rem!important; 
     font-weight: 500;
-    line-height: 3!important;
+    line-height: 2.4!important;
 }
 #hngImg{
-	height: 170px!important;
+	height: 220px!important;
 	 
-	width: 102px!important;
+	width: 132px!important;
 }
 
 #textBoxForm {
@@ -564,4 +580,151 @@ th.inventory {
     border-radius: 7px;
     padding: 3px;
     text-align: center;
+}
+#fireExtinguisher{
+	display: none;
+	
+}
+#fireExtinguisher img{
+	margin-top:90px;
+}
+#fireExtinguisher input{
+	    width: 150px!important;
+}
+
+/*AffinityGame*/
+/*.affinityGame{
+	
+	height: calc(100vh - 8em);
+	padding: 4em;
+	color: rgba(255, 255, 255, .75);
+	font-family: 'Bitter';
+	background-color: rgb(25, 25, 25);
+
+}*/
+.anim-typewriter {
+	animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor
+		500ms steps(44) infinite normal;
+}
+
+@keyframes typewriter {
+	from {width: 0;
+}
+
+to {
+	width: 24em;
+}
+
+}
+@keyframes blinkTextCursor {
+	from {border-right-color: rgba(255, 255, 255, .75);
+}
+
+to {
+	border-right-color: transparent;
+}
+}
+.line-1 {
+	
+	
+	width: 24em;
+	margin-top: 55px;
+    margin-left: auto;
+    margin-right: auto;
+	border-right: 2px solid rgba(255, 255, 255, .75);
+	font-size: 180%;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	transform: translateY(-50%);
+}
+
+.affinityGame{
+	
+	background-image: url(../images/bgBox.jpg);
+	background-repeat: no-repeat;
+	overflow: hidden!important;
+	color: #f9fafb;
+	text-align:center;
+	align-items:center;
+	font-family: 'Bitter';
+	
+}
+.affinityGame a{
+	    font-size: 120%;
+}
+.affinityGame h2{
+	font-size:45px!important;
+	margin-top:7%;
+}
+.affinityGame p{
+	margin-bottom: 30px;
+	font-size: 25px;
+}
+.send{
+	margin-left: 37%!important;
+}
+
+.correctWord {
+    position: relative;
+    top: -10%;
+    width: 24em;
+    margin: 0 auto;    
+    text-align: center;
+    align-items:center;
+}
+#wordToCheck{
+	border-radius:5px;
+	width:100%;
+	height: 35px;
+}
+
+#prize p{
+	font-size: 18px;
+}
+
+.backR{
+	width:auto;
+}
+/*quizGame*/
+.quizGame {
+	background-image: url(../images/bgBox.jpg);
+	background-repeat: no-repeat;
+	overflow: hidden!important;
+	color: #f9fafb;
+	text-align:center;
+	align-items:center;
+	font-family: 'Bitter';
+}
+#keys{
+	margin-top:1%;
+}
+.key{
+	text-align: -webkit-center;
+	vertical-align: "top";
+	 width: "186px";
+}
+.quizQuestion{
+	margin-top:1%;
+}
+.quizGame h2{
+		font-size:35px!important;
+		margin-top:2%;
+}
+.finalPage{
+		background-image: url(../images/bgBox.jpg);
+	background-repeat: no-repeat;
+	overflow: hidden!important;
+	color: #f9fafb;
+	text-align:center;
+	align-items:center;
+	font-family: 'Bitter';
+	
+}
+#ranking{
+	margin-top:4%;
+}
+.finalPage h2{
+		font-size:35px!important;
+		margin-top:2%;
 }
