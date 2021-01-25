@@ -177,7 +177,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 </script>
 </head>
 <body class="quizGame"  onload="load()">
-    <h2>Il gioco delle affinità</h2>
+    <h2>QuizGame</h2>
 
 	<div id="Div" class="quizQuestion">
 	<p>
@@ -222,7 +222,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 			<!-- <h2 id="question2" align="center" style="display: none;"></h2> -->
 			<!-- <p><a href="javascript:hint()">Suggerimento</a></p> -->
 
-			<img id="closechest" src="images/quizgame/closechest.jpg"
+			<img id="closechest" src="images/quizgame/closechest.png"
 				height="250" width="270">
 		</div>
 
@@ -230,7 +230,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 
 		<div  id="openchest" align="center" style="display: none;">
 
-			<img src="images/quizgame/openchest.jpg" height="250"width="270" > <br>
+			<img src="images/quizgame/openchest.png" height="250"width="270" > <br>
 			<input type="button" class="btnA backR " value="Ritira premio" onclick="prize()">
 
 		</div>
