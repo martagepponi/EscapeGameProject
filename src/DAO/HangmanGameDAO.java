@@ -38,7 +38,6 @@ private Connection connection;
 				t.setQuestion1(result.getString("question1"));
 				t.setQuestion2(result.getString("question2"));
 				t.setPrize(result.getString("prize"));
-				t.setPass(result.getString("pass"));
 			}
 		} catch (SQLException e) {
 			throw new SQLException(e);

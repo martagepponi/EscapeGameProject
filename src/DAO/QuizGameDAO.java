@@ -33,7 +33,7 @@ public class QuizGameDAO {
 				t.setWrong1(result.getString("wrong1"));
 				t.setWrong2(result.getString("wrong2"));
 				t.setPrize(result.getString("prize"));
-				t.setPass(result.getString("pass"));
+				
 			}
 		} catch (SQLException e) {
 			throw new SQLException(e);

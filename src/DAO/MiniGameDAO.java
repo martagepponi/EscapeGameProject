@@ -70,10 +70,8 @@ public class MiniGameDAO {
 					hangmangame.setQuestion1(result1.getString("question1"));
 					hangmangame.setQuestion2(result1.getString("question2"));
 					hangmangame.setPrize(result1.getString("prize"));
-					hangmangame.setPass(result1.getString("pass"));
+			
 				
-					
-					
 					minigame=hangmangame;
 					}
 					
@@ -132,7 +130,7 @@ public class MiniGameDAO {
 						affinitygame.setRightAnswer(result3.getString("rightanswer"));
 						affinitygame.setHint(result3.getString("hint"));
 						affinitygame.setPrize(result3.getString("prize"));
-						affinitygame.setPass(result3.getString("pass"));
+			
 						
 						minigame = affinitygame;
 					

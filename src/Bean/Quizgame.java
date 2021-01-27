@@ -8,7 +8,6 @@ public class Quizgame extends AbstractMinigame {
 	protected String rightAnswer;
 	protected String wrong1;
 	protected String wrong2;
-	protected String pass;
 	protected int errorNumber;
 	protected boolean hintSelected;
 	
@@ -16,7 +15,7 @@ public class Quizgame extends AbstractMinigame {
 	
 	//COSTRUTTORE
 	public Quizgame(int idMinigame, String type, int idSubject, int idQuiz, String question, String rightAnswer, String wrong1, String wrong2, 
-			String prize, String pass) {
+			String prize) {
 		super(idMinigame, type, idSubject);
 		this.idQuiz= idQuiz;
 		this.question=question;
@@ -24,7 +23,6 @@ public class Quizgame extends AbstractMinigame {
 		this.wrong1= wrong1;
 		this.wrong2= wrong2;
 		this.prize=prize;
-		this.pass=pass;
 		errorNumber= 0;
 		hintSelected = false;
 		
@@ -100,22 +98,6 @@ public class Quizgame extends AbstractMinigame {
 	public void setWrong2(String wrong2) {
 		this.wrong2 = wrong2;
 	}
-
-
-
-	public String getPass() {
-		return pass;
-	}
-
-
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-
-
-
 
 
 	public int getErrorNumber() {

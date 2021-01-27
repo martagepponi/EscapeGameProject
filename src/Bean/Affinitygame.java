@@ -10,7 +10,6 @@ public class Affinitygame extends AbstractMinigame {
 	protected String word4;
 	protected String rightAnswer;
 	protected String hint;
-	protected String pass;
 	protected int errorNumber;
 	protected boolean hintSelected;
 	
@@ -18,7 +17,7 @@ public class Affinitygame extends AbstractMinigame {
 	
 	//COSTRUTTORE 
 	public Affinitygame(int idMinigame, String type, int idSubject, int idAffgame, String word1, String word2, 
-			String word3, String word4, String rightAnswer, String hint, String prize, String pass ) {
+			String word3, String word4, String rightAnswer, String hint, String prize) {
 		super(idMinigame, type, idSubject);
 		this.idAffgame= idAffgame;
 		this.word1= word1;
@@ -27,7 +26,6 @@ public class Affinitygame extends AbstractMinigame {
 		this.word4= word4;
 		this.rightAnswer= rightAnswer;
 		this.hint= hint;
-		this.pass= pass;
 		this.errorNumber = 0;
 		this.hintSelected = false;
 	}
@@ -122,17 +120,6 @@ public class Affinitygame extends AbstractMinigame {
 		this.hint = hint;
 	}
 
-
-
-	public String getPass() {
-		return pass;
-	}
-
-
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 
 	public int getErrorNumber() {
 		return errorNumber;

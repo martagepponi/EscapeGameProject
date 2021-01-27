@@ -24,7 +24,7 @@ public class RoomDAO {
 		
 	
 		
-	String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject`;";
+	String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject`;";
 		List<Room> Rooms = new ArrayList<Room>();
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -45,10 +45,9 @@ public class RoomDAO {
 				int minigame1 = result.getInt("minigame1");
 				int minigame2 = result.getInt("minigame2");
 				int minigame3 = result.getInt("minigame3");
-				int finalgame = result.getInt("finalgame");
 				String thumbnail = result.getString("thumbnail");
 			
-				Room room = new Room(idRoom,title, date, subject,profName , profSurname, password, minigame1, minigame2, minigame3, finalgame, thumbnail);
+				Room room = new Room(idRoom,title, date, subject,profName , profSurname, password, minigame1, minigame2, minigame3, thumbnail);
 				Rooms.add(room);
 				System.out.println("rooms DAO:  "+ Rooms);
 				
@@ -133,7 +132,7 @@ public class RoomDAO {
 	
 	public Room selectById(int idRoom, Connection connection) {
 		Room t = null;
-		String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject` WHERE `escapegame`.`room`.`idroom` = ? ;";
+		String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject` WHERE `escapegame`.`room`.`idroom` = ? ;";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		try {
@@ -152,7 +151,6 @@ public class RoomDAO {
 				t.setMinigame1(result.getInt("minigame1"));
 				t.setMinigame2(result.getInt("minigame2"));
 				t.setMinigame3(result.getInt("minigame3"));
-				t.setFinalgame(result.getInt("finalgame"));
 				t.setThumbnail(result.getString("thumbnail"));
 				
 				

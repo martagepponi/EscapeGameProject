@@ -14,13 +14,12 @@ public class Room {
 	private int minigame1;
 	private int minigame2;
 	private int minigame3;
-	private int finalgame;
 	private String thumbnail;
 
 
 
 	public Room(int idRoom, String title, Date date,String subject, String profName,  String profSurname, String password, int minigame1, int minigame2,
-			int minigame3, int finalgame, String thumbnail) {
+			int minigame3, String thumbnail) {
 		this.idRoom = idRoom;
 		this.title= title;
 		this.date = date;
@@ -31,7 +30,6 @@ public class Room {
 		this.minigame1 = minigame1;
 		this.minigame2 = minigame2;
 		this.minigame3 = minigame3;
-		this.finalgame = finalgame;
 		this.thumbnail =thumbnail;
 	}
 
@@ -132,12 +130,6 @@ public class Room {
 	}
 	public void setMinigame3(int minigame3) {
 		this.minigame3 = minigame3;
-	}
-	public int getFinalgame() {
-		return finalgame;
-	}
-	public void setFinalgame(int finalgame) {
-		this.finalgame = finalgame;
 	}
 
 	public String getThumbnail() {

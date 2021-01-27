@@ -42,7 +42,7 @@ private Connection connection;
 					t.setRightAnswer(result.getString("rightanswer"));
 					t.setHint(result.getString("hint"));
 					t.setPrize(result.getString("prize"));
-					t.setPass(result.getString("pass"));
+					
 				}
 			} catch (SQLException e) {
 				throw new SQLException(e);

@@ -6,7 +6,6 @@ public class Hangmangame extends AbstractMinigame {
 	protected String word;
 	protected String question1;
 	protected String question2;
-	protected String pass;
 	protected String displayWord;
 	protected int errorNumber;
 	protected boolean hintSelected;
@@ -14,14 +13,13 @@ public class Hangmangame extends AbstractMinigame {
 	
 	//COSTRUTTORE
 	public Hangmangame(int idMinigame, String type, int idSubject, int idHangman, String word, 
-			String question1, String question2, String prize, String pass) {
+			String question1, String question2, String prize) {
 		super(idMinigame, type, idSubject);
 		this.idHangman= idHangman;
 		this.word= word;
 		this.question1=question1;
 		this.question2=question2;
 		this.prize=prize;
-		this.pass= pass;
 		displayWord = this.buildDisplay(word);
 		errorNumber = 0;
 		hintSelected = false;
@@ -96,17 +94,6 @@ public class Hangmangame extends AbstractMinigame {
 		this.question2 = question2;
 	}
 
-
-
-	public String getPass() {
-		return pass;
-	}
-
-
-
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 
 	public String getDisplayWord() {
 		return displayWord;
