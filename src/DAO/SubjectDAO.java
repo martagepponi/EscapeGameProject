@@ -24,7 +24,7 @@ public class SubjectDAO {
 	
 	//METODO PER REPERIRE objects E MURI DI SUBJECT DATO UN ID STANZA 
 	
-	public Subject findAllSubjectByIdRoom (int idroom){
+	public Subject findSubjectByIdRoom (int idroom){
 		
 		String query = "SELECT S.idsubject, S.wall1, S.wall2, S.wall3, S.wall4, S.name, S.object1, S.object2, S.object3, S.object4, S.year FROM escapegame.subject AS S JOIN escapegame.room AS R ON S.idsubject= R.idsubject WHERE R.idroom= ? LIMIT 1;";
 		ResultSet result = null;

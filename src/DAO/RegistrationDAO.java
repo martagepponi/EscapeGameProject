@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class RegistrationDAO {
 
-    private static Connection connection;
+    private  Connection connection;
 	
 	public RegistrationDAO (Connection conn) {
 	this.connection= conn;
@@ -15,7 +15,7 @@ public class RegistrationDAO {
 	
 
 	// CONTROLLO SE UTENTE ESISTE GIA' NEL DB
-	public static boolean register(String username) {
+	public boolean register(String username) {
 
 		String query = " SELECT username FROM user WHERE user.username= ?;";
 		PreparedStatement pstatement = null;

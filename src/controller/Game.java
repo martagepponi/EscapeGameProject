@@ -81,7 +81,7 @@ public class Game extends HttpServlet {
 			
 			SubjectDAO subjectDAO = new SubjectDAO(connection);
 	
-			Subject subject =subjectDAO.findAllSubjectByIdRoom(idroom);
+			Subject subject =subjectDAO.findSubjectByIdRoom(idroom);
 			
 			if(subject != null) {
 				session.setAttribute("subject", subject);

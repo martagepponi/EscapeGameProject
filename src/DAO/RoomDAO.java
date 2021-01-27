@@ -20,7 +20,7 @@ public class RoomDAO {
 	
 	//LEGGO TUTTE LE ROOMS PRESENTI IN DATABASE
 	//invece che idsubject e idprof esce name subject e name prof
-	public List<Room> findAllRooms() {
+	 public List<Room> findAllRooms() {
 		
 	
 		

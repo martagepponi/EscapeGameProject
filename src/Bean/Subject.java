@@ -33,7 +33,9 @@ public class Subject {
 		this.wall4= wall4;
 	}
 	
-	
+	public Subject () {
+		super();
+	}
 	
 	public int getIdsubject() {
 		return idsubject;

@@ -20,7 +20,9 @@ public class User {
 		this.type = type;
 	}
 	
-	
+	public User() {
+		super();
+	}
 	
 	
 	public int getIduser() {
