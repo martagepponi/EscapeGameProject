@@ -70,6 +70,13 @@ public class SubjectDAO {
 		return subject;
 	}
 	
+	//select all subject
+	public List<Subject> findAllSubject() {
+		List<Subject> retval= new ArrayList();
+		//query selct *
+		return retval;
+	}
+	//insert new subject
 }
 
 		

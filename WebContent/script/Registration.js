@@ -98,7 +98,7 @@ function codeVerify() {
 //REGISTRAZIONE EFFETTIVA DOCENTE
 
 
-var registerProf = document.getElementById("register2");	
+    var registerProf = document.getElementById("register2");	
 	registerProf.addEventListener('click', profRegistration, false);
 	
 	function profRegistration() {

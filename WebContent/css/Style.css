@@ -317,13 +317,14 @@ font-family: 'Bitter'!important;
 .thumbnailCon{
 	top: calc(30.5% - 210px)!important;
 }
-/*Game*/
+/**/
 
 .game{
 	background-image: url(../images/bg3B.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: hidden!important;
+	height:100vh;
 }
 
 #titleDiv {
@@ -428,11 +429,13 @@ margin-left: 5px;
 	position: absolute;
 	width: 810px;
 	height: 648px;
-	left: 23.6%;
-    top: 2%;
 	filter: grayscale(100%);
 	-webkit-filter: grayscale(100%);
 	border-radius: 30px;
+}
+
+.wall_cont {
+	width:100%;
 }
 
 .arrow {
@@ -457,10 +460,10 @@ margin-left: 5px;
 #top_right {
 	/*Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazare div (o altro) in modo dinamico*/
 	/*Grazie al posizionamento fluid (ovvero con percentuali) il nostro div si adattera' automaticamente allo schermo di tutte le risoluzioni*/
-	right: 2%;
+	right: 0;
 	top: 5%;
 	position: absolute;
-	border-radius: 30px;
+	border-radius: 30px 0 0 30px ;
 	width: 280px;
 	height: 400px;
 	background-image: url(../images/bgBox.jpg);
@@ -478,8 +481,8 @@ th.inventory {
 
 #panel {
 	position: absolute;
-	border-radius: 30px;
-	left: 2%;
+	border-radius: 0 30px 30px 0;
+	left: 0;
 	top: 5%;
 	width: 280px;
 	height: 400px;
@@ -542,8 +545,8 @@ th.inventory {
 
 #inventoryImage{
 	margin-top: 20%;
-    height: 190px;
-    width: 75px;
+    height: 180px;
+    width: 90px;
     margin-left: 35%;
 }
 
@@ -553,6 +556,7 @@ th.inventory {
 	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: hidden!important;
+	height:100vh;
 	
 }
 .hangmanGame h1, .hangmanGame h2{
@@ -648,6 +652,7 @@ to {
 	text-align:center;
 	align-items:center;
 	font-family: 'Bitter';
+	height:100vh;
 	
 }
 .affinityGame a{
@@ -658,8 +663,12 @@ to {
 	margin-top:7%;
 }
 .affinityGame p{
-	margin-bottom: 30px;
+	padding-bottom: 30px;
 	font-size: 25px;
+}
+
+#question2 {
+	padding-bottom: 70px;
 }
 .send{
 	margin-left: 37%!important;
@@ -695,6 +704,7 @@ to {
 	text-align:center;
 	align-items:center;
 	font-family: 'Bitter';
+	height:100vh;
 }
 #keys{
 	margin-top:1%;
@@ -719,6 +729,7 @@ to {
 	text-align:center;
 	align-items:center;
 	font-family: 'Bitter';
+	height:100vh;
 	
 }
 #ranking{
@@ -727,4 +738,132 @@ to {
 .finalPage h2{
 		font-size:35px!important;
 		margin-top:2%;
+}
+
+
+/*MEDIA QUERY*/
+
+
+
+@media screen and (max-width: 1400px) {
+#top_right {
+	width: 200px;
+	height: 290px;
+}
+
+#panel {
+	width: 200px;
+	height: 290px;
+}
+#right_arrow {
+	top: 67%;
+	right: 5%;
+	z-index: 1;
+	width:7%!important;
+	height:10%!important;
+}
+
+#left_arrow {
+	top: 67%;
+	left: 5%;
+	z-index: 1;
+	width:7%!important;
+	height:10%!important;
+}
+#musicButton {
+	position: absolute;
+	left: 2%;
+	bottom: 5%;
+}
+
+#musicButton img {
+	width: 45px;
+	padding: 3px;
+	cursor: pointer;
+}
+#inventoryImage{
+	margin-top: 20%;
+    height: 128px;
+    width: 64px;
+    margin-left: 35%;
+}
+#demo{	
+	font-size:35px;
+	text-align: center;	
+}
+
+#counter{
+	
+	position:absolute;
+	left: 1%;
+	font-size:17.5px;
+	color: #f9f9f9;
+	top:75%; 
+	align-items: center;
+	z-index: 1;
+}
+}
+
+@media screen and (max-width: 1200px) {
+#top_right {
+	width: 110px;
+	height: 290px;
+}
+
+#top_right p, #panel p {
+	font-size: 10px;
+}
+
+#panel {
+	width: 110px;
+	height: 290px;
+}
+#right_arrow {
+	top: 67%;
+	right: 1%;
+	z-index: 1;
+	width:3%;
+	height:5%;
+}
+
+#left_arrow {
+	top: 67%;
+	left: 1%;
+	z-index: 1;
+	width:3%;
+	height:5%;
+}
+#musicButton {
+	position: absolute;
+	left: 1.5%;
+	bottom: 5%;
+}
+
+#musicButton img {
+	width: 35px;
+	padding: 1px;
+	cursor: pointer;
+}
+#inventoryImage{
+	margin-top: 20%;
+    height: 90px;
+    width: 45px;
+    margin-left: 35%;
+}
+#demo{	
+	font-size:25px;
+	text-align: center;	
+}
+
+#counter{
+	
+	position:absolute;
+	left: 1.5%;
+	font-size:12.5px;
+	color: #f9f9f9;
+	top:75%; 
+	align-items: center;
+	z-index: 1;
+}
+
 }

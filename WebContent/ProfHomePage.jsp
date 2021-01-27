@@ -44,6 +44,10 @@ User user = (User) session.getAttribute("user");
 	function logout() {
 		window.location.href = "./Login.html";
 	}
+	function goCreation(){
+		
+		 window.location = '/EscapeGameProject/RoomCreation.jsp';
+	}
 </script>
 </head>
 <body onload="load()">
@@ -77,8 +81,10 @@ User user = (User) session.getAttribute("user");
 								</tr>
 
 								<tr>
-									<td><input type="button" value="Crea stanza" id="create"></td>
-									<!-- CAMBIA FUNZIONE MOSTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+									<td><input type="button" value="Crea stanza" id="create" onclick="goCreation()"></td>
+									
+									
+									
 								</tr>
 							</table>
 						</div>
@@ -125,7 +131,7 @@ createtedRooms = (List<Room>) request.getAttribute("createtedRooms");
 			<b>ID Stanza: </b>
 			<%=room.getIdRoom()%></p>
 		<p>
-
+           <button id="UpdateRoom" value=<%=room.getIdRoom() %>>modifica stanza</button>
 
 			<%
 			}
@@ -148,9 +154,7 @@ Rankings = (List<Ranking>) request.getAttribute("rankings");
 		%>
 
 		<p>
-			<b>Stanza: </b><img id="image" height="62" width="62"
-				src="images/matematica/<%= ranking.getThumbnail()  %>.jpg"
-				alt="<%=ranking.getThumbnail()%>">
+			<b>Stanza: </b><img id="image" height="62" width="62" src="images/stanza.jpg">
 		</p>
 
 
@@ -161,6 +165,10 @@ Rankings = (List<Ranking>) request.getAttribute("rankings");
 		<p>
 			<b>Studente </b>
 			<%=ranking.getUser()%></p>
+		<p>
+		<p>
+			<b>Stanza </b>
+			<%=ranking.getIdroom() %></p>
 		<p>
 		<p>
 			<b>minigame1 rank </b>

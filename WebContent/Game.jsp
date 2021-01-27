@@ -555,11 +555,11 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 
 
 	
-	<div id="game" class=" ">
-
+	<div id="game">
+<div class="wall_cont d-flex flex-column align-items-center pt-2">
 		<img id="wall"
 			src="images/<%=subject.getName()%>/<%=subject.getWall1()%>.jpg">
-			
+			</div>
 		<div id="arrows">		
 			<img class="arrow" id="left_arrow"
 				src="images/leftArrow.png" onclick="imageScroll(this)"> <img

@@ -173,4 +173,6 @@ public class RoomDAO {
 		return t;
 	}
 
+	
+	//query di insert di una stanza
 }
