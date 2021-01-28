@@ -20,7 +20,7 @@ class TestSubject {
 	
 	private Connection connection;
 	private Subject subject = new Subject();
-	int id=1;
+	int idroom=1;
 	String nome="";
 	
 	
@@ -48,7 +48,7 @@ class TestSubject {
 		SubjectDAO dao = new SubjectDAO(this.connection);
 		
 		//verifico che la materia ritornata non sia vuota
-		assertFalse(dao.findSubjectByIdRoom(id).equals(subject)); 
+		assertFalse(dao.findSubjectByIdRoom(idroom).equals(subject)); 
 		
 		
 		//verifico che oggetto tornato è un oggetto subject

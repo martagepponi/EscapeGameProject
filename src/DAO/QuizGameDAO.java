@@ -16,7 +16,7 @@ public class QuizGameDAO {
 	//CERCO LA TUPLA DI QUIZGAME CON UNO SPECIFICO IDQUIZGAME
 	
 	public static Quizgame selectById(int idQuiz, Connection connection) throws SQLException {
-		Quizgame t = new Quizgame();
+		Quizgame quiz = new Quizgame();
 		String query = "SELECT * FROM `quizgame` where `idquiz` = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -26,13 +26,13 @@ public class QuizGameDAO {
 			result = pstatement.executeQuery();
 			while (result.next()) {
 				
-				t.setIdQuiz(result.getInt("idquiz"));
-				t.setIdsubject(result.getInt("idsubject"));
-				t.setQuestion(result.getString("question"));
-				t.setRightAnswer(result.getString("rightanswer"));
-				t.setWrong1(result.getString("wrong1"));
-				t.setWrong2(result.getString("wrong2"));
-				t.setPrize(result.getString("prize"));
+				quiz.setIdQuiz(result.getInt("idquiz"));
+				quiz.setIdsubject(result.getInt("idsubject"));
+				quiz.setQuestion(result.getString("question"));
+				quiz.setRightAnswer(result.getString("rightanswer"));
+				quiz.setWrong1(result.getString("wrong1"));
+				quiz.setWrong2(result.getString("wrong2"));
+				quiz.setPrize(result.getString("prize"));
 				
 			}
 		} catch (SQLException e) {
@@ -50,7 +50,7 @@ public class QuizGameDAO {
 				throw new SQLException("Cannot close statement");
 			}
 		}
-		return t;
+		return quiz;
 	}
 	
 	

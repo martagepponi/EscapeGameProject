@@ -11,22 +11,22 @@ import javax.servlet.UnavailableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Bean.User;
-import DAO.UserDAO;
+import Bean.AbstractMinigame;
+import DAO.MiniGameDAO;
 
 
 
-class TestUser {
 
-private Connection connection;
-User user = new User();
-String username1= "marta";
-String password1= "marti";
-String username2= "tommifabbri"; //username esistente in db
-String password2= "tommi1";
-
-
-
+class TestMinigame {
+	
+	private Connection connection;
+	private AbstractMinigame minigame1;
+	private AbstractMinigame minigame2;
+	private int idMinigame= 1;
+	
+	
+	
+	
 	@BeforeEach
 	   void setUp() throws Exception{
 		System.out.println("setUp");
@@ -40,23 +40,23 @@ String password2= "tommi1";
 		} catch (SQLException e) {
 			throw new UnavailableException("Couldn't get db connection");
 		}
-		
-		
 	}
+
+	
+	
+	
 	@Test
-	void testCheck() {
-	UserDAO dao = new UserDAO(this.connection);
-	
-	//verifico che l'oggetto tornato sia un oggetto user (se parametri in ingresso esistenti)
-	assertTrue((dao.check(username2, password2)).getClass()== user.getClass());
-	
-	
-	//verifico che l'oggetto tornato non sia un oggetto user (se parametri in ingresso non esistenti)
-	equals(dao.check(username1, password1)== null);
+	void testFindById() {
+		MiniGameDAO dao = new MiniGameDAO(this.connection);
+		minigame2 = (AbstractMinigame) dao.findById(idMinigame);
+		
+		
+		//
+//		assertTrue(minigame2.getClass()== minigame1.getClass());
+		
+		
+		
 	
 	}
-	
-	
-	
 
 }

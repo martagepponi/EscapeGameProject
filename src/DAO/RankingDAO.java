@@ -149,7 +149,7 @@ return Rankings;
 					
 					
 				}
-				System.out.println("Lista idroom, fine query");
+				
 					
 				}catch (SQLException e) {
 					e.printStackTrace();

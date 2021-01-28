@@ -193,7 +193,7 @@ function makeCall(method, url, cback) {
 		<h1>Il gioco dell&apos;Impiccato</h1>
 
 
-		<h2 id="question1"><%=question1 %></h2>
+		<h2 id="question1">Domanda: <br><%=question1 %></h2>
 		<h2 id="question2" style="display: none;"></h2>
 		<p>
 			<img id=hngImg src="images/hangmangame/hm<%= errorNumber %>.gif" name="hm">
@@ -265,9 +265,9 @@ function makeCall(method, url, cback) {
 
 <div id="fireExtinguisher" align="center" >
 
-<img src="images/<%=minigame.getPrize()%>.png" height="250" width="150">
+<img src="images/<%=minigame.getPrize()%>.png" height="250" width="150"><br><br><br>
 
-<p align="center">  Hai trovato un oggetto.<br>
+<p align="center">  Hai trovato un oggetto!<br>
                     Troverai questo oggetto nell'inventario, 
                     ritorna alla stanza e clicca nel punto in cui l'oggetto
                      trovato può risultarti utile! </p>

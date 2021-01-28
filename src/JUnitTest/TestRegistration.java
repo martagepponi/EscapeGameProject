@@ -47,18 +47,26 @@ public class TestRegistration {
 		assertFalse(user.getUsername()=="");
 		assertFalse(user.getUsername()== "marco");
 		assertFalse(user.getUsername()=="MARCO1");
+		assertTrue(user.getPassword()=="123");
+		assertFalse(user.getIduser()== 0);
 	}
 	
 	@Test
     void testRegisterMethod() {
-		RegistrationDAO dao1 = new RegistrationDAO(this.connection);
-		equals(dao1.register(user.getUsername())== true);
+		RegistrationDAO dao = new RegistrationDAO(this.connection);
+		
+		//verifico che non sono presenti username=marco1 in db
+		assertTrue(dao.register(user.getUsername())== true);
 	}
 	
 	@Test
         void testAddUserMethod() {
-		RegistrationDAO dao2 = new RegistrationDAO(this.connection);
-		dao2.addUser("marco", "bianchi", "marco1", "123", "studente");
+		RegistrationDAO dao = new RegistrationDAO(this.connection);
+		
+		//verifico che inserimento in db è andato a buon fine 
+//		dao.addUser("marco", "bianchi", "marco1", "123", "studente");
+//		assertTrue(dao.register(user.getUsername())== false);
+		//FUNZIONA LA PRIMA VOLTA COME è GIUSTO CHE SIA PERCHè INSERISCE UTENTE E LA SECONDA VOLTA NON LO INSERISCE PIù
 		
 	}
 

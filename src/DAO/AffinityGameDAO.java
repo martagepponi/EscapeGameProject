@@ -23,7 +23,7 @@ private Connection connection;
 	//CERCO LA TUPLA DI AFFINITYGAME CON UNO SPECIFICO IDAFFINITYGAME
 	
 		public static Affinitygame SelectById(int idGame, Connection connection) throws SQLException {
-			Affinitygame t = new Affinitygame();
+			Affinitygame affinity = new Affinitygame();
 			String query = "SELECT * FROM `affinitygame` where `idaffinityGame` = ?";
 			ResultSet result = null;
 			PreparedStatement pstatement = null;
@@ -33,15 +33,15 @@ private Connection connection;
 				result = pstatement.executeQuery();
 				while (result.next()) {
 					
-					t.setIdAffgame(result.getInt("idaffinityGame"));
-					t.setIdsubject(result.getInt("idsubject"));
-					t.setWord1(result.getString("word1"));
-					t.setWord2(result.getString("word2"));
-					t.setWord3(result.getString("word3"));
-					t.setWord4(result.getString("word4"));
-					t.setRightAnswer(result.getString("rightanswer"));
-					t.setHint(result.getString("hint"));
-					t.setPrize(result.getString("prize"));
+					affinity.setIdAffgame(result.getInt("idaffinityGame"));
+					affinity.setIdsubject(result.getInt("idsubject"));
+					affinity.setWord1(result.getString("word1"));
+					affinity.setWord2(result.getString("word2"));
+					affinity.setWord3(result.getString("word3"));
+					affinity.setWord4(result.getString("word4"));
+					affinity.setRightAnswer(result.getString("rightanswer"));
+					affinity.setHint(result.getString("hint"));
+					affinity.setPrize(result.getString("prize"));
 					
 				}
 			} catch (SQLException e) {
@@ -60,7 +60,7 @@ private Connection connection;
 					throw new SQLException("Cannot close statement");
 				}
 			}
-			return t;
+			return affinity;
 		}
 
 }

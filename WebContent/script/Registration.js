@@ -111,6 +111,7 @@ function codeVerify() {
 	var type = "docente";
     var error_pwd = document.getElementById("error_pwd");
 
+	
 	if (password != repetedPassword) {
 		error_pwd.style.display = "block";
 		return false;

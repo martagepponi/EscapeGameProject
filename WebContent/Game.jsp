@@ -57,14 +57,12 @@ if("YES".equals(session.getAttribute("first_time"))) {
 
     if(session.getAttribute("first_time").equals("NO")){
     	prize = (String) session.getAttribute("prize");    %>
-   //  alert("non prima volta");
-    
      var objectsJSON = localStorage.getItem("objectsList");
      objects = JSON.parse(objectsJSON);
      objects.shift();
      notFirstTime= true;
      var wallNumberIncreased = parseInt("<%=session.getAttribute("wall")%>");
-   //  alert( "number wall: " + wallNumberIncreased);
+   
     
      
      
@@ -81,7 +79,6 @@ console.log(objects);
 function checkObjectsAndWall(object, wallToCheck, clickOrder){
 	var check = false;
 	var wall = clickOrder[object];
-	//alert("muro da controllare: " + wallToCheck + " oggetto: " + object + " corrisp. :" + wall);
 	if(wall == wallToCheck){
 		check = true;
 	}
@@ -175,7 +172,7 @@ function startGame2(){
 		    wall.setAttribute("usemap", map);
 			return false;
 		}
-		//alert(objectName + " presente nel " + referenceWall);
+		
 		//aggiungo mappa
 		
 		var map ="#point" + number;
@@ -196,8 +193,6 @@ function startGame2(){
 			if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
 				return false;
 			}
-			alert(objectName + " presente nel " + referenceWall + "coordinate " + getObject(objects[0]));
-		
 			document.getElementById("area" + number).coords= getObject(objects[0]);	
 			//conto number di minigame
 			<%int minigameNumber = 1;
@@ -206,7 +201,7 @@ if (session.getAttribute("first_time").equals("NO")) {
 	minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
 	++minigameNumber;
 	if (minigameNumber == 4) {%>
-			  alert("funzione timer");
+			  alert("E' partito un timer!");
 				 timerStart();
 				  <%}
 	session.setAttribute("minigameNumber", "" + minigameNumber);
@@ -221,7 +216,6 @@ if (session.getAttribute("first_time").equals("NO")) {
 			//
 			document.getElementById("area"+ number).href="./Minigame";
 			if(referenceWall == "<%=subject.getWall1()%>" ){
-			 alert("#point" + number);
 			 document.getElementById("wall").setAttribute("usemap", "#point" + number);
 			} 
 			//AL RITORNO DA UN MINIGAME CARICO MAPPE CLICCABILI SU MURO1 
@@ -471,7 +465,6 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 	
 
 	function getObject(name){
-		//alert(name);
 		var coordinates;
 		if(name == "asse")
 			coordinates = "572,535,679,655";

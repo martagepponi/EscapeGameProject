@@ -23,24 +23,6 @@ session.setAttribute("prize", minigame.getPrize());
 <meta charset="ISO-8859-1">
 <title>Affinity</title>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-<style type="text/css">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</style>
 
 
 <script>
@@ -81,7 +63,7 @@ function hintResponse(req) {
 function Word(wordToCheck){
 	var wordToCheck = document.getElementById("wordToCheck").value;
 	if(wordToCheck == ""){
-		alert("Non puoi inserire una parola vuota");
+		alert("Devi riempire il campo vuoto!");
 		return false;
 	}else{
 		makeCall("GET", "AffinityGame?action=insertWord&word=" + wordToCheck, wordResponse);
@@ -121,7 +103,7 @@ function wordResponse(req){
 					document.getElementById("question2").style.display="none";
 				} else {
 					var attempts = response.attemptsRemained;
-					alert("number attempts rimasti" + attempts);
+					//alert("number attempts rimasti" + attempts);
 					document.getElementById("attempts").innerHTML = attempts;
 					
 				}
@@ -171,6 +153,7 @@ function hint() {
 
 <body class= "affinityGame" onload="load()">
        <h2>Il gioco delle affinità</h2>
+       <h3> Trova una parola che leghi le quattro parole scritte qui sotto:</h3>
        
 	<div id="divMain" class="line-1 anim-typewriter">	     
 		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>

@@ -26,30 +26,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 
 
 <script>
-	// var hintRequested = 0;
 
-	// function hintResponse(req) {
-
-	// 	if (req.readyState == 4) {
-	// 		var message = req.responseText;
-	// 		//alert(message);
-	// 		if (req.status == 200) {
-	// 			var response = JSON.parse(req.responseText);
-	// 			if (response.sessionExpired) {
-	// 				alert("Sessione scaduta!");
-	// 				document.location.href="/Login.html";
-	// 			} else {
-	// 				if (response.outcome) {
-
-	// 					document.getElementById("question2").innerHTML = response.question2;
-	// 					document.getElementById("question2").style.display = "block";
-	// 				}
-	// 			}
-	// 		} else {
-	// 			// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
-	// 		}
-	// 	}		
-	// }
 
 	
 	
@@ -117,6 +94,8 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 				} else {
 					if (response.finalOutcome == "L") {
 						alert("Perso!");
+						document.getElementById("closechest").style.display = "none";
+						document.getElementById("openchest").style.display = "block";
 						// 					alert("la parola corretta era: " + response.correctWord)
 						// 					alert("punti di errore: " + response.errorNumber);
 						// 					alert("Punteggio ottenuto: " + response.score );
@@ -130,7 +109,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 						// 					document.getElementById("question2").style.display="none";
 					} else {
 						var attempts = response.attemptsRemained;
-						alert("number attempts rimasti" + attempts);
+					//	alert("number attempts rimasti" + attempts);
 						document.getElementById("attempts").innerHTML = attempts;
 
 					}

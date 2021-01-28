@@ -22,7 +22,7 @@ private Connection connection;
 	//CERCO LA TUPLA DI HANGMANEGAME CON UNO SPECIFICO IDHANGMANGAME
 	
 	public static Hangmangame selectById(int idhangman, Connection connection) throws SQLException {
-		Hangmangame t = new Hangmangame();
+		Hangmangame hangman = new Hangmangame();
 		String query = "SELECT * FROM `hangmangame` where `idhangman` = ?";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -32,12 +32,12 @@ private Connection connection;
 			result = pstatement.executeQuery();
 			while (result.next()) {
 				
-				t.setIdHangman(result.getInt("idhangman"));
-				t.setIdsubject(result.getInt("idsubject"));
-				t.setWord(result.getString("word"));
-				t.setQuestion1(result.getString("question1"));
-				t.setQuestion2(result.getString("question2"));
-				t.setPrize(result.getString("prize"));
+				hangman.setIdHangman(result.getInt("idhangman"));
+				hangman.setIdsubject(result.getInt("idsubject"));
+				hangman.setWord(result.getString("word"));
+				hangman.setQuestion1(result.getString("question1"));
+				hangman.setQuestion2(result.getString("question2"));
+				hangman.setPrize(result.getString("prize"));
 			}
 		} catch (SQLException e) {
 			throw new SQLException(e);
@@ -54,7 +54,7 @@ private Connection connection;
 				throw new SQLException("Cannot close statement");
 			}
 		}
-		return t;
+		return hangman;
 	}
 
 }

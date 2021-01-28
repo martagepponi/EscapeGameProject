@@ -5,28 +5,26 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.UnavailableException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Bean.User;
-import DAO.UserDAO;
+import Bean.Ranking;
+import Bean.Room;
+import DAO.RankingDAO;
 
 
-
-class TestUser {
-
-private Connection connection;
-User user = new User();
-String username1= "marta";
-String password1= "marti";
-String username2= "tommifabbri"; //username esistente in db
-String password2= "tommi1";
-
-
-
+class TestRanking {
+	
+	private Connection connection;
+	private Ranking ranking = new Ranking();
+	private ArrayList<Ranking> RankingsList = new ArrayList<Ranking>();
+	private int iduser= 1;
+	
+	
 	@BeforeEach
 	   void setUp() throws Exception{
 		System.out.println("setUp");
@@ -43,20 +41,19 @@ String password2= "tommi1";
 		
 		
 	}
+	
+	
 	@Test
-	void testCheck() {
-	UserDAO dao = new UserDAO(this.connection);
-	
-	//verifico che l'oggetto tornato sia un oggetto user (se parametri in ingresso esistenti)
-	assertTrue((dao.check(username2, password2)).getClass()== user.getClass());
-	
-	
-	//verifico che l'oggetto tornato non sia un oggetto user (se parametri in ingresso non esistenti)
-	equals(dao.check(username1, password1)== null);
-	
+	void testfindAllRanking() {
+		RankingDAO dao = new RankingDAO(this.connection);
+		
+		//verifico che giocatore con id=1 non abbia ancora punteggi salvati
+		RankingsList= (ArrayList<Ranking>) dao.findAllRanking(iduser);
+		assertTrue(dao.findAllRanking(iduser).isEmpty());
+		assertTrue(dao.findAllRanking(iduser).size()==0);
+		
+		
+		
 	}
-	
-	
-	
 
 }

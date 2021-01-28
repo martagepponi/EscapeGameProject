@@ -27,10 +27,12 @@ public class MiniGameDAO {
 	public MiniGameDAO (Connection conn) {
 		this.connection= conn;
 		}
+	
+	
+	
+	
+	
 	//CERCO IL MINIGIOCO IN BASE ALL'ID E LO COSTRUISCO IN BASE AL TIPO
-	
-	
-	
 	public AbstractMinigame findById(int Id_minigame) {
 
 		String query = "SELECT * FROM `minigame` WHERE `idminigame`=? ;";

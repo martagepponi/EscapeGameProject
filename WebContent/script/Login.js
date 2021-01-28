@@ -29,7 +29,7 @@ function getLogin() {
 		//parso risposta da json a array di un oggetto
 		var response = JSON.parse(x.responseText);
 		if (response[0].error == 1) {
-			alert("Username e password non corretti!");
+			alert("Username o password non corretti!");
 		} else {
 			//salvo name nella sessione client
 			sessionStorage.username = response[0].username;
