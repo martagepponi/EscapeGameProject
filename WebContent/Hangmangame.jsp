@@ -110,20 +110,20 @@ session.setAttribute("prize", minigame.getPrize());
 					can_play = false;
 					
 					document.getElementById("fireExtinguisher").style.display="block";
-					
 					document.getElementById("Hangmangame").style.display = "none";
+					document.getElementById("score").innerHTML = response.score;
 					
 					
 					
 				} else if (finalOutcome == "L") {
 					alert("Perso!");
-					alert("la parola corretta era: " + correctWord)
-					//alert("punti di errore: " + wrong_guesses);
-					//alert("Punteggio ottenuto: " + score );
+				//	alert("la parola corretta era: " + correctWord)
 					can_play = false;
-					
+				
 					document.getElementById("fireExtinguisher").style.display="block";
-					
+					document.getElementById("correctWord").innerHTML = response.correctWord;
+					document.getElementById("showWord1").style.display="block";
+					document.getElementById("score").innerHTML = response.score;
 					document.getElementById("Hangmangame").style.display = "none";
 				}
 				
@@ -142,9 +142,6 @@ session.setAttribute("prize", minigame.getPrize());
 		if (used_letters.indexOf(l) != -1) {
 			return;
 		}
-
-		//used_letters += l;
-		//document.game.usedLetters.value = used_letters;
 
 		makeCall("GET", "HangmanGame?action=selectLetter&letterSelected=" + l, selectLetterResponse);
 
@@ -264,6 +261,9 @@ function makeCall(method, url, cback) {
 
 
 <div id="fireExtinguisher" align="center" >
+
+<p id="showWord1" style="display: none;"> La parola corretta era: <span id="correctWord"> </p>
+<p>Punteggio ottenuto: <span id="score"></span></p>
 
 <img src="images/<%=minigame.getPrize()%>.png" height="250" width="150"><br><br><br>
 

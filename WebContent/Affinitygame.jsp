@@ -81,6 +81,7 @@ function wordResponse(req){
 				alert("Vinto!");
 				//alert("punti di errore: " + response.errorNumber);
 				//alert("Punteggio ottenuto: " + response.score );
+				document.getElementById("title").style.display="none";
 				document.getElementById("prize").style.display="block";
 				document.getElementById("divMain").style.display="none";
 				document.getElementById("div2").style.display="none";
@@ -90,9 +91,8 @@ function wordResponse(req){
 			} else  {
 				if (response.finalOutcome == "L") {
 					alert("Perso!");
-				//	alert("la parola corretta era: " + response.correctWord)
-				//	alert("punti di errore: " + response.errorNumber);
-					//alert("Punteggio ottenuto: " + response.score );
+				;
+					document.getElementById("title").style.display="none";
 					document.getElementById("prize").style.display="block";
 					document.getElementById("divMain").style.display="none";
 					document.getElementById("div2").style.display="none";
@@ -152,9 +152,10 @@ function hint() {
 
 
 <body class= "affinityGame" onload="load()">
+<div id="title">
        <h2>Il gioco delle affinità</h2>
        <h3> Trova una parola che leghi le quattro parole scritte qui sotto:</h3>
-       
+     </div>  
 	<div id="divMain" class="line-1 anim-typewriter">	     
 		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
 	</div>
@@ -195,9 +196,7 @@ function hint() {
 		<p>Punteggio ottenuto: <span id="score"></span></p> 		
 
 		<img src="images/<%=minigame.getPrize()%>.png" height="250"width="150">					
-         
-
-
+        
 		<p align="center">Hai trovato un oggetto.<br> Troverai questo oggetto
 			nell'inventario, ritorna alla stanza e clicca nel punto in cui
 			l'oggetto trovato può risultarti utile!</p><br>

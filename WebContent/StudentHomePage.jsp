@@ -107,11 +107,11 @@ Rankings = (List<Ranking>) session.getAttribute("Rankings");
 		%>
 		
 		<b>Titolo: </b>
-			<%=ranking.getTitle()%></p>
-			
+			<%=ranking.getTitle()%>
+		<p>	
 			<b>Data: </b>
 			<%=ranking.getDate()%></p>
-		
+		<p>
 			<b>Punteggio primo minigioco: </b>
 			<%=ranking.getRank1()%></p>
 		<p>

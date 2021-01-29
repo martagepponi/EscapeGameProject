@@ -82,34 +82,22 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 			} else {
 				if (response.outcome) {
 					alert("Vinto!");
-					//	alert("punti di errore: " + response.errorNumber);
-					//	alert("Punteggio ottenuto: " + response.score );
-					//	document.getElementById("arpa").style.display="block";
+				
 					document.getElementById("closechest").style.display = "none";
 					document.getElementById("openchest").style.display = "block";
-					// 				document.getElementById("div2").style.display="none";
-					// 				document.getElementById("score").innerHTML = response.score;
-					// 				document.getElementById("divTentativi").style.display="none";
-					// 				document.getElementById("question2").style.display="none";
+				    document.getElementById("score").innerHTML = response.score;
+				  
+					
 				} else {
 					if (response.finalOutcome == "L") {
 						alert("Perso!");
+					
 						document.getElementById("closechest").style.display = "none";
 						document.getElementById("openchest").style.display = "block";
-											alert("la risposta corretta era: " + answer1);
-						// 					alert("punti di errore: " + response.errorNumber);
-						// 					alert("Punteggio ottenuto: " + response.score );
-						// 					document.getElementById("arpa").style.display="block";
-						// 					document.getElementById("divMain").style.display="none";
-						// 					document.getElementById("div2").style.display="none";
-						// 					document.getElementById("correctWord").innerHTML = response.correctWord;
-						// 					document.getElementById("showWord").style.display="block";
-						// 					document.getElementById("score").innerHTML = response.score;
-						// 					document.getElementById("divTentativi").style.display="none";
-						// 					document.getElementById("question2").style.display="none";
+						document.getElementById("score").innerHTML = response.score;
+						
 					} else {
 						var attempts = response.attemptsRemained;
-					//	alert("number attempts rimasti" + attempts);
 						document.getElementById("attempts").innerHTML = attempts;
 
 					}
@@ -147,18 +135,13 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 
 	}
 
-	// function hint() {
-	// 	// chiamata al controller per visionareil suggerimento
-	// 	// outcome: suggerimento
-	// 	makeCall("GET", "QuizGame?action=hint", hintResponse);
-
-	// }
+	
 </script>
 </head>
 <body class="quizGame"  onload="load()">
-    <h2>QuizGame</h2>
 
 	<div id="Div" class="quizQuestion">
+	    <h2>QuizGame</h2>
 	<p>
 				Domanda:<br>
 				<%=question%>
@@ -197,9 +180,6 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 
 
 		<div id="chest" align="center">
-			
-			<!-- <h2 id="question2" align="center" style="display: none;"></h2> -->
-			<!-- <p><a href="javascript:hint()">Suggerimento</a></p> -->
 
 			<img id="closechest" src="images/quizgame/closechest.png"
 				height="250" width="270">
@@ -232,16 +212,15 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 
 	<div id="prize" align="center" style="display: none;">
 	
-<!-- 		<p id="showWord" style="display: none;">La parola corretta era: <span id="correctWord"></span></p> 		 -->
 
-<!-- 		<p>Punteggio ottenuto: <span id="score"></span></p> 		 -->
+		<p>Punteggio ottenuto: <span id="score"></span></p> 		
 
 		<img src="images/<%=minigame.getPrize()%>.png" height="250"
 			width="150">
 
 		<p align="center">Hai trovato un oggetto. Troverai questo oggetto
 			nell'inventario, ritorna alla stanza e clicca nel punto in cui
-			l'oggetto trovato puÃ² risultarti utile!</p>
+			l'oggetto trovato può risultarti utile!</p>
 
 		<a href="./Game"> <input type="button" class="btnA backR" value="Torna alla stanza">
 		</a>
