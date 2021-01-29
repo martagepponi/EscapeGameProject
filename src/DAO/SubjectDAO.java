@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-
+import Bean.Room;
 import Bean.Subject;
 
 
@@ -71,11 +72,50 @@ public class SubjectDAO {
 	}
 	
 	//select all subject
-	public List<Subject> findAllSubject() {
-		List<Subject> retval= new ArrayList();
-		//query selct *
-		return retval;
-	}
+	 public List<Subject> findAllSubject() {
+			
+			
+			
+			String query = "SELECT * FROM `escapegame`.`subject` ;";
+				List<Subject> allSubjects = new ArrayList<Subject>();
+				ResultSet result = null;
+				PreparedStatement pstatement = null;
+				try {
+					pstatement = connection.prepareStatement(query);
+					result = pstatement.executeQuery();
+					while (result.next()) {
+					
+						
+						int idSubject = result.getInt("idsubject"); 
+						//System.out.println("idRoom  "+ idRoom);
+						String name = result.getString("name");
+						int year = result.getInt("year");
+						
+						Subject subject = new Subject(idSubject,name, year);
+						allSubjects.add(subject);
+						System.out.println("subject DAO:  "+ allSubjects);
+						
+						}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					  try {
+						  result.close();
+					  } 
+					  catch (Exception e2) {
+						  e2.printStackTrace();
+					  }
+					  try {
+						  pstatement.close();
+					  } 
+					  catch (Exception e3) {
+						  e3.printStackTrace();
+					  }
+				}
+				return allSubjects;
+			}
+	 
+	 
 	//insert new subject
 }
 

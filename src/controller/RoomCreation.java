@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -18,15 +19,17 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import Bean.AbstractMinigame;
 import Bean.RoomCreationResponse;
 import Bean.Subject;
 import Bean.User;
+import DAO.MiniGameDAO;
 import DAO.SubjectDAO;
 
 /**
  * Servlet implementation class InitRoomCreation
  */
-@WebServlet("/InitRoomCreation")
+@WebServlet("/RoomCreation")
 public class RoomCreation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection = null;
@@ -56,7 +59,9 @@ public class RoomCreation extends HttpServlet {
   	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("qui");
 		RoomCreationResponse retval = new RoomCreationResponse();
+		
 		HttpSession session = request.getSession();
 		User user =(User) session.getAttribute("user");
 		if(session.isNew() || user == null) {
@@ -77,11 +82,33 @@ public class RoomCreation extends HttpServlet {
 					retval.setSubjectList(subjectList);
 				}
 				
-			} else {
+			}else if("minigameListByType".equals(action)){
+				String type= request.getParameter("type");
+				String numCombo= request.getParameter("num");
+				MiniGameDAO minigameDao = new MiniGameDAO(connection);
+				List<AbstractMinigame> minigameByTypeList = minigameDao.findMinigamesByType(type);
+				if(minigameByTypeList.isEmpty()) {
+					retval.setOutcome(false);
+				}else {
+					retval.setOutcome(true);
+					retval.setMinigameByTypeList(minigameByTypeList);
+					retval.setComboBoxSelected(numCombo);
+					
+				}
+				
+				
+			}else {
 		 		// TODO: gestione risposta su azione sconosciuta
 		 		retval.setOutcome(false);
 	 			
 		 	}
+			
+			
+			
+			
+			
+			
+			
 		 	PrintWriter out = response.getWriter();
 		 	Gson gson = new Gson();
 			String json = gson.toJson(retval);

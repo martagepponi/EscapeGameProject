@@ -32,6 +32,20 @@ public class Subject {
 		this.wall3= wall3;
 		this.wall4= wall4;
 	}
+	public Subject(int idsubject, String name, int year) {
+		super();
+		this.idsubject = idsubject;
+		this.name = name;
+		this.year = year;
+		this.object1 = "asse";
+		this.object2 = "fuoco";
+		this.object3 = "cane";
+		this.object4 = "archibugio";
+		this.wall1= "muro1";
+		this.wall2= "muro2";
+		this.wall3= "muro3";
+		this.wall4= "muro4";
+	}
 	
 	public Subject () {
 		super();

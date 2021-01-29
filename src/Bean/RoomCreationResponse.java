@@ -7,12 +7,15 @@ public class RoomCreationResponse {
 	protected boolean outcome;
 	protected boolean sessionExpired;
 	protected List<Subject> subjectList;
-	protected int comboBoxSelected;
+	protected String comboBoxSelected;
+	protected List<AbstractMinigame> minigameByTypeList;
 
 	public RoomCreationResponse() {
 		this.outcome=false;
 		this.sessionExpired=false;
 		this.subjectList=new ArrayList<Subject>();
+		this.minigameByTypeList=new ArrayList<AbstractMinigame>();
+		this.comboBoxSelected="";
 	}
 
 	public boolean isOutcome() {
@@ -38,6 +41,22 @@ public class RoomCreationResponse {
 
 	public void setSubjectList(List<Subject> subjectList) {
 		this.subjectList = subjectList;
+	}
+
+	public String getComboBoxSelected() {
+		return comboBoxSelected;
+	}
+
+	public void setComboBoxSelected(String comboBoxSelected) {
+		this.comboBoxSelected = comboBoxSelected;
+	}
+
+	public List<AbstractMinigame> getMinigameByTypeList() {
+		return minigameByTypeList;
+	}
+
+	public void setMinigameByTypeList(List<AbstractMinigame> minigameByTypeList) {
+		this.minigameByTypeList = minigameByTypeList;
 	}
 	
 }

@@ -265,7 +265,7 @@ function makeCall(method, url, cback) {
 <p id="showWord1" style="display: none;"> La parola corretta era: <span id="correctWord"> </p>
 <p>Punteggio ottenuto: <span id="score"></span></p>
 
-<img src="images/<%=minigame.getPrize()%>.png" height="250" width="150"><br><br><br>
+<img id="hangmanPrize" src="images/<%=minigame.getPrize()%>.png" height="250" width="150"><br><br><br>
 
 <p align="center">  Hai trovato un oggetto!<br>
                     Troverai questo oggetto nell'inventario, 

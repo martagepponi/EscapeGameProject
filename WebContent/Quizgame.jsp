@@ -81,7 +81,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR- minigame.getErrorNumber();
 			} else {
 				if (response.outcome) {
 					alert("Vinto!");
-				
+				    document.getElementById("divTentativi").style.display="none";
 					document.getElementById("closechest").style.display = "none";
 					document.getElementById("openchest").style.display = "block";
 				    document.getElementById("score").innerHTML = response.score;
@@ -91,6 +91,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR- minigame.getErrorNumber();
 					if (response.finalOutcome == "L") {
 						alert("Perso!");
 						document.getElementById("attempts").innerHTML = attempts;
+						document.getElementById("divTentativi").style.display="none"
 						document.getElementById("closechest").style.display = "none";
 						document.getElementById("openchest").style.display = "block";
 						document.getElementById("score").innerHTML = response.score;

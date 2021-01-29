@@ -603,14 +603,11 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 
 	<div id="panel">
 	<p>NOTE</p>
-		<table>
-			<tr>
-				<th class="box"></th>
-			</tr>
-			<tr>
-				<td id="cell"></td>
-			</tr>
-		</table>
+		
+				<div class="box"></div>
+			
+				<div id="cell"></div>
+			
 	</div>
 
 

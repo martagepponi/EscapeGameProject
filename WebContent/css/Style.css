@@ -559,12 +559,17 @@ th.inventory {
 	height:100vh;
 	
 }
-.hangmanGame h1, .hangmanGame h2{
-	margin-top: -15px!important; 
+.hangmanGame h1{
+	margin-top: 4px!important; 
     margin-bottom: -1.5rem!important; 
     font-weight: 500;
-    line-height: 2.4!important;
+    
 }
+ .hangmanGame h2{
+ margin-top:23px;
+ font-size:20px;
+margin-bottom: -1.4rem!important;
+ }
 #hngImg{
 	height: 220px!important;
 	 
@@ -575,7 +580,7 @@ th.inventory {
 	display: flex;
 	flex-flow: column;
 	align-items: center;
-	padding-top: 35px;
+	
 }
 #textBoxForm input{
     width: 80%;
@@ -590,7 +595,8 @@ th.inventory {
 	
 }
 #fireExtinguisher img{
-	margin-top:90px;
+	margin-top:40px;
+	
 }
 #fireExtinguisher input{
 	    width: 150px!important;
@@ -642,6 +648,9 @@ to {
 	overflow: hidden;
 	transform: translateY(-50%);
 }
+#showWord1{
+	margin-top: 35px!important;
+}
 
 .affinityGame{
 	
@@ -663,13 +672,11 @@ to {
 	margin-top:7%;
 }
 .affinityGame p{
-	padding-bottom: 30px;
+	padding-bottom: 20px;
 	font-size: 25px;
 }
 
-#question2 {
-	padding-bottom: 70px;
-}
+
 .send{
 	margin-left: 37%!important;
 }
@@ -694,6 +701,15 @@ to {
 
 .backR{
 	width:auto;
+}
+#question2{
+	margin-bottom: 36px;
+}
+#affinityWord{
+	margin-bottom: -17px!important;
+}
+#showWord{
+	margin-top: 35px!important;
 }
 /*quizGame*/
 .quizGame {
@@ -721,6 +737,10 @@ to {
 		font-size:35px!important;
 		margin-top:2%;
 }
+#prize{
+	    margin-top: 30px!important;
+}
+/*final page*/
 .finalPage{
 		background-image: url(../images/bgBox.jpg);
 	background-repeat: no-repeat;
@@ -749,6 +769,9 @@ to {
 #top_right {
 	width: 200px;
 	height: 290px;
+}
+#top_right p, #panel p {
+	font-size: 12px;
 }
 
 #panel {
@@ -802,8 +825,12 @@ to {
 	align-items: center;
 	z-index: 1;
 }
+#paint, #mobile, #bird, #phone, #plants, #box, #fiammiferi, #chair, #flower, #horse, #pc, #dog, #photo, #lavagna {
+    height: 150px;
+    width: 150px;
+    margin-left: 12%;
 }
-
+}
 @media screen and (max-width: 1200px) {
 #top_right {
 	width: 110px;
@@ -858,12 +885,17 @@ to {
 #counter{
 	
 	position:absolute;
-	left: 1.5%;
+	left: 1.2%;
 	font-size:12.5px;
 	color: #f9f9f9;
 	top:75%; 
 	align-items: center;
 	z-index: 1;
+}
+#paint, #mobile, #bird, #phone, #plants, #box, #fiammiferi, #chair, #flower, #horse, #pc, #dog, #photo, #lavagna {
+    height: 90px;
+    width: 90px;
+    margin-left: 10%;
 }
 
 }

@@ -157,7 +157,7 @@ function hint() {
        <h3> Trova una parola che leghi le quattro parole scritte qui sotto:</h3>
      </div>  
 	<div id="divMain" class="line-1 anim-typewriter">	     
-		<p><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
+		<p id="affinityWord"><%=word1 %>, <%=word2%>, <%=word3%>, <%=word4%></p>
 	</div>
 	<p id="question2" align="center" style="display: <%= (minigame.isHintSelected() ? "block" : "none") %>;"><%=(minigame.isHintSelected() ? minigame.getHint() : "") %></p>
 
