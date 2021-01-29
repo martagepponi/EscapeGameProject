@@ -12,8 +12,7 @@ String answer1 = minigame.getRightAnswer();
 String answer2 = minigame.getWrong1();
 String answer3 = minigame.getWrong2();
 
-//   String question2 = minigame.getHint();
-int initialAttempts = Quizgame.MAX_NUM_ERROR;
+int initialAttempts = Quizgame.MAX_NUM_ERROR- minigame.getErrorNumber();
 %>
 <!DOCTYPE html>
 <html>
@@ -91,7 +90,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 				} else {
 					if (response.finalOutcome == "L") {
 						alert("Perso!");
-					
+						document.getElementById("attempts").innerHTML = attempts;
 						document.getElementById("closechest").style.display = "none";
 						document.getElementById("openchest").style.display = "block";
 						document.getElementById("score").innerHTML = response.score;

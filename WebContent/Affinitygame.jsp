@@ -91,7 +91,7 @@ function wordResponse(req){
 			} else  {
 				if (response.finalOutcome == "L") {
 					alert("Perso!");
-				;
+				
 					document.getElementById("title").style.display="none";
 					document.getElementById("prize").style.display="block";
 					document.getElementById("divMain").style.display="none";
