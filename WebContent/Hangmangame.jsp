@@ -105,8 +105,8 @@ session.setAttribute("prize", minigame.getPrize());
 				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
 				if (finalOutcome == "W") {
 					alert("Vinto!");
-					alert("punti di errore: " + wrong_guesses);
-					alert("Punteggio ottenuto: " + score );
+					//alert("punti di errore: " + wrong_guesses);
+					//alert("Punteggio ottenuto: " + score );
 					can_play = false;
 					
 					document.getElementById("fireExtinguisher").style.display="block";
@@ -118,8 +118,8 @@ session.setAttribute("prize", minigame.getPrize());
 				} else if (finalOutcome == "L") {
 					alert("Perso!");
 					alert("la parola corretta era: " + correctWord)
-					alert("punti di errore: " + wrong_guesses);
-					alert("Punteggio ottenuto: " + score );
+					//alert("punti di errore: " + wrong_guesses);
+					//alert("Punteggio ottenuto: " + score );
 					can_play = false;
 					
 					document.getElementById("fireExtinguisher").style.display="block";

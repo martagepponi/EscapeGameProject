@@ -79,8 +79,8 @@ function wordResponse(req){
 		} else {
 			if(response.outcome) {
 				alert("Vinto!");
-				alert("punti di errore: " + response.errorNumber);
-				alert("Punteggio ottenuto: " + response.score );
+				//alert("punti di errore: " + response.errorNumber);
+				//alert("Punteggio ottenuto: " + response.score );
 				document.getElementById("prize").style.display="block";
 				document.getElementById("divMain").style.display="none";
 				document.getElementById("div2").style.display="none";
@@ -90,9 +90,9 @@ function wordResponse(req){
 			} else  {
 				if (response.finalOutcome == "L") {
 					alert("Perso!");
-					alert("la parola corretta era: " + response.correctWord)
-					alert("punti di errore: " + response.errorNumber);
-					alert("Punteggio ottenuto: " + response.score );
+				//	alert("la parola corretta era: " + response.correctWord)
+				//	alert("punti di errore: " + response.errorNumber);
+					//alert("Punteggio ottenuto: " + response.score );
 					document.getElementById("prize").style.display="block";
 					document.getElementById("divMain").style.display="none";
 					document.getElementById("div2").style.display="none";

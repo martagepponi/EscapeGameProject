@@ -1,5 +1,6 @@
 package JUnitTest;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Bean.AbstractMinigame;
+import Bean.Affinitygame;
 import DAO.MiniGameDAO;
 
 
@@ -47,16 +49,20 @@ class TestMinigame {
 	
 	@Test
 	void testFindById() {
+		AbstractMinigame ag = new Affinitygame();
 		MiniGameDAO dao = new MiniGameDAO(this.connection);
-		minigame2 = (AbstractMinigame) dao.findById(idMinigame);
+		
+		//verifico che il tipo di minigioco tornato sia affinitygame
+		ag =  dao.findById(6);
+		assertTrue(ag.getType().equals("affinitygame"));
 		
 		
-		//
-//		assertTrue(minigame2.getClass()== minigame1.getClass());
+		//verifico che un minigame con id=-1 non esiste
+		ag = dao.findById(-1);
+		assertNull(ag);                            
 		
-		
-		
-	
+		 //verifico che la seconda espressione scatena una eccezione uguale alla prima espressione
+		                                          //function(){..... return dao.findById(Integer.parseInt("baubauabau"));}
+		assertThrows(NumberFormatException.class, () -> { dao.findById(Integer.parseInt("baubauabau"));  });
 	}
-
 }

@@ -96,7 +96,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR;
 						alert("Perso!");
 						document.getElementById("closechest").style.display = "none";
 						document.getElementById("openchest").style.display = "block";
-						// 					alert("la parola corretta era: " + response.correctWord)
+											alert("la risposta corretta era: " + answer1);
 						// 					alert("punti di errore: " + response.errorNumber);
 						// 					alert("Punteggio ottenuto: " + response.score );
 						// 					document.getElementById("arpa").style.display="block";

@@ -77,7 +77,7 @@ class TestRoom {
 		//verifico che minigame1 è un intero
 	    minigame1 = dao.selectById(1, connection).getMinigame1(); //verifico che minigame1 è un intero
 	    
-	    //verifico che non esistono stanze con id negativo
+	    //verifico che non esistono stanze con id=-1
 	    assertTrue(dao.selectById(-1, connection) == null);
 	    
 	    
