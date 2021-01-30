@@ -566,7 +566,7 @@ th.inventory {
     
 }
  .hangmanGame h2{
- margin-top:23px;
+ margin-top:30px;
  font-size:20px;
 margin-bottom: -1.4rem!important;
  }
@@ -592,7 +592,7 @@ margin-bottom: -1.4rem!important;
 }
 #fireExtinguisher{
 	display: none;
-	
+	margin-top: 35px;
 }
 #fireExtinguisher img{
 	margin-top:40px;
@@ -668,12 +668,16 @@ to {
 	    font-size: 120%;
 }
 .affinityGame h2{
-	font-size:45px!important;
+	font-size:40px!important;
 	margin-top:7%;
+}
+.affinityGame h3{
+	font-size: 20px!important;
+	
 }
 .affinityGame p{
 	padding-bottom: 20px;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 
@@ -703,10 +707,12 @@ to {
 	width:auto;
 }
 #question2{
-	margin-bottom: 36px;
+	    margin-bottom: 75px;
+    font-size: 20px;
 }
 #affinityWord{
 	margin-bottom: -17px!important;
+	    font-size: 35px;
 }
 #showWord{
 	margin-top: 35px!important;

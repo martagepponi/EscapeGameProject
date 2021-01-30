@@ -24,6 +24,7 @@ import Bean.RoomCreationResponse;
 import Bean.Subject;
 import Bean.User;
 import DAO.MiniGameDAO;
+import DAO.RoomDAO;
 import DAO.SubjectDAO;
 
 /**
@@ -85,8 +86,10 @@ public class RoomCreation extends HttpServlet {
 			}else if("minigameListByType".equals(action)){
 				String type= request.getParameter("type");
 				String numCombo= request.getParameter("num");
+				String idSubj = request.getParameter("idSubject");
+				int idSubject = Integer.parseInt(idSubj);
 				MiniGameDAO minigameDao = new MiniGameDAO(connection);
-				List<AbstractMinigame> minigameByTypeList = minigameDao.findMinigamesByType(type);
+				List<AbstractMinigame> minigameByTypeList = minigameDao.findMinigamesByTypesubject(type,idSubject);
 				if(minigameByTypeList.isEmpty()) {
 					retval.setOutcome(false);
 				}else {
@@ -95,6 +98,34 @@ public class RoomCreation extends HttpServlet {
 					retval.setComboBoxSelected(numCombo);
 					
 				}
+				
+				
+			}else if("createRoom".equals(action)){
+				System.out.println("daje");
+				String idM1 = request.getParameter("idMinigame1");
+				String idM2 = request.getParameter("idMinigame2");
+				String idM3 = request.getParameter("idMinigame3");
+				String idp = request.getParameter("idprof");
+				String ids = request.getParameter("idsubject");
+				int idMinigame1 = Integer.parseInt(idM1);
+				int idMinigame2 = Integer.parseInt(idM2);
+				int idMinigame3 = Integer.parseInt(idM3);
+				int idprof = Integer.parseInt(idp);
+				int idsubject = Integer.parseInt(ids);
+				String password = request.getParameter("password");
+				
+				
+				
+				RoomDAO roomDao = new RoomDAO(connection);
+				
+				try {
+					roomDao.addRoom(idsubject, idprof, password, idMinigame1, idMinigame2, idMinigame3);
+					retval.setOutcome(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				
 				
 			}else {

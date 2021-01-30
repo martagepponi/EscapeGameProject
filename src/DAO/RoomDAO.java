@@ -173,6 +173,34 @@ public class RoomDAO {
 		return t;
 	}
 
-	
+	public void addRoom(int idsubject, int idprof, String password, int idMin1, int idMin2,int idMin3) {
+		String query = "INSERT INTO `escapegame`.`room` (`idsubject`, `idprof`, `password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail`, `title`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement pstatement = null;
+		try {
+			pstatement = connection.prepareStatement(query);
+			pstatement.setInt(1, idsubject);
+			pstatement.setInt(2, idprof); 	
+			pstatement.setString(3, password);
+			pstatement.setInt(4, idMin1);
+			pstatement.setInt(5, idMin2);
+			pstatement.setInt(6, idMin3);
+			pstatement.setInt(7, 2);
+			pstatement.setString(8, "stanza");
+			pstatement.setString(9, "Un brutto risveglio");
+			
+			pstatement.executeUpdate(); 
+			
+			}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try 
+			{ 
+				pstatement.close();
+			} 
+			catch (Exception e3)
+			{ e3.printStackTrace(); } 
+		}
+		
+	}
 	//query di insert di una stanza
 }

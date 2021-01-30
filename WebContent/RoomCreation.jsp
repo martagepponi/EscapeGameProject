@@ -20,6 +20,9 @@ int idUser= user.getIduser();
 
 %>
 <script>
+
+
+
 function makeCall(method, url, cback) {
 
 	var req = new XMLHttpRequest(); // visible dalla chiusura 
@@ -31,7 +34,7 @@ function makeCall(method, url, cback) {
 
 }
 //check su inserimento password ripetuta
-var check = function() {
+function check() {
 	  if (document.getElementById('password').value ==
 	    document.getElementById('confirm_password').value) {
 	    document.getElementById('message').style.color = 'green';
@@ -44,6 +47,9 @@ var check = function() {
 	
 	//riprendo materie con chiamata a controller
 	function caricaMaterie(){
+		var sendRoom = document.getElementById('roomSubmitOk');	
+		
+		sendRoom.addEventListener('click', createRoom, false);
 		
 			makeCall("GET", "RoomCreation?action=subjectList", populateSubject);
 		
@@ -62,15 +68,16 @@ var check = function() {
 				} else {
 					if (response.outcome) {						
 						var subjectList = response.subjectList;
-						var select = document.getElementById("subjectListCombo");		 
-						for(i=0; i < subjectList.lenght; i++){
+						var select = document.getElementById("subjectListCombo");
+						
+						for(i=0; i < subjectList.length; i++){
 							//popolo combobox
 							    var subject = subjectList[i];
 							  
 							    var el = document.createElement("option");
 							   
 							    el.textContent = subject.name+" "+subject.year;
-							    el.value = subject.idSubject;
+							    el.value = subject.idsubject; 
 							    select.appendChild(el);
 							    }
 						}
@@ -83,9 +90,24 @@ var check = function() {
 			}
 		}		
 	// riprendo lista minigiochi per tipo selezionato e numero della combo in cui inserirli
-	function minigameTypeSelection (Type, num){
+	function minigameTypeSelection (selectType, num){
+		var select;
+		var type = selectType.value;
 		
-		makeCall(("GET", "RoomCreation?action=minigameListByType&type=Type&num=num", populateMinigameCombos))
+		if(num == "1"){
+			 select = document.getElementById("firstGameCombo");
+		}else if(num == "2"){
+			 select = document.getElementById("secondGameCombo");	
+		}else if(num == "3"){
+			 select = document.getElementById("thirdGameCombo");	
+			}
+		clear(select);
+		
+		var select1 = document.getElementById("subjectListCombo");
+		var idSubject = select1.value;
+		
+		
+		makeCall("GET", "RoomCreation?action=minigameListByType&type="+type+"&num="+num+"&idSubject="+idSubject, populateMinigameCombos);
 	}
 	
 function populateMinigameCombos(req) {
@@ -100,69 +122,76 @@ function populateMinigameCombos(req) {
 				} else {
 					if (response.outcome) {
 						var minigameByTypeList = response.minigameByTypeList;
-						var numCombo = response.numCombo;
+						var numCombo = response.comboBoxSelected;
+						
 						if(numCombo=="1"){
+							
 							var select = document.getElementById("firstGameCombo");
-							for(i=0; i < minigameByTypeList.lenght; i++){
+							
+							for(i=0; i < minigameByTypeList.length; i++){
+								
 								var minigame = minigameByTypeList[i];
-								if(minigame.idsubject == document.getElementById("subjectListCombo").value){
+								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
-										if(minigame.type=="hangmanGame"){
+										if(minigame.type=="hangmangame"){
 											el.textContent="Parola: "+minigame.word+" Domanda: "+minigame.question1+" Suggerimento: "+minigame.question2;
-											el.value= minigame.idminigame;
+											el.value= minigame.idHangman;
+											
 											select.appendChild(el);
 										}else if(minigame.type=="quizgame"){
 											el.textContent="Domanda: "+minigame.question+" Risposta Corretta: "+minigame.rightAnswer+" Risposta sbagliata 1: "+minigame.wrong1+" Risposta sbagliata 2: "+minigame.wrong2;
-											el.value= minigame.idminigame;
+											el.value= minigame.idQuiz;
+											
 											select.appendChild(el);
 										}else if(minigame.type=="affinitygame"){
 											el.textContent="Parola: "+minigame.rightAnswer+" Parola affine 1: "+minigame.word1+" Parola affine 2: "+minigame.word2+" Parola affine 3: "+minigame.word3+" Parola affine 4: "+minigame.word4+" Suggerimento: "+minigame.hint;
-											el.value= minigame.idminigame;
+											el.value= minigame.idAffgame;
+											
 											select.appendChild(el);
 									}
-								}
+								//}
 							}
 						}else if(numCombo=="2"){
 							var select = document.getElementById("secondGameCombo");
-							for(i=0; i < minigameByTypeList.lenght; i++){
+							for(i=0; i < minigameByTypeList.length; i++){
 								var minigame = minigameByTypeList[i];
-								if(minigame.idsubject == document.getElementById("subjectListCombo").value){
+								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
-										if(minigame.type=="hangmanGame"){
+										if(minigame.type=="hangmangame"){
 											el.textContent="Parola: "+minigame.word+" Domanda: "+minigame.question1+" Suggerimento: "+minigame.question2;
-											el.value= minigame.idminigame;
+											el.value= minigame.idHangman;
 											select.appendChild(el);
 										}else if(minigame.type=="quizgame"){
 											el.textContent="Domanda: "+minigame.question+" Risposta Corretta: "+minigame.rightAnswer+" Risposta sbagliata 1: "+minigame.wrong1+" Risposta sbagliata 2: "+minigame.wrong2;
-											el.value= minigame.idminigame;
+											el.value= minigame.idQuiz;
 											select.appendChild(el);
 										}else if(minigame.type=="affinitygame"){
 											el.textContent="Parola: "+minigame.rightAnswer+" Parola affine 1: "+minigame.word1+" Parola affine 2: "+minigame.word2+" Parola affine 3: "+minigame.word3+" Parola affine 4: "+minigame.word4+" Suggerimento: "+minigame.hint;
-											el.value= minigame.idminigame;
+											el.value= minigame.idAffgame;
 											select.appendChild(el);
 									}
-								}
+								//}
 							}
 						}else if(numCombo=="3"){
 							var select = document.getElementById("thirdGameCombo");
-							for(i=0; i < minigameByTypeList.lenght; i++){
+							for(i=0; i < minigameByTypeList.length; i++){
 								var minigame = minigameByTypeList[i];
-								if(minigame.idsubject == document.getElementById("subjectListCombo").value){
+								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
-										if(minigame.type=="hangmanGame"){
+										if(minigame.type=="hangmangame"){
 											el.textContent="Parola: "+minigame.word+" Domanda: "+minigame.question1+" Suggerimento: "+minigame.question2;
-											el.value= minigame.idminigame;
+											el.value= minigame.idHangman;
 											select.appendChild(el);
 										}else if(minigame.type=="quizgame"){
 											el.textContent="Domanda: "+minigame.question+" Risposta Corretta: "+minigame.rightAnswer+" Risposta sbagliata 1: "+minigame.wrong1+" Risposta sbagliata 2: "+minigame.wrong2;
-											el.value= minigame.idminigame;
+											el.value= minigame.idQuiz;
 											select.appendChild(el);
 										}else if(minigame.type=="affinitygame"){
 											el.textContent="Parola: "+minigame.rightAnswer+" Parola affine 1: "+minigame.word1+" Parola affine 2: "+minigame.word2+" Parola affine 3: "+minigame.word3+" Parola affine 4: "+minigame.word4+" Suggerimento: "+minigame.hint;
-											el.value= minigame.idminigame;
+											el.value= minigame.idAffgame;
 											select.appendChild(el);
 										}
-									}
+									//}
 								}
 								
 							}
@@ -176,8 +205,60 @@ function populateMinigameCombos(req) {
 				// TODO: FABIO.
 			}
 		}
+		
+function createRoom(){
+	var select1 = document.getElementById("firstGameCombo");
+	var idMinigame1 = select1.value;
 	
+	var select2  = document.getElementById("secondGameCombo");
+	var idMinigame2 = select2.value;	
+	var select3 = document.getElementById("thirdGameCombo");
+	var idMinigame3 = select3.value;
+	var idprof = <%=idUser%>;
+	var select4 = document.getElementById("subjectListCombo");
+	var idSubject = select4.value;
+	var password = document.getElementById("password").value;
+	var repetedPassword = document.getElementById("confirm_password").value;
+	var error_pwd = document.getElementById("error_pwd");
+	var empty_minigames = document.getElementById("empty_minigames");
+	alert("qui");
 	
+	if (password != repetedPassword) {
+		error_pwd.style.display = "block";
+		return false;
+	}
+	
+	 if ( idMinigame1 == '' || idMinigame2 == '' || idMinigame3 == '' ||  idSubject == '' ) {
+		empty_minigames.style.display = "block";
+		return false;
+	} 
+	
+	makeCall("GET", "RoomCreation?action=createRoom&idMinigame1="+idMinigame1+"&idMinigame2="+idMinigame2+"&idMinigame3="+idMinigame3+"&idprof="+idprof+"&idsubject="+idSubject+"&password="+password, confirmRedirect);
+	
+}
+	
+	function confirmRedirect(req){
+		if (req.readyState == 4) {
+			var message = req.responseText;
+			if (req.status == 200) {
+				var response = JSON.parse(req.responseText);
+				if (response.sessionExpired) {
+					alert("Sessione scaduta!");
+					document.location.href="/Login.html";
+				} else {
+					if (response.outcome){
+						alert("stanza creata!");
+						window.location.href = "./HomePage";
+							} 
+						}
+				}
+			}
+		
+		
+		
+		
+		
+	}
 	
 	
 	//clear combo box
@@ -191,44 +272,44 @@ function populateMinigameCombos(req) {
 </head>
 <body onload="caricaMaterie()">
 <div id="RoomCreation">
-			<form method="POST" name="CreationForm" onsubmit="" action="SubmitRoom">
+			<form  name="CreationForm" onsubmit="return false" >
 
 				<p>Scegli o crea i minigiochi da inserire nella stanza</p>
 				
 	<select id ="subjectListCombo" ></select>	
 	<select id ="firstGameTypeCombo" onChange="minigameTypeSelection(this, 1)">
 		<option value=""> </option>
-		<option value="affinity">Affinity</option>
-		<option value="hangman">HangmanGame</option>
-		<option value="quiz">QuizGame</option>
+		<option value="affinitygame">Affinity</option>
+		<option value="hangmangame">HangmanGame</option>
+		<option value="quizgame">QuizGame</option>
 	</select>
 	<select id ="firstGameCombo"></select>
 	<select id ="secondGameTypeCombo" onChange="minigameTypeSelection(this, 2)">
 		<option value=""> </option>
-	 	<option value="affinity">Affinity</option>
-		<option value="hangman">HangmanGame</option>
-		<option value="quiz">QuizGame</option>
+	 	<option value="affinitygame">Affinity</option>
+		<option value="hangmangame">HangmanGame</option>
+		<option value="quizgame">QuizGame</option>
 	</select>
 	<select id ="secondGameCombo"></select>
 	<select id ="thirdGameTypeCombo" onChange="minigameTypeSelection(this, 3)">
 		<option value=""> </option>
-	 	<option value="affinity">Affinity</option>
-		<option value="hangman">HangmanGame</option>
-		<option value="quiz">QuizGame</option>
+	 	<option value="affinitygame">Affinity</option>
+		<option value="hangmangame">HangmanGame</option>
+		<option value="quizgame">QuizGame</option>
 	</select>
 	<select id ="thirdGameCombo"></select>
 			
 				
-			
-  <input name="password" id="password" type="password" onkeyup="check();" placeholder="Password" required />
-  <input type="password" name="confirm_password" id="confirm_password"  onkeyup="check();" placeholder="Ripeti Password" required />
-   
+  <div class="error" id="error_pwd" style="display:none;">La password non corrisponde!</div>
+  <div class="error" id="empty_minigames" style="display:none;">scegli tutti e 3 i minigiochi!</div>
+  <input  id="password" type="password" onkeyup="check();" placeholder="Password"  required />
+  <input type="password"  id="confirm_password"  onkeyup="check();" placeholder="Ripeti Password"  required />
   <span id='message'></span>
 
-				<input type="submit" class="submitRoom" name="button" value="submitRoom">
+<input type="submit" class="submitRoom" name="button" value="submitRoom" id="roomSubmitOk">
 				
 				
-			</form>
+</form>
 </div>
 </body>
 </html>

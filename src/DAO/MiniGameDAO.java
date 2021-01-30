@@ -202,6 +202,145 @@ public class MiniGameDAO {
 				
 				result1 = pstate1.executeQuery();
 				if(result1.next()) {
+					
+				hangmangame.setIdHangman(result1.getInt("idhangman"));
+				hangmangame.setType(type);
+				hangmangame.setIdsubject(subject);
+			    hangmangame.setWord(result1.getString("word"));
+				hangmangame.setQuestion1(result1.getString("question1"));
+				hangmangame.setQuestion2(result1.getString("question2"));
+				hangmangame.setPrize(result1.getString("prize"));
+		
+			
+				minigamesByType.add(hangmangame);
+				}
+				
+			}else if(QUIZ.equalsIgnoreCase(type)) {
+				
+				 Quizgame quizgame= new Quizgame();
+					
+					String query1 ="SELECT * FROM `quizgame` WHERE `idquiz`=? ;";
+					 
+					ResultSet result2 = null;
+					PreparedStatement pstate2 = null;
+					
+					pstate2 = connection.prepareStatement(query1);
+					pstate2.setInt(1, Id_minigame);
+					
+					result2 = pstate2.executeQuery();
+					if(result2.next()) {
+					quizgame.setIdQuiz(result2.getInt("idquiz"));
+					quizgame.setType(type);
+					quizgame.setIdsubject(subject);
+				    quizgame.setQuestion(result2.getString("question"));
+					quizgame.setRightAnswer(result2.getString("rightanswer"));
+					quizgame.setWrong1(result2.getString("wrong1"));
+					quizgame.setWrong2(result2.getString("wrong2"));
+					quizgame.setPrize(result2.getString("prize"));
+					
+				
+					
+					
+					minigamesByType.add(quizgame);
+				
+					}
+				
+				
+				
+			}else if (AFFINITY.equalsIgnoreCase(type)) {
+				 Affinitygame affinitygame= new Affinitygame();
+					
+					String query1 ="SELECT * FROM `affinitygame` WHERE `idaffinityGame`=? ;";
+					 
+					ResultSet result3 = null;
+					PreparedStatement pstate3 = null;
+					
+					pstate3 = connection.prepareStatement(query1);
+					pstate3.setInt(1, Id_minigame);
+					
+					result3 = pstate3.executeQuery();
+					if(result3.next()) {
+					affinitygame.setIdAffgame(result3.getInt("idaffinityGame"));
+					affinitygame.setType(type);
+					affinitygame.setIdsubject(subject);
+					affinitygame.setWord1(result3.getString("word1"));
+					affinitygame.setWord2(result3.getString("word2"));
+					affinitygame.setWord3(result3.getString("word3"));
+					affinitygame.setWord4(result3.getString("word4"));
+					affinitygame.setRightAnswer(result3.getString("rightanswer"));
+					affinitygame.setHint(result3.getString("hint"));
+					affinitygame.setPrize(result3.getString("prize"));
+		
+					
+					minigamesByType.add(affinitygame);
+				
+				
+				
+					}
+				
+			} else {
+				//ERRORE
+			}
+
+
+
+		}	
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			result.close();
+		} 
+		catch (Exception e2) {
+			e2.printStackTrace();
+		}
+		try {
+			pstatement.close();
+		} 
+		catch (Exception e3) {
+			e3.printStackTrace();
+		}
+	}
+	return minigamesByType;
+	
+}
+	
+  public List<AbstractMinigame> findMinigamesByTypesubject(String Type, int idSubject) {
+
+	String query = "SELECT * FROM `minigame` WHERE `type`=? AND `idsubject`=? ;";
+	List<AbstractMinigame> minigamesByType = new ArrayList<AbstractMinigame>();
+	ResultSet result = null;
+	PreparedStatement pstatement = null;
+	
+
+	try {
+		pstatement = connection.prepareStatement(query);
+		pstatement.setString(1, Type);
+		pstatement.setInt(2, idSubject);
+		result = pstatement.executeQuery();
+		
+		while(result.next()) {
+
+		    //RIPRENDO RISULTATI DELLA QUERY
+			String type=result.getString("type");
+			int subject= result.getInt("idsubject");
+			int Id_minigame = result.getInt("idminigame");
+			//COSTRUISCO GIOCO IN BASE AL TIPO
+			if(HANGMAN.equalsIgnoreCase(type)) {
+				 Hangmangame hangmangame= new Hangmangame();
+				
+				String query1 ="SELECT * FROM `hangmangame` WHERE `idhangman`=? ;";
+				 
+				ResultSet result1 = null;
+				PreparedStatement pstate1 = null;
+				
+				pstate1 = connection.prepareStatement(query1);
+				pstate1.setInt(1, Id_minigame);
+				
+				result1 = pstate1.executeQuery();
+				if(result1.next()) {
+					
 				hangmangame.setIdHangman(result1.getInt("idhangman"));
 				hangmangame.setType(type);
 				hangmangame.setIdsubject(subject);
