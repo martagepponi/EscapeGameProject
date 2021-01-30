@@ -56,16 +56,14 @@ public class Registration extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
+		
 	
 		//VALIDAZIONE CODICE INIZIALE
 	    String Stringcode = request.getParameter("code");
 	    if (Stringcode != null) {
 	    int code = Integer.parseInt(Stringcode);
 	    System.out.println("codice:   " + code);
-	    
 		PrintWriter out2 = response.getWriter();
-		
 		
 		
 		if(code == 102030) {
@@ -105,9 +103,9 @@ public class Registration extends HttpServlet {
 	  			registrationDAO.addUser(name, surname, username, password, type);
 	  			out.println("[{\"error\":0}]");
 	  		} }else {
-	  			
+	  		//ERRORE CAMPI NON RIEMPITI
 	  			System.out.println("Campi non riempiti");
-	  			//ERRORE CAMPI NON RIEMPITI
+	  			
 	  		}
 	}
 	

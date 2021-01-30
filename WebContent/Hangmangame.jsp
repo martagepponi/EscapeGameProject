@@ -104,6 +104,7 @@ session.setAttribute("prize", minigame.getPrize());
 				document.game.usedLetters.value = used_letters;
 				eval("document.hm.src=\"images/hangmangame/hm" + wrong_guesses + ".gif\"");
 				if (finalOutcome == "W") {
+					document.game.displayWord.value = display_word;
 					alert("Vinto!");
 					//alert("punti di errore: " + wrong_guesses);
 					//alert("Punteggio ottenuto: " + score );
@@ -116,10 +117,9 @@ session.setAttribute("prize", minigame.getPrize());
 					
 					
 				} else if (finalOutcome == "L") {
+					document.game.usedLetters.value = used_letters;
 					alert("Perso!");
-				//	alert("la parola corretta era: " + correctWord)
 					can_play = false;
-				
 					document.getElementById("fireExtinguisher").style.display="block";
 					document.getElementById("correctWord").innerHTML = response.correctWord;
 					document.getElementById("showWord1").style.display="block";

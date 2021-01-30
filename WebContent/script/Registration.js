@@ -61,17 +61,17 @@ function initialization() {
 	
 	var code = document.Form.code.value;
 	
-	if( code == null || code ==''){
+	if( code == null || code ==""){
 		return false;
 	} 
 	
 	
-x = new XMLHttpRequest();
+    x = new XMLHttpRequest();
 	x.onreadystatechange = codeVerify;
 	x.open('POST', serverPath + '/Registration');
 	//Send the proper header information along with the request
 	x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	var params = 'code=' + code ;
+	var params = 'code=' + code;
 	x.send(params);
 }
 

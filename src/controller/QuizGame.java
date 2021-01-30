@@ -118,7 +118,8 @@ public class QuizGame extends HttpServlet {
 												
 						retval.setFinalOutcome(AbstractMinigame.LOSE);
 						retval.setScore(score);
-						retval.setCorrectAnswer(answer);
+						//retval.setCorrectAnswer(answer);
+						retval.setAttemptsRemained(attemptsRemained);
 					}
 				}
 

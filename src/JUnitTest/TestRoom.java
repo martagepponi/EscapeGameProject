@@ -85,4 +85,7 @@ class TestRoom {
 	    assertTrue(minigame1==1);
 	}
 	
+	
+	
+	
 }

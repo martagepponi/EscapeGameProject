@@ -11,11 +11,17 @@ import javax.servlet.UnavailableException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Bean.AbstractMinigame;
+import Bean.Affinitygame;
+import Bean.Hangmangame;
+import DAO.HangmanGameDAO;
+import DAO.MiniGameDAO;
+
 
 class TestHangmanGame {
 	
 	private Connection connection;
-	
+	int idHangman =1;
 	
 	
 	@BeforeEach
@@ -39,6 +45,12 @@ class TestHangmanGame {
 
 	@Test
 	void testSelectById() {
+		AbstractMinigame hg = new Hangmangame();
+		HangmanGameDAO dao = new HangmanGameDAO(this.connection);
+		
+	
+		
+		
 
 	}
 
