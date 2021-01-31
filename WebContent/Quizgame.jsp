@@ -92,6 +92,7 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR- minigame.getErrorNumber();
 						alert("Perso!");
 						document.getElementById("attempts").innerHTML = attempts;
 						document.getElementById("divTentativi").style.display="none"						
+						document.getElementById("attempts").innerHTML = response.attemptsRemained;
 						document.getElementById("closechest").style.display = "none";
 						document.getElementById("openchest").style.display = "block";
 						document.getElementById("score").innerHTML = response.score;

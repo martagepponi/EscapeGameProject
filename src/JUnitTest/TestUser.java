@@ -24,6 +24,7 @@ String username1= "marta";
 String password1= "marti";
 String username2= "tommifabbri"; //username esistente in db
 String password2= "tommi1";
+String surname = "lll";
 
 
 
@@ -52,7 +53,26 @@ String password2= "tommi1";
 	
 	
 	//verifico che l'oggetto tornato non sia un oggetto user (se parametri in ingresso non esistenti)
-	equals(dao.check(username1, password1)== null);
+	assertFalse(dao.check(username1, password1)== user);
+	assertTrue(dao.check(username1, password1)== null);
+	
+	System.out.println("test testCheck di TestUser eseguito");
+	
+	}
+	
+	
+	@Test
+	void testGetSet() {
+		
+		//verifico che password sia "marti"
+		user.setPassword(password1);
+		assertEquals("marti", user.getPassword());
+		
+		//verifico che surname sia "lll"
+		user.setSurname(surname);
+		assertEquals("lll", user.getSurname());
+		
+		System.out.println("test GetSet di TestUser eseguito");
 	
 	}
 	

@@ -19,13 +19,12 @@ import DAO.SubjectDAO;
 class TestSubject {
 	
 	private Connection connection;
-	private Subject subject = new Subject();
+	Subject subject = new Subject();
 	int idroom=1;
+	int idSubject=1;
 	String nome="";
-	
-	
-	
-	
+	String object1 ="asse";
+	 
 	@BeforeEach
 	   void setUp() throws Exception{
 		System.out.println("setUp");
@@ -39,6 +38,9 @@ class TestSubject {
 		} catch (SQLException e) {
 			throw new UnavailableException("Couldn't get db connection");
 		}
+		
+		
+		subject.setName("matematica");
 	}
 	
 	
@@ -60,6 +62,29 @@ class TestSubject {
 		
 		//verifico che attributo name di subject sia di tipo stringa
 		assertTrue(name.getClass().equals(nome.getClass()));
+		
+		System.out.println("test testfindSubjectByIdRoom di TestSubject eseguito");
+		
+	}
+	
+	
+	@Test
+	void testGetSet() {
+		
+		//verifico che name sia matematica
+		assertEquals("matematica", subject.getName());
+		
+		//verifico che object1 sia asse
+		
+		subject.setObject1(object1);
+		assertEquals("asse", subject.getObject1());
+		
+		//verifico che idsubject sia 1
+		subject.setIdsubject(idSubject);
+		assertEquals(1, subject.getIdsubject());
+		
+		System.out.println("test GetSet di TestSubject eseguito");
+		
 		
 	}
 

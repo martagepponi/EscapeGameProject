@@ -25,6 +25,7 @@ class TestRoom {
 	int id=1;
 	int minigame1;
 	int numElements;
+	String profSurname ="gepponi";
 	
 	
 	@BeforeEach
@@ -64,6 +65,9 @@ class TestRoom {
 		
 		//verifico che gli elementi di RoomList siano oggetti Room
 		assertTrue(RoomsList.get(0).getClass().equals(room.getClass()));
+		
+		
+		System.out.println("test testFindAllRooms di TestRoom eseguito");
 	}
 	
 	
@@ -83,8 +87,25 @@ class TestRoom {
 	    
 	  //verifico che minigame1 prende il giusto valore (1)
 	    assertTrue(minigame1==1);
+	    
+	    
+	    System.out.println("test selectById di TestRoom eseguito");
 	}
 	
+	
+	@Test
+	void testGetSet() {
+		
+		//verifico che id room sia 1
+		room.setIdRoom(id);
+		assertTrue(1==room.getIdRoom());
+		
+		//verifico che profSurname sia "gepponi"
+		room.setProfSurname(profSurname);
+		assertEquals("gepponi", room.getProfSurname());
+		
+		System.out.println("test GetSet di TestRoom eseguito");
+	}
 	
 	
 	

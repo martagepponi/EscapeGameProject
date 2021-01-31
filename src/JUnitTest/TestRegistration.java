@@ -49,6 +49,8 @@ public class TestRegistration {
 		assertFalse(user.getUsername()=="MARCO1");
 		assertTrue(user.getPassword()=="123");
 		assertFalse(user.getIduser()== 0);
+		
+		System.out.println("test testUser di TestRegistration eseguito");
 	}
 	
 	@Test
@@ -57,6 +59,9 @@ public class TestRegistration {
 		
 		//verifico che non sono presenti username=marco1 in db
 		assertTrue(dao.register(user.getUsername())== true);
+		
+		System.out.println("test testRegisterMethod di TestRegistration eseguito");
+		
 	}
 	
 	@Test
@@ -68,6 +73,7 @@ public class TestRegistration {
 //		assertTrue(dao.register(user.getUsername())== false);
 		//FUNZIONA LA PRIMA VOLTA COME è GIUSTO CHE SIA PERCHè INSERISCE UTENTE E LA SECONDA VOLTA NON LO INSERISCE PIù
 		
+		System.out.println("test testAddUserMethod di TestRegistration eseguito");
 	}
 
 

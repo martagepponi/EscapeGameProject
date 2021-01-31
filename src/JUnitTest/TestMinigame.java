@@ -22,11 +22,6 @@ import DAO.MiniGameDAO;
 class TestMinigame {
 	
 	private Connection connection;
-	private AbstractMinigame minigame1;
-	private AbstractMinigame minigame2;
-	private int idMinigame= 1;
-	
-	
 	
 	
 	@BeforeEach
@@ -63,6 +58,9 @@ class TestMinigame {
 		
 		 //verifico che la seconda espressione scatena una eccezione uguale alla prima espressione
 		                                          //function(){..... return dao.findById(Integer.parseInt("baubauabau"));}
-		assertThrows(NumberFormatException.class, () -> { dao.findById(Integer.parseInt("baubauabau"));  });
+		assertThrows(NumberFormatException.class, () -> { dao.findById(Integer.parseInt("abc"));  });
+		
+		
+		System.out.println("test testFindById di TestMinigame eseguito");
 	}
 }

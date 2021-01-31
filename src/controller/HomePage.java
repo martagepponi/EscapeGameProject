@@ -88,6 +88,7 @@ public class HomePage extends HttpServlet {
 				for(Room room : Rooms1) { 
 					
 				    int idroom = room.getIdRoom();
+				    //aggiungo alla lista gli id di tutte le stanze esistenti in db
 				    allIdRooms.add(idroom);
 				    }
 				
@@ -102,7 +103,7 @@ public class HomePage extends HttpServlet {
 				
 				for(Integer idroom : allIdRooms) { 
 					Room room = roomDAO.selectById(idroom, connection);
-					Rooms.add(room);
+					Rooms.add(room); //stanze non ancora giocate
 				   
 				    }
 				
