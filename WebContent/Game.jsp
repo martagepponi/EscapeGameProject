@@ -50,7 +50,7 @@ if("YES".equals(session.getAttribute("first_time"))) {
 %>
 	var objects = <%= objects %>;
 	var notFirstTime = false;
-	 localStorage.setItem("objectsList", JSON.stringify(objects));
+	localStorage.setItem("objectsList", JSON.stringify(objects));
 
 <% 
     
@@ -62,21 +62,17 @@ if("YES".equals(session.getAttribute("first_time"))) {
      objects.shift();
      notFirstTime= true;
      var wallNumberIncreased = parseInt("<%=session.getAttribute("wall")%>");
-   
-    
-     
-     
 <%}%>
 
+
 var objectsAndWall = {"<%=object1%>":"<%=wall1%>", "<%=object2%>":"<%=wall2%>", "<%=object3%>":"<%=wall3%>", "<%=object4%>":"<%=wall4%>"};
-//alert("objects"+ objects);
  localStorage.setItem("objectsList", JSON.stringify(objects));
 console.log(objects);
 
 
-//FUNZIONE PER CONTROLLARE CORRISPONDENZA OGGETTO-wall
+//FUNZIONE PER CONTROLLARE CORRISPONDENZA OGGETTO-MURO
 
-function checkObjectsAndWall(object, wallToCheck, clickOrder){
+function checkObjectsAndWall(object, wallToCheck, clickOrder){ //es: asta, muro1, ["asta":"muro1","fuoco":"muro2"...]
 	var check = false;
 	var wall = clickOrder[object];
 	if(wall == wallToCheck){
@@ -106,7 +102,7 @@ function load(){
 	}
 }
 
-function startGame1(){ 
+function startGame1(){ //click "salta"
 	
      document.getElementById("panel").style.display = 'block';
 	 document.getElementById("top_right").style.display = 'block';
@@ -118,12 +114,12 @@ function startGame1(){
 }
 
 
-function startGame2(){ 
+function startGame2(){ //click "inizia"
 	   
     document.getElementById("start2").style.display = 'none';
     document.getElementById("arrows").style.display = 'block';
     document.getElementById("musicButton").style.display = 'block';
-     // MODO PER ELIMINARE EFFETTO GRIGIO
+     // nascondo effetto grigio
     document.getElementById("top_right").style["filter"] = "none";
     document.getElementById("wall").style["-webkit-filter"] = "none";
     document.getElementById("panel").style["filter"]      = "none";
@@ -131,15 +127,16 @@ function startGame2(){
 }
 
 
-//SCORRIMENTO IMMAGINI MURI 
+    //FUNZIONE PER GESTIRE SCORRIMENTO IMMAGINI MURI 
 
 	function imageScroll(element) {
 
 		var wall = document.getElementById("wall");
 		var wallNumber = document.getElementById("wall").src;
-		var number = parseInt(wallNumber.substring(wallNumber.indexOf(".") - 1, wallNumber.indexOf(".")));
+		var number = parseInt(wallNumber.substring(wallNumber.indexOf(".") - 1, wallNumber.indexOf("."))); 
+		//es: wallNumber= images/matematica/muro1.jpg
+		// images/matematica/muro|1|.jpg-----> number=1
 
-		
 		if(element.id === "left_arrow"){
 			-- number;
 		}
@@ -148,54 +145,65 @@ function startGame2(){
 			++ number;
 		}
 		
-		if (number == 0){
+		if (number == 0){ //se sono nel muro1 e clicco freccia sinistra devo tornare a muro4
 			number = 4;
 		}
 		
-		if (number == 5){
+		if (number == 5){ //se sono nel muro4 e clicco freccia destra devo tornare a muro1
 			number = 1;
 		}
-			//scorrimento muri
+		//aggiorno immagine muro
 		wall.src = "images/<%=subject.getName()%>/muro" +number+ ".jpg";
 		
-		//COntrollare ordine di cliccabilità
+		//controllo ordine di cliccabilità
+		
+		//riprendo primo oggetto presente nell'array
 		var objectName = objects[0];
 		var referenceWall = "muro" + number;
 		var correctWall = objectsAndWall[[0]];
+		alert("correctWall"+ correctWall);
 		if(correctWall != referenceWall){   //se wall non è quello giusto inserisco mappa vuota
-			wall.setAttribute("usemap", "");
+			wall.setAttribute("usemap", ""); //riempirò la mappa con le giuste coord solo quando wall sarà quello "giusto"
 		}
 		
+		//se muro in cui mi trovo NON è il primo muro presente nella tabella associativa
 		if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
-			//
+			//attivo mappe degli oggetti cliccabili ma che non rimandano ad un minigame
 			var map ="#obj" + number;
 		    wall.setAttribute("usemap", map);
 			return false;
 		}
-		
-		//aggiungo mappa
-		
+		//se muro in cui mi trovo è il primo muro presente nella tabella associativa
+		//attivo la mappa che rimanda al minigioco
 		var map ="#point" + number;
 		wall.setAttribute("usemap", map);
 	}
 
 	
 
-	//------------------------PERCORSI :--------------------------------
+	//GESTIONE OGGETTI CLICCABILI
+	
 	function loadClickableObjects(id_room){
+		//riprendo percorso dell' elemento html wall 
 		var wallNumber = document.getElementById("wall").src;
 		var number = parseInt(wallNumber.substring(wallNumber.indexOf(".") - 1, wallNumber.indexOf(".")));
 			if(notFirstTime){
-			   number = wallNumberIncreased;
+			   number = wallNumberIncreased;//wallNumberIncreased= muro ripreso dalla sessione, passato da Game.java
 			}
-			var referenceWall = "muro" + number;
+			var referenceWall = "muro" + number;//muro che utente sta visualizzando
 			var objectName = objects[0];
-			if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
+			
+			if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){//se muro visualizzato!= primo muro nella tabella
 				return false;
 			}
+			//richiamo funzione getObject() contenente mappe degli oggetti che riportano ad un minigame
 			document.getElementById("area" + number).coords= getObject(objects[0]);	
-			//conto number di minigame
-			<%int minigameNumber = 1;
+			
+			
+			
+			
+//Gestione numero minigame		
+<%int minigameNumber = 1;
 
 if (session.getAttribute("first_time").equals("NO")) {
 	minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
@@ -206,19 +214,20 @@ if (session.getAttribute("first_time").equals("NO")) {
 				  <%}
 	session.setAttribute("minigameNumber", "" + minigameNumber);
 
-} else {
-	//è la prima volta
-	System.out.println("metto wall prima volta");
+} else {//è la prima volta
+	
 	session.setAttribute("minigameNumber", "1");
 	session.setAttribute("wall", "1");
 }%>
 			minigameNumber = "<%=minigameNumber%>";
-			//
+			//aggiungo alla mappa riferimento a Minigame.java
 			document.getElementById("area"+ number).href="./Minigame";
-			if(referenceWall == "<%=subject.getWall1()%>" ){
+			
+			if(referenceWall == "<%=subject.getWall1()%>" )  
+			{//attivo nel muro1 oggetti cliccabili 
 			 document.getElementById("wall").setAttribute("usemap", "#point" + number);
 			} 
-			//AL RITORNO DA UN MINIGAME CARICO MAPPE CLICCABILI SU MURO1 
+			//al ritorno da un minigame attivo mappe cliccabili sul muro1 (primo muro ad essere visualizzato)
 			else{
 				var number = 1;
 				wall.src = "images/<%=subject.getName()%>/muro"+number+".jpg";
@@ -230,28 +239,21 @@ if (session.getAttribute("first_time").equals("NO")) {
 function timerStart(){
 	
 	 document.getElementById("time").innerHTML = "Occhio al tempo!";
+	 //now= ora attuale
 	  var now = new Date().getTime();
-	// Set the date we're counting down to
+	// countDownDate= ora + 30 s
 	var countDownDate = now + 30000;
-
-	// Update the count down every 1 second
+	// Update sul count down ogni secondo
 	var x = setInterval(function() {
-
-	  // Get today's date and time
-	  var now = new Date().getTime();
-	    
-	  // Find the distance between now and the count down date
+	  // data e ora di oggi
+	  var now = new Date().getTime(); 
+	  // distanza tra now e count down
 	  var distance = countDownDate - now;
-	    
-	  // Time calculations for days, hours, minutes and seconds
-
-	  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-	    
-	  // Output the result in an element with id="demo"
-	 
-	  document.getElementById("demo").innerHTML = seconds + "s ";
-	    
-	  // If the count down is over, write some text 
+	  // tempo calcolato in giorni, ore, minuti e secondi
+	  var seconds = Math.floor((distance % (1000 * 60)) / 1000);	    
+	  //metto il risultato nell'elemento di id=demo	 
+	  document.getElementById("demo").innerHTML = seconds + "s ";  
+	  // allo scadere del count down...
 	  if (distance < 0) {
 		  document.getElementById("time").innerHTML = "";
 		  document.getElementById("demo").innerHTML = "";
@@ -262,11 +264,11 @@ function timerStart(){
 	}, 1000);
 }
 
-//FUNZIONE PER CARICARE IMMAGINI objects NELL'INFO BOX	
+//FUNZIONE PER CARICARE LE IMMAGINI DEGLI OGGETTI CLICCATI DALL'UTENTE NELL'INFO BOX	
 function viewObject(object){
 
 	var cell = document.getElementById("cell");
-	removeChild(cell);
+	removeChild(cell); //richiamo la funzione remoChild(cell): rimuove la l'imm attualmente "appesa" nell'inventario 
 	
 	
 	// wall1--------------
@@ -445,26 +447,28 @@ function viewObject(object){
 
 
 
-
-function removeChild(cell){					//funzione che elimina i figli di un elemento
-	for(j=0; j<cell.childElementCount; j=j){			//j non ha bisognio di aumentare visto che il number dei figli diminuirà
-		cell.removeChild(cell.childNodes[0]); 	//elimino sempre il primo elemento della pila di figli
-	}														//il secondo elemento automaticamente diventerà il prime e verrà eliminato al ciclo successivo
+//FUNZIONE CHE ELIMINA I FIGLI DI UN ELEMENTO
+function removeChild(cell){				
+	for(j=0; j<cell.childElementCount; j=j){//j non ha bisognio di aumentare visto che il number dei figli diminuirà
+		cell.removeChild(cell.childNodes[0]); //elimino sempre il primo elemento della pila di figli
+	}										  //il secondo elemento automaticamente diventerà il primo e verrà eliminato al ciclo successivo
 }	
 	
-	function startMusic(){
+	
+	
+	function startMusic(){ //attiva al click su "INIZIA" e al click sull'icona dell'altoparlante
 		var music = document.getElementById("myAudio"); 
 		music.play();
 		}
 	
-	function pauseMusic(){
+	function pauseMusic(){//attiva al click sull'icona dell'altoparlante sbarrato
 		var music = document.getElementById("myAudio"); 
 		music.pause();
 	}
 	
 	
 
-	function getObject(name){
+	function getObject(name){ // funzione richiamata da loadClickableObjects
 		var coordinates;
 		if(name == "asse")
 			coordinates = "572,535,679,655";
@@ -474,17 +478,6 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 			coordinates = "67,556,156,612";
 		if(name == "archibugio")
 			coordinates = "455,338,515,609";
-		
-		//---------STANZA 2---------------
-// 		if(name == "oggetto1")
-// 			coordinates = "572,535,679,655";
-// 		if(name == "oggetto2")
-// 			coordinates = "225,404,284,530";
-// 		if(name == "oggetto3")
-// 			coordinates = "67,556,156,612";
-// 		if(name == "oggetto4")
-// 			coordinates = "455,338,515,609";
-// 		//aggiungi altri objects
 		return coordinates;
 		
 	}
@@ -613,8 +606,8 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 
 
 
-
-	<!-- CREAZIONE MAPPA CON AREA MINIGIOCO SENZA COORDINATE E AREE ALTRI objects CON COORDINATE -->
+    <!-- MAPPE OGGETTI CLICCABILI -->
+	<!-- CREAZIONE MAPPA CON AREA MINIGIOCO SENZA COORDINATE E AREE DEGLI ALTRO OGGETTI CLICCABILI CON COORDINATE -->
 
 	<map id="point1" name="point1">
 		<area id="area1" shape="rect" coords="" href="">
@@ -667,9 +660,7 @@ function removeChild(cell){					//funzione che elimina i figli di un elemento
 
 
 
-	<!-- MAPPE CHE SI ATTIVANO NEI MURI IN CUI NON C'è MINIGIOCO ATTIVO -->
-
-
+	<!-- MAPPE DEGLI OGGETTI CHE NON ATTIVANO MINIGAME-->
 
 
 	<map id="obj1" name="obj1">

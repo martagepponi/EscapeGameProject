@@ -665,7 +665,7 @@ to {
 	
 }
 .affinityGame a{
-	    font-size: 120%;
+	    font-size: 100%;
 }
 .affinityGame h2{
 	font-size:40px!important;
@@ -711,7 +711,7 @@ to {
     font-size: 20px;
 }
 #affinityWord{
-	margin-bottom: -17px!important;
+	margin-bottom: 19px!important;
 	    font-size: 35px;
 }
 #showWord{

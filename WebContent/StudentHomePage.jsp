@@ -48,13 +48,7 @@ Rankings = (List<Ranking>) session.getAttribute("Rankings");
 	<button class="btnHome mb-3 " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Gioca</button>
 	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/trophy.png">Punteggi</button>
 	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/infoLogo.png">Info</button>
-		
-		
-		<!--  <input type="button" value="Stanze" id="listaS"onclick="show(2)"> 
-		<input type="button" value="Punteggi" id="listaP" onclick="show(4)">
-		<input type="button"value="Regole" id="rules" onclick="show(5)">-->
-		
-
+	
 </div>
 
 
@@ -180,24 +174,5 @@ Rankings = (List<Ranking>) session.getAttribute("Rankings");
 </div>
 
 </div>
-
-
-
-
-
-	  
-<!-- onload="load()"
-show3(); -->
-
-
-
-
-
-	
-
-
-
-
-
 </body>
 </html>

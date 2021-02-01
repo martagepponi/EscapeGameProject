@@ -80,7 +80,6 @@ public class Game extends HttpServlet {
 			int idroom = Integer.parseInt(id_room);
 			
 			SubjectDAO subjectDAO = new SubjectDAO(connection);
-	
 			Subject subject =subjectDAO.findSubjectByIdRoom(idroom);
 			
 			if(subject != null) {
