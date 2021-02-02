@@ -23,6 +23,7 @@ class TestRanking {
 	private Ranking ranking = new Ranking();
 	private ArrayList<Ranking> RankingsList = new ArrayList<Ranking>();
 	private int iduser= 1;
+	private int idroom=1;
 	
 	
 	@BeforeEach
@@ -51,6 +52,19 @@ class TestRanking {
 		RankingsList= (ArrayList<Ranking>) dao.findAllRanking(iduser);
 		assertTrue(dao.findAllRanking(iduser).isEmpty());
 		assertTrue(dao.findAllRanking(iduser).size()==0);
+		
+		
+		
+	}
+	
+	
+	@Test
+	void testFindRankingByRoomAndUser() {
+		RankingDAO dao = new RankingDAO(this.connection);
+		
+		//verifico che il punteggio di un utente relativo ad una certa stanza sia ancora vuoto
+		ranking= (Ranking) dao.findRankingByRoomAndUser(idroom, iduser);
+		assertTrue(ranking==null);
 		
 		
 		
