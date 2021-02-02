@@ -458,7 +458,7 @@ margin-left: 5px;
 }
 
 #top_right {
-	/*Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazare div (o altro) in modo dinamico*/
+	/*Il posizionamento assoluto esula dal flusso di dati del documento, per questo risulta ultile per piazzare div (o altro) in modo dinamico*/
 	/*Grazie al posizionamento fluid (ovvero con percentuali) il nostro div si adattera' automaticamente allo schermo di tutte le risoluzioni*/
 	right: 0;
 	top: 5%;
@@ -657,7 +657,7 @@ to {
 	background-image: url(../images/bgBox.jpg);
 	background-repeat: no-repeat;
 	overflow: hidden!important;
-	color: #f9fafb;
+	color: #000000;
 	text-align:center;
 	align-items:center;
 	font-family: 'Bitter';
@@ -722,7 +722,7 @@ to {
 	background-image: url(../images/bgBox.jpg);
 	background-repeat: no-repeat;
 	overflow: hidden!important;
-	color: #f9fafb;
+	color: #000000;
 	text-align:center;
 	align-items:center;
 	font-family: 'Bitter';

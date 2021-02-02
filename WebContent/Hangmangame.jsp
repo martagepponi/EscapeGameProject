@@ -4,9 +4,9 @@
 <%@page import="java.util.List"%>
 <%@page import="Bean.*"%>
 <%
+   //riprendo oggetto hangman da sessione e tutti i suoi valori
 	Hangmangame minigame = (Hangmangame)session.getAttribute("Minigame");
-session.setAttribute("prize", minigame.getPrize());
-	//int lunghezzaParola = minigame.getWord().length();
+    session.setAttribute("prize", minigame.getPrize());
 	String word = minigame.getWord();
 	String displayWord = minigame.getDisplayWord();
 	String question1 = minigame.getQuestion1();
@@ -139,7 +139,8 @@ session.setAttribute("prize", minigame.getPrize());
 			return;
 		}
 
-		if (used_letters.indexOf(l) != -1) {
+		if (used_letters.indexOf(l) != -1) {//se lettera cliccata è già stata usata non fa niente
+			alert("Lettera già cliccata!");
 			return;
 		}
 

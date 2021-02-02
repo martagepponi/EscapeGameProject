@@ -18,11 +18,9 @@ public class RoomDAO {
 		}
 
 	
-	//LEGGO TUTTE LE ROOMS PRESENTI IN DATABASE
+	//TUTTE LE ROOMS PRESENTI IN DATABASE
 	//invece che idsubject e idprof esce name subject e name prof
 	 public List<Room> findAllRooms() {
-		
-	
 		
 	String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject`;";
 		List<Room> Rooms = new ArrayList<Room>();
@@ -35,7 +33,6 @@ public class RoomDAO {
 			
 				
 				int idRoom = result.getInt("idroom"); 
-				//System.out.println("idRoom  "+ idRoom);
 				String title = result.getString("title");
 				Date date = result.getDate("date");
 				String subject = result.getString("subject.name");
@@ -72,8 +69,58 @@ public class RoomDAO {
 	}
 	
 	
+	 
+	 
+		
+		//CERCO UNA ROOM TRAMITE ID
+		public Room selectById(int idRoom, Connection connection) {
+			Room t = null;
+			String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject` WHERE `escapegame`.`room`.`idroom` = ? ;";
+			ResultSet result = null;
+			PreparedStatement pstatement = null;
+			try {
+				pstatement = connection.prepareStatement(query);
+				pstatement.setInt(1, idRoom);
+				result = pstatement.executeQuery();
+				if (result.next()) {
+					t = new Room();
+					t.setIdRoom(result.getInt("idroom"));
+					t.setTitle(result.getString("title"));
+					t.setDate(result.getDate("date"));
+					t.setSubject(result.getString("subject.name"));
+					t.setProfName(result.getString("user.name"));
+					t.setProfSurname(result.getString("user.surname"));
+					t.setPassword( result.getString("password"));
+					t.setMinigame1(result.getInt("minigame1"));
+					t.setMinigame2(result.getInt("minigame2"));
+					t.setMinigame3(result.getInt("minigame3"));
+					t.setThumbnail(result.getString("thumbnail"));
+					
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				t = null;
+			} finally {
+				try {
+					result.close();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				try {
+					pstatement.close();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			return t;
+		}
+		
+		
+		
+		
 
-	//LEGGO TUTTE LE ROOMS CREATE DAL PROF LOGGATO
+	//TUTTE LE ROOMS CREATE DAL PROF LOGGATO
 
 	public List<Room> findCreatedRooms(int iduser) {
 		String query ="SELECT `user`.`name`, `user`.`surname`, `room`.`idroom`,`room`.`title`, `room`.`date`, `room`.`thumbnail`, `subject`.`name` AS `subject`, `subject`.`year` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` WHERE `escapegame`.`room`.`idprof`=`escapegame`.`user`.`iduser` AND `escapegame`.`room`.`idsubject`= `escapegame`.`subject`.`idsubject` AND `escapegame`.`room`.`idprof`= ?;";
@@ -125,54 +172,6 @@ public class RoomDAO {
 	
 	
 	
-		
-	
-	
-	//CERCO UNA ROOM TRAMITE ID
-	
-	public Room selectById(int idRoom, Connection connection) {
-		Room t = null;
-		String query = "SELECT `idroom`,`title`, `date`, `subject`.`name`, `user`.`name`,`user`.`surname`, `room`.`password`, `minigame1`, `minigame2`, `minigame3`, `thumbnail` FROM `escapegame`.`room` JOIN `escapegame`.`user` JOIN `escapegame`.`subject` ON `idprof`=`iduser` AND `escapegame`.`room`.`idsubject` = `escapegame`.`subject`.`idsubject` WHERE `escapegame`.`room`.`idroom` = ? ;";
-		ResultSet result = null;
-		PreparedStatement pstatement = null;
-		try {
-			pstatement = connection.prepareStatement(query);
-			pstatement.setInt(1, idRoom);
-			result = pstatement.executeQuery();
-			if (result.next()) {
-				t = new Room();
-				t.setIdRoom(result.getInt("idroom"));
-				t.setTitle(result.getString("title"));
-				t.setDate(result.getDate("date"));
-				t.setSubject(result.getString("subject.name"));
-				t.setProfName(result.getString("user.name"));
-				t.setProfSurname(result.getString("user.surname"));
-				t.setPassword( result.getString("password"));
-				t.setMinigame1(result.getInt("minigame1"));
-				t.setMinigame2(result.getInt("minigame2"));
-				t.setMinigame3(result.getInt("minigame3"));
-				t.setThumbnail(result.getString("thumbnail"));
-				
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			t = null;
-		} finally {
-			try {
-				result.close();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			try {
-				pstatement.close();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-		return t;
-	}
-
 	public void addRoom(int idsubject, int idprof, String password, int idMin1, int idMin2,int idMin3) {
 		String query = "INSERT INTO `escapegame`.`room` (`idsubject`, `idprof`, `password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail`, `title`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pstatement = null;

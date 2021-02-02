@@ -45,8 +45,6 @@ public class RankingDAO {
 				String title = result.getString("title");
 
 				Ranking ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title);
-
-				//AGGIUNGO ALLA LISTA TUTTI I PUNTEGGI RISULTANTI DALLA QUERY
 				Rankings.add(ranking);
 
 
@@ -71,8 +69,11 @@ public class RankingDAO {
 		return Rankings;
 	}
 
+	
+	
+	
+	
 	//DOCENTE
-
 	//PUNTEGGI UTENTE LOGGATO E REPERIMENTO IMMAGINE STANZA GIOCATA 
 
 	public List<Ranking> findRankingByProf (int iduser){
@@ -142,9 +143,6 @@ public class RankingDAO {
 			result = pstatement.executeQuery();
 			while (result.next()) {
 				int idroom = result.getInt("idroom");
-
-
-				//AGGIUNGO ALLA LISTA TUTTI ID RISULTANTI DALLA QUERY
 				idRoomList.add(idroom);
 
 
@@ -174,10 +172,7 @@ public class RankingDAO {
 
 	//INSERISCO IN TABELLA IL PUNTEGGIO DEL MINIGIOCO 
 
-
 	public void InsertRank(int minigameNumber, int score,int iduser,int idroom) {
-
-
 
 		String querySelect = "SELECT * FROM escapegame.ranking WHERE user =? AND idroom =?";			
 		String queryInsert = "INSERT INTO escapegame.ranking (user, rank"+minigameNumber+", idroom) VALUES(?,?,?)";
@@ -243,7 +238,7 @@ public class RankingDAO {
 
 	}
 
-	//inserisco in tabella il valore del score finale 
+	//INSERISCO IN TABELLA PUNTEGGIO FINALE
 
 	public void insertTotalRank(int totalRank,int idUser, int idRoom) {
 
@@ -278,15 +273,6 @@ public class RankingDAO {
 
 
 	}
-
-
-
-
-
-
-
-
-
 
 
 

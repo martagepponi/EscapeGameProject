@@ -167,6 +167,10 @@ public class MiniGameDAO {
 		return minigame;
 		
 	}
+	
+	
+
+	//DOCENTE
 
   public List<AbstractMinigame> findMinigamesByType(String Type) {
 

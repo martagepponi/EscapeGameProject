@@ -23,7 +23,7 @@ public class SubjectDAO {
 	
 	
 	
-	//METODO PER REPERIRE objects E MURI DI SUBJECT DATO UN ID STANZA 
+	//METODO PER REPERIRE OGGETTI E MURI DI SUBJECT DATO UN ID STANZA 
 	
 	public Subject findSubjectByIdRoom (int idroom){
 		
@@ -71,10 +71,11 @@ public class SubjectDAO {
 		return subject;
 	}
 	
-	//select all subject
+	
+	
+	//DOCENTE
+	//TUTTE LE MATERIE
 	 public List<Subject> findAllSubject() {
-			
-			
 			
 			String query = "SELECT * FROM `escapegame`.`subject` ;";
 				List<Subject> allSubjects = new ArrayList<Subject>();

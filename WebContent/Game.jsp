@@ -161,7 +161,7 @@ function startGame2(){ //click "inizia"
 		var objectName = objects[0];
 		var referenceWall = "muro" + number;
 		var correctWall = objectsAndWall[[0]];
-		alert("correctWall"+ correctWall);
+		//alert("correctWall"+ correctWall);
 		if(correctWall != referenceWall){   //se wall non è quello giusto inserisco mappa vuota
 			wall.setAttribute("usemap", ""); //riempirò la mappa con le giuste coord solo quando wall sarà quello "giusto"
 		}
