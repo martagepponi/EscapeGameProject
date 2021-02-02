@@ -34,7 +34,9 @@ import DAO.SubjectDAO;
 public class RoomCreation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection = null;
-       
+	private static final String HANGMAN = "hangmangame";
+	private static final String AFFINITY = "affinitygame";
+	private static final String QUIZ = "quizgame";
     
     public RoomCreation() {
         super();
@@ -101,7 +103,7 @@ public class RoomCreation extends HttpServlet {
 				
 				
 			}else if("createRoom".equals(action)){
-				System.out.println("daje");
+				
 				String idM1 = request.getParameter("idMinigame1");
 				String idM2 = request.getParameter("idMinigame2");
 				String idM3 = request.getParameter("idMinigame3");
@@ -125,6 +127,81 @@ public class RoomCreation extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				
+				
+			}else if("addSubject".equals(action)){
+				
+				String name = request.getParameter("subjectName");
+				String y = request.getParameter("subjectYear");
+				int year = Integer.parseInt(y);
+	
+				SubjectDAO subjectDao = new SubjectDAO(connection);
+				
+				try {
+					subjectDao.addSubject(name, year);
+					retval.setOutcome(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+			}else if("createMinigame".equals(action)){
+				MiniGameDAO minigameDao = new MiniGameDAO(connection);
+				
+				String type = request.getParameter("type");
+				if(HANGMAN.equalsIgnoreCase(type)) {
+				String hangmanWord = request.getParameter("hangmanWord");
+				String questionH = request.getParameter("questionH");
+				String hintH = request.getParameter("hintH");
+				String ids = request.getParameter("idSubject");
+				int idsubject = Integer.parseInt(ids);
+					try {
+						minigameDao.addMinigameH(hangmanWord, questionH, hintH, idsubject);
+						retval.setOutcome(true);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else if(AFFINITY.equalsIgnoreCase(type)) {
+					String affinityWord = request.getParameter("affinityWord");
+					String word1A = request.getParameter("word1A");
+					String word2A = request.getParameter("word2A");
+					String word3A = request.getParameter("word3A");
+					String word4A = request.getParameter("word4A");
+					String hintA = request.getParameter("hintA");
+					String ids = request.getParameter("idSubject");
+					int idsubject = Integer.parseInt(ids);
+						try {
+							minigameDao.addMinigameA(affinityWord, word1A, word2A, word3A, word4A, hintA, idsubject);
+							retval.setOutcome(true);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				}else if(QUIZ.equalsIgnoreCase(type)) {
+					String questionQ = request.getParameter("questionQ");
+					String quizWord = request.getParameter("quizWord");
+					String wrong1Q = request.getParameter("wrong1Q");
+					String wrong2Q = request.getParameter("wrong2Q");
+					String ids = request.getParameter("idSubject");
+					int idsubject = Integer.parseInt(ids);
+						try {
+						minigameDao.addMinigameQ(questionQ, quizWord, wrong1Q, wrong2Q, idsubject);
+							retval.setOutcome(true);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				
+				
+	
+				
+				
+				
 				
 				
 				

@@ -116,7 +116,36 @@ public class SubjectDAO {
 				return allSubjects;
 			}
 	 
-	 
+		public void addSubject(String name, int year) {
+			String query = "INSERT INTO `escapegame`.`subject` (`name`, `year`, `object1`, `object2`, `object3`, `object4`, `wall1`, `wall2`, `wall3`, `wall4` ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			PreparedStatement pstatement = null;
+			try {
+				pstatement = connection.prepareStatement(query);
+				pstatement.setString(1, name);
+				pstatement.setInt(2, year); 
+				pstatement.setString(3, "asse");
+				pstatement.setString(4, "fuoco");
+				pstatement.setString(5, "cane");
+				pstatement.setString(6, "archibugio");
+				pstatement.setString(7, "muro1");
+				pstatement.setString(8, "muro2");
+				pstatement.setString(9, "muro3");
+				pstatement.setString(10, "muro4");
+				
+				pstatement.executeUpdate(); 
+				
+				}catch (SQLException e) {
+				e.printStackTrace();
+			}finally{
+				try 
+				{ 
+					pstatement.close();
+				} 
+				catch (Exception e3)
+				{ e3.printStackTrace(); } 
+			}
+			
+		}
 	//insert new subject
 }
 

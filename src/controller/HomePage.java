@@ -20,9 +20,11 @@ import javax.servlet.http.HttpSession;
 
 import Bean.Ranking;
 import Bean.Room;
+import Bean.Subject;
 import Bean.User;
 import DAO.RankingDAO;
 import DAO.RoomDAO;
+import DAO.SubjectDAO;
 import DAO.UserDAO;
 
 
@@ -117,6 +119,11 @@ public class HomePage extends HttpServlet {
 				List<Room> createtedRooms = roomDAO.findCreatedRooms(user.getIduser());
 				RankingDAO rankingDAO = new RankingDAO(connection);
 				List<Ranking> Rankings = rankingDAO.findRankingByProf(user.getIduser());
+
+				SubjectDAO subjectDao = new SubjectDAO(connection);
+				List<Subject> subjectList = subjectDao.findAllSubject();
+				System.out.println(subjectList);
+				session.setAttribute("SubjectList", subjectList);
 
 				request.setAttribute("rankings", Rankings);
 				request.setAttribute("createtedRooms", createtedRooms);

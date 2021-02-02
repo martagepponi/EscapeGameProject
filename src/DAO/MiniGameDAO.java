@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -447,13 +448,175 @@ public class MiniGameDAO {
 	return minigamesByType;
 	
 }
-	
-	
+ 
+	public void addMinigameH(String hangmanWord,String questionH, String hintH, int idsubject) {
+		String query1 = "INSERT INTO `escapegame`.`minigame` (`type`, `idsubject`) VALUES (?, ?);";
+		String query2 ="SELECT `idminigame` FROM `escapegame`.`minigame`;";
+		String query3 ="INSERT INTO `escapegame`.`hangmangame` (`idhangman`, `word`, `question1`, `question2` ) VALUES (?, ?, ?, ?);";
+		PreparedStatement pstatement1 = null;
+		PreparedStatement pstatement2 = null;
+		PreparedStatement pstatement3 = null;
+		ResultSet rs = null;
+		int id = 0;
+		ArrayList<Integer> appL = new ArrayList<Integer>();
+		try {
+			pstatement1 = connection.prepareStatement(query1);
+			pstatement1.setString(1, "hangmangame");
+			pstatement1.setInt(2, idsubject); 			
+			pstatement1.executeUpdate(); 
+			
+			pstatement2 = connection.prepareStatement(query2);
+			rs = pstatement2.executeQuery();
+			while (rs.next()) {
+				
+				id = rs.getInt("idminigame");
+				
+				appL.add(id);
+			}
+			Integer i= Collections.max(appL);
+			
+			pstatement3 = connection.prepareStatement(query3);
+			pstatement3.setInt(1, i);
+			pstatement3.setString(2, hangmanWord);
+			pstatement3.setString(3, questionH);
+			pstatement3.setString(4, hintH);
+			pstatement3.executeUpdate(); 
+			
+			}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try { 
+				pstatement1.close();
+				pstatement2.close();
+				pstatement3.close();
+			} 
+			catch (Exception e3){ 
+				e3.printStackTrace();
+			} 
+			try {
+				rs.close();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+	}
 }
 	
 	
+	public void addMinigameA(String affinityWord, String word1A, String word2A, String word3A, String word4A, String hintA, int idsubject) {
+		String query1 = "INSERT INTO `escapegame`.`minigame` (`type`, `idsubject`) VALUES (?, ?);";
+		String query2 ="SELECT `idminigame` FROM `escapegame`.`minigame`;";
+		String query3 ="INSERT INTO `escapegame`.`affinitygame` (`idaffinityGame`, `word1`, `word2`, `word3`, `word4`, `rightanswer`, `hint` ) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement pstatement1 = null;
+		PreparedStatement pstatement2 = null;
+		PreparedStatement pstatement3 = null;
+		ResultSet rs = null;
+		int id = 0;
+		ArrayList<Integer> appL = new ArrayList<Integer>();
+		try {
+			pstatement1 = connection.prepareStatement(query1);
+			pstatement1.setString(1, "affinitygame");
+			pstatement1.setInt(2, idsubject); 			
+			pstatement1.executeUpdate(); 
+			
+			pstatement2 = connection.prepareStatement(query2);
+			rs = pstatement2.executeQuery();
+			while (rs.next()) {
+				
+				id = rs.getInt("idminigame");
+				
+				appL.add(id);
+			}
+			Integer i= Collections.max(appL);
+			
+			pstatement3 = connection.prepareStatement(query3);
+			pstatement3.setInt(1, i);
+			pstatement3.setString(2, word1A);
+			pstatement3.setString(3, word2A);
+			pstatement3.setString(4, word3A);
+			pstatement3.setString(5, word4A);
+			pstatement3.setString(6, affinityWord);
+			pstatement3.setString(7, hintA);
+			
+			pstatement3.executeUpdate(); 
+			
+			}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try { 
+				pstatement1.close();
+				pstatement2.close();
+				pstatement3.close();
+			} 
+			catch (Exception e3){ 
+				e3.printStackTrace();
+			} 
+			try {
+				rs.close();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+	}
+}
 	
+	public void addMinigameQ(String questionQ, String quizWord, String wrong1Q, String wrong2Q, int idsubject) {
+		String query1 = "INSERT INTO `escapegame`.`minigame` (`type`, `idsubject`) VALUES (?, ?);";
+		String query2 ="SELECT `idminigame` FROM `escapegame`.`minigame`;";
+		String query3 ="INSERT INTO `escapegame`.`quizgame` (`idquiz`, `question`, `rightanswer`, `wrong1`, `wrong2`) VALUES (?, ?, ?, ?, ?);";
+		PreparedStatement pstatement1 = null;
+		PreparedStatement pstatement2 = null;
+		PreparedStatement pstatement3 = null;
+		ResultSet rs = null;
+		int id = 0;
+		ArrayList<Integer> appL = new ArrayList<Integer>();
+		try {
+			pstatement1 = connection.prepareStatement(query1);
+			pstatement1.setString(1, "quizgame");
+			pstatement1.setInt(2, idsubject); 			
+			pstatement1.executeUpdate(); 
+			
+			pstatement2 = connection.prepareStatement(query2);
+			rs = pstatement2.executeQuery();
+			while (rs.next()) {
+				
+				id = rs.getInt("idminigame");
+				
+				appL.add(id);
+			}
+			Integer i= Collections.max(appL);
+			
+			pstatement3 = connection.prepareStatement(query3);
+			pstatement3.setInt(1, i);
+			pstatement3.setString(2, questionQ);
+			pstatement3.setString(3, quizWord);
+			pstatement3.setString(4, wrong1Q);
+			pstatement3.setString(5, wrong2Q);
+			
+			
+			pstatement3.executeUpdate(); 
+			
+			}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try { 
+				pstatement1.close();
+				pstatement2.close();
+				pstatement3.close();
+			} 
+			catch (Exception e3){ 
+				e3.printStackTrace();
+			} 
+			try {
+				rs.close();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+	}
+}
 	
+}
 	
 	
 	

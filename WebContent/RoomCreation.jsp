@@ -8,7 +8,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	 <link rel="stylesheet" href="css/Style.css">
+	 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <meta charset="ISO-8859-1">
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>Room Creation</title>
 <%
 
@@ -20,7 +23,9 @@ int idUser= user.getIduser();
 
 %>
 <script>
-
+function backHome(){
+	window.location.href = "./HomePage";
+}
 
 
 function makeCall(method, url, cback) {
@@ -271,6 +276,9 @@ function createRoom(){
 </script>
 </head>
 <body onload="caricaMaterie()">
+<div class="HomeHead">
+<button class= "btnLogout" id= "logout" type="button" name="esci" value="Indietro" onClick="backHome()" >Indietro</button>
+</div>
 <div id="RoomCreation">
 			<form  name="CreationForm" onsubmit="return false" >
 
@@ -302,10 +310,11 @@ function createRoom(){
 				
   <div class="error" id="error_pwd" style="display:none;">La password non corrisponde!</div>
   <div class="error" id="empty_minigames" style="display:none;">scegli tutti e 3 i minigiochi!</div>
+  <div id="passwords">
   <input  id="password" type="password" onkeyup="check();" placeholder="Password"  required />
   <input type="password"  id="confirm_password"  onkeyup="check();" placeholder="Ripeti Password"  required />
   <span id='message'></span>
-
+  </div>
 <input type="submit" class="submitRoom" name="button" value="submitRoom" id="roomSubmitOk">
 				
 				

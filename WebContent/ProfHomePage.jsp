@@ -8,7 +8,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+     <link rel="stylesheet" href="css/Style.css">
+	 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <meta charset="ISO-8859-1">
+     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <title>Home Page</title>
 
 
@@ -23,7 +26,7 @@ User user = (User) session.getAttribute("user");
 	
 	
 	
-	function load(){
+	/*function load(){
 		document.getElementById('block2').style.display= "none";
 		document.getElementById('block3').style.display= "none";
 	}
@@ -38,7 +41,7 @@ User user = (User) session.getAttribute("user");
 			document.getElementById('block2').style.display= "none";
 			document.getElementById('block3').style.display = "block";
 		}
-	}
+	}*/
 	
 	
 	function logout() {
@@ -48,158 +51,94 @@ User user = (User) session.getAttribute("user");
 		
 		 window.location = '/EscapeGameProject/RoomCreation.jsp';
 	}
+	function goCreationMg(){
+		
+		window.location = '/EscapeGameProject/MiniGameCreation.jsp';
+	}
+	function  goAddSubject(){
+		window.location = '/EscapeGameProject/SubjectInsertion.jsp';
+		
+	}
 </script>
 </head>
 <body onload="load()">
+<div class="introDue" >
+<div class="HomeHead">
+<button class= "btnLogout" id= "help" type="button" name="esci" value="Help" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@mdo"  >Help</button>
+<button class= "btnLogout" id= "logout" type="button" name="esci" value="Logout" onClick="logout()" >Logout</button>
 
-	<div name="main" id="block1">
-		<table width="110%" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-				<td>&nbsp; Benvenuto Prof.  <%= user.getSurname()%> <%= user.getName()%>  
-				</td>
-				<td align="center"><input type="button" name="esci"
-					value="Logout" onClick="logout()" /></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<div id="maindiv" name="maindiv"
-						style="width: 100%; display: flex; height: 200px; margin-top: 5px;">
-						<div id="menu"
-							style="margin: 0px; width: 20%; height: 100%; border: 1px black solid;">
-							<table>
-								<tr>
-									<th align="center">MENU'</th>
-								</tr>
-								<tr>
-									<td><input type="button" value="Stanze createte"
-										id="stanze" onclick="show(2)"></td>
-								</tr>
-								<tr>
-									<td><input type="button" value="Visualizza punteggi"
-										id="listaPunteggi" onclick="show(3)"></td>
-									
-								</tr>
-
-								<tr>
-									<td><input type="button" value="Crea stanza" id="create" onclick="goCreation()"></td>
-									
-									
-									
-								</tr>
-							</table>
-						</div>
-						<div id="menu" style="width: 80%; margin: 0px; height: 100%;">
-						</div>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
+</div>
 
 
-	<div id="block2">
 
-		<%
+<div class="boxStHome boxPHome">
+<h1 id="welcome">
+		Benvenuto Prof. <%=user.getSurname() %> <%= user.getName()%>
+</h1>
+<button class="btnHome mb-3 " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Stanze create</button>
+<button class="btnHome mb-3" id="create" onclick="goCreation()">Crea stanze</button>
+<button class="btnHome mb-3" id="createMg" onclick="goCreationMg()">Crea minigiochi</button>
+<button class="btnHome mb-3" id="addSubject" onclick="goAddSubject()">Aggiungi nuova materia</button>
+<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat" ><img src="images/trophy.png"></button>
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="thumbnailCon modal-dialog modal-dialog-table d-flex flex-row align-items-center ">
 	
-
+	
+	<table>
+	<tr><td>Miniatura</td><td>Data</td><td>Anno</td><td>Materia</td><td>ID stanza</td><td></td></tr>
+	
+	<%
+	
+	
+	
+	
 List<Room> createtedRooms = new ArrayList<>();
 createtedRooms = (List<Room>) request.getAttribute("createtedRooms");
 			
 		for (Room room : createtedRooms) {
 		%>
-
-		<p>
-			<b>Stanza: </b><img id="image" height="62" width="62"
-				src="images/<%= room.getThumbnail()  %>.jpg"
-				alt="<%=room.getThumbnail()%>">
-		</p>
-
-
-		<p>
-			<b>Data: </b>
-			<%=room.getDate()%></p>
-		<p>
-		<p>
-			<b>Anno: </b>
-			<%=room.getYear()%></p>
-		<p>
-		<p>
-			<b>Materia: </b>
-			<%=room.getSubject()%></p>
-		<p>
-		<p>
-			<b>ID Stanza: </b>
-			<%=room.getIdRoom()%></p>
-		<p>
-           <button id="UpdateRoom" value=<%=room.getIdRoom() %>>modifica stanza</button>
+<tr><td><img id="imageT" height="62" width="62" src="images/<%= room.getThumbnail()  %>.jpg" alt="<%=room.getThumbnail()%>"></td><td><%=room.getDate()%></td><td><%=room.getYear()%></td><td><%=room.getSubject()%></td><td><%=room.getIdRoom()%></td><td><button id="UpdateRoom" value=<%=room.getIdRoom() %>>modifica stanza</button></td></tr>
+		
+			
 
 			<%
 			}
 		%>
-		
-	</div>
-	
-	
-	
-	
-<div id="block3">
+		</table>
+		</div>
+</div>
 
-		<%
+	<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog thumbnailCon modal-dialog-table2 d-flex flex-column align-items-center p-5">
+    <table>
+	<tr><td>Stanza</td><td>Data</td><td>Studente</td><td>ID stanza</td><td>Minigame 1</td><td>Minigame 2</td><td>Minigame 3</td><td>Minigame 4</td><td>Totale</td></tr>
+  <%
 	
 
-List<Ranking> Rankings = new ArrayList<>();
-Rankings = (List<Ranking>) request.getAttribute("rankings");
+  List<Ranking> Rankings = new ArrayList<>();
+  Rankings = (List<Ranking>) request.getAttribute("rankings");
 			
 		for (Ranking ranking : Rankings) {
 		%>
-
-		<p>
-			<b>Stanza: </b><img id="image" height="62" width="62" src="images/stanza.jpg">
-		</p>
-
-
-		<p>
-			<b>Data: </b>
-			<%=ranking.getDate()%></p>
-		<p>
-		<p>
-			<b>Studente </b>
-			<%=ranking.getUser()%></p>
-		<p>
-		<p>
-			<b>Stanza </b>
-			<%=ranking.getIdroom() %></p>
-		<p>
-		<p>
-			<b>minigame1 rank </b>
-			<%=ranking.getRank1()%></p>
-		<p>
-		<p>
-			<b>minigame2 rank </b>
-			<%=ranking.getRank2()%></p>
-		<p>
-		<p>
-			<b>minigame3 rank </b>
-			<%=ranking.getRank3()%></p>
-		<p>
-		<p>
-			<b>minigame4 rank </b>
-			<%=ranking.getRank4()%></p>
-		<p>
-		<p>
-			<b>total rank </b>
-			<%=ranking.getTotalrank()%></p>
-		<p>
+<tr><td><img id="imageT" height="62" width="62" src="images/stanza.jpg"></td><td><%=ranking.getDate()%></td><td><%=ranking.getUser()%></td><td><%=ranking.getIdroom() %></td><td><%=ranking.getRank1()%></td><td><%=ranking.getRank2()%></td><td><%=ranking.getRank3()%></td><td><%=ranking.getRank4()%></td><td><%=ranking.getTotalrank()%></td></tr>
 		
-
-
 			<%
 			}
 		%>
-		
-	</div>
-
-
-
+		</table>
+  </div>
+  </div>
+  <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog thumbnailCon modal-dialog-table2 d-flex flex-column align-items-center p-5">
+    <p>Spiegazioni</p>
+  </div>
+  </div>
+<div class="foot">
+<p>Copyright2020</p>
+</div>
+</div>
 </body>
 </html>

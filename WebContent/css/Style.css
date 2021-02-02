@@ -827,7 +827,7 @@ to {
 	left: 1%;
 	font-size:17.5px;
 	color: #f9f9f9;
-	top:75%; 
+	top:69%; 
 	align-items: center;
 	z-index: 1;
 }
@@ -904,4 +904,91 @@ to {
     margin-left: 10%;
 }
 
+
+}
+/*prof Home*/
+.boxPHome {	
+	padding-top: 1%!important;
+}
+table{
+	margin:auto;
+	margin-top:10px!important;
+}
+td, th{
+
+text-align: center;
+padding:5px!important;
+}
+#imageT{
+	    height: 120px;
+}
+.modal-dialog-table{
+background-image: url(../images/bgBox.jpg);
+    background-size: cover;
+    background-position: center center;
+    width: 660px!important;
+    max-width:none!important;
+    height: auto;
+    min-height: 420px;
+    border-radius: 20px;
+    box-shadow: 0 0 4px #333;
+    position: absolute!important;
+    top: calc(42.5% - 210px)!important;
+    left: calc(50% - 330px)!important;
+}
+#UpdateRoom{
+	margin:5px;
+	background-color:#cf0a21;
+	display: flex;
+	 
+	align-items: center;
+	color: #f9f9f9; 
+	font-family: 'Bitter'; 
+	font-weight: 700; 
+	font-size:12px;
+	text-transform:uppercase;
+	text-decoration:none;
+	
+	border:none;
+	border-radius:15px;
+	box-shadow:0 0 4px #555;
+	cursor:pointer;
+	display: flex;
+    width:90px;
+	height:40px;
+}
+
+#UpdateRoom:hover{ 
+	
+	transform: scale(1.1);
+    transition: all .3s ease-in-out;
+}
+.modal-dialog-table2{
+	background-image: url(../images/bgBox.jpg);
+    background-size: cover;
+    background-position: center center;
+    width: 800px!important;
+    max-width:none!important;
+    height: auto;
+    min-height: 420px;
+    border-radius: 20px;
+    box-shadow: 0 0 4px #333;
+    position: absolute!important;
+    top: calc(42.5% - 210px)!important;
+    left: calc(50% - 400px)!important;
+}
+#help{
+	left:2%!important;
+}
+.dbSubject{
+	display:flex; 
+	flex-flow: column; 
+	align-items:center;
+	color:#f9f9f9;
+	font-weight: 700;
+    font-size: 20px;	
+	
+}
+.dbSubject button{
+	margin-top:50px!important;
 }

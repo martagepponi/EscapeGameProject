@@ -46,9 +46,9 @@ Rankings = (List<Ranking>) session.getAttribute("Rankings");
 		 ora tocca a te!
 	</h1>
 	<button class="btnHome mb-3 " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Gioca</button>
-	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/trophy.png">Punteggi</button>
-	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/infoLogo.png">Info</button>
-	
+	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat" ><img src="images/trophy.png">Punteggi</button>
+	<button class="btn2 btnScore" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat" ><img src="images/infoLogo.png">Info</button>
+
 </div>
 
 
