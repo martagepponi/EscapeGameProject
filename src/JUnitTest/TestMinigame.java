@@ -58,7 +58,7 @@ class TestMinigame {
 		
 		 //verifico che la seconda espressione scatena una eccezione uguale alla prima espressione
 		                                          //function(){..... return dao.findById(Integer.parseInt("mm"));}
-		assertThrows(NumberFormatException.class, () -> { dao.findById(Integer.parseInt("abc"));  });
+		assertThrows(NumberFormatException.class, () -> { dao.findById(Integer.parseInt("abc"),Integer.parseInt("def"));  });
 		
 		
 		System.out.println("test testFindById di TestMinigame eseguito");

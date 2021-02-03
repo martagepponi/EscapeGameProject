@@ -191,7 +191,7 @@ public class MiniGameDAO {
 	
 	
 	//CERCO IL MINIGIOCO IN BASE ALL'ID E LO COSTRUISCO IN BASE AL TIPO
-	public AbstractMinigame findById(int Id_minigame) {
+/*	public AbstractMinigame findById(int Id_minigame) {
 
 		String query = "SELECT * FROM `minigame` WHERE `idminigame`=? ;";
 		AbstractMinigame minigame = null;
@@ -325,12 +325,13 @@ public class MiniGameDAO {
 		return minigame;
 		
 	}
+	*/
 	
 	
 
 	//DOCENTE
 
-  public List<AbstractMinigame> findMinigamesByType(String Type) {
+ /* public List<AbstractMinigame> findMinigamesByType(String Type) {
 
 	String query = "SELECT * FROM `minigame` WHERE `type`=? ;";
 	List<AbstractMinigame> minigamesByType = new ArrayList<AbstractMinigame>();
@@ -466,7 +467,7 @@ public class MiniGameDAO {
 	}
 	return minigamesByType;
 	
-}
+}*/
 	
   public List<AbstractMinigame> findMinigamesByTypesubject(String Type, int idSubject) {
 
@@ -509,7 +510,7 @@ public class MiniGameDAO {
 			    hangmangame.setWord(result1.getString("word"));
 				hangmangame.setQuestion1(result1.getString("question1"));
 				hangmangame.setQuestion2(result1.getString("question2"));
-				hangmangame.setPrize(result1.getString("prize"));
+				//hangmangame.setPrize(result1.getString("prize"));
 		
 			
 				minigamesByType.add(hangmangame);
@@ -536,7 +537,7 @@ public class MiniGameDAO {
 					quizgame.setRightAnswer(result2.getString("rightanswer"));
 					quizgame.setWrong1(result2.getString("wrong1"));
 					quizgame.setWrong2(result2.getString("wrong2"));
-					quizgame.setPrize(result2.getString("prize"));
+					//quizgame.setPrize(result2.getString("prize"));
 					
 				
 					
@@ -569,7 +570,7 @@ public class MiniGameDAO {
 					affinitygame.setWord4(result3.getString("word4"));
 					affinitygame.setRightAnswer(result3.getString("rightanswer"));
 					affinitygame.setHint(result3.getString("hint"));
-					affinitygame.setPrize(result3.getString("prize"));
+					//affinitygame.setPrize(result3.getString("prize"));
 		
 					
 					minigamesByType.add(affinitygame);
