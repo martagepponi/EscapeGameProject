@@ -68,28 +68,28 @@ public class HomePage extends HttpServlet {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
 		User user =(User) session.getAttribute("user");
-
-
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
 		if(session.isNew() || user == null) {
 			System.out.println("redirect a login -...");
 			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
-		}else { //se sessione non è nuova e utente è in sessione
-
+		}else { //SE SESSIONE NON E' NUOVA E UTENTE E' IN SESSIONE
+			
+			
 			//SE UTENTE=STUDENTE
 			
 			if(user.getType().equals("studente")) { 
 				//RIPRENDO ELENCO DI TUTTE LE STANZE
 				RoomDAO roomDAO = new RoomDAO(connection);
 				List<Room> Rooms1 = roomDAO.findAllRooms();
-				RankingDAO rankingDAO = new RankingDAO(connection);
-				
                 List<Integer> allIdRooms = new ArrayList();
+                //PER OGNI STANZA MI RICAVO L'ID
 				for(Room room : Rooms1) { 
 					int idroom = room.getIdRoom();
 					//AGGIUNGO ALLA LISTA GLI ID DI TUTTE LE STANZE ESISTENTI
 					allIdRooms.add(idroom);
 				}
+				//RIPRENDO TUTTE LE STANZE GIA' GIOCATE DALL'UTENTE
+				RankingDAO rankingDAO = new RankingDAO(connection);
 				List<Integer> userIdRooms= rankingDAO.idRoomList(user.getIduser());
 
 				//SOTTRAZIONE TRA TUTTE LE STANZE E QUELLE GIA' GIOCATE DA UTENTE (TOTALRANK!=0)
@@ -103,7 +103,7 @@ public class HomePage extends HttpServlet {
 				}
 				session.setAttribute("Rooms", Rooms );
 
-
+                //RIPRENDO TUTTI I PUNTEGGI OTTENUTI DALL'UTENTE
 				List<Ranking> Rankings = rankingDAO.findAllRanking(user.getIduser());
 				session.setAttribute("Rankings", Rankings);
 				request.getRequestDispatcher("/StudentHomePage.jsp").forward(request, response);
@@ -111,9 +111,9 @@ public class HomePage extends HttpServlet {
 
 
 
+				//SE UTENTE=DOCENTE
 
-
-			}else { //se è un docente...
+			}else {
 
 				RoomDAO roomDAO = new RoomDAO(connection);
 				List<Room> createtedRooms = roomDAO.findCreatedRooms(user.getIduser());

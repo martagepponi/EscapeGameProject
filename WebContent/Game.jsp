@@ -160,11 +160,11 @@ function startGame2(){ //click "inizia"
 		//riprendo primo oggetto presente nell'array
 		var objectName = objects[0];
 		var referenceWall = "muro" + number;
-		var correctWall = objectsAndWall[[0]];
-		//alert("correctWall"+ correctWall);
-		if(correctWall != referenceWall){   //se wall non è quello giusto inserisco mappa vuota
-			wall.setAttribute("usemap", ""); //riempirò la mappa con le giuste coord solo quando wall sarà quello "giusto"
-		}
+// 		var correctWall = objectsAndWall[[0]]; 
+// 		//alert("correctWall"+ correctWall);
+// 		if(correctWall != referenceWall){   //se wall non è quello giusto inserisco mappa vuota
+// 			wall.setAttribute("usemap", ""); //riempirò la mappa con le giuste coord solo quando wall sarà quello "giusto"
+// 		}
 		
 		//se muro in cui mi trovo NON è il primo muro presente nella tabella associativa
 		if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){

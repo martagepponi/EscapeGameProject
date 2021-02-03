@@ -71,11 +71,10 @@ public class Game extends HttpServlet {
 		if(session.isNew() || user == null) {
 			System.out.println("redirect a login -...");
 			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
-		}else { //se sessione non è nuova e utente è in sessione
+		}else { //SE SESSIONE NON E' NUOVA E UTENTE NON E' NULL
 		
 			session.removeAttribute("Minigame");
-			//viene da studentHomePageScript.js
-			String id_room = request.getParameter("id_room");
+			String id_room = request.getParameter("id_room");//DA StudentHomePageScript.js
 			System.out.println("id_room:" + id_room);
 			int idroom = Integer.parseInt(id_room);
 			

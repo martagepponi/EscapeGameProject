@@ -99,7 +99,7 @@ public class HangmanGame extends HttpServlet {
 		 			selectedLetter += letter;
 		 			retval.setSelectedLetter(selectedLetter);
 		 			minigame.setSelectedLetter(selectedLetter);
-			 		if (word.indexOf(letter) != -1)
+			 		if (word.indexOf(letter) != -1) //se -1 la lettera già selezionata in precedenza
 			 		{
 			 			int pos = 0;
 			 			String temp_mask = displayWord;
