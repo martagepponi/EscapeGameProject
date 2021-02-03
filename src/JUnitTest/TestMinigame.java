@@ -48,12 +48,12 @@ class TestMinigame {
 		MiniGameDAO dao = new MiniGameDAO(this.connection);
 		
 		//verifico che il tipo di minigioco tornato sia affinitygame
-		ag =  dao.findById(6);
+		ag =  dao.findById(6,1);
 		assertTrue(ag.getType().equals("affinitygame"));
 		
 		
 		//verifico che un minigame con id=-1 non esiste
-		ag = dao.findById(-1);
+		ag = dao.findById(-1,1);
 		assertNull(ag);                            
 		
 		 //verifico che la seconda espressione scatena una eccezione uguale alla prima espressione

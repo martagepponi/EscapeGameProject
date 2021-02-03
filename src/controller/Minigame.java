@@ -108,13 +108,13 @@ public class Minigame extends HttpServlet {
 						rankingDAO.insertTotalRank(totalRank, idUser, id_room);
 						Ranking ranking2 = rankingDAO.findRankingByRoomAndUser(idUser, id_room);
 						session.setAttribute("ranking", ranking2);
-						request.getRequestDispatcher("./FinalPage.jsp").forward(request, response);
+						request.getRequestDispatcher("/FinalPage.jsp").forward(request, response);
                         return;
 					}
 					System.out.println("minigame1 qui" + Id_minigame);
 					if (Id_minigame != 0) {
 						MiniGameDAO minigameDAO = new MiniGameDAO(connection);
-						minigame = (AbstractMinigame) minigameDAO.findById(Id_minigame);
+						minigame = (AbstractMinigame) minigameDAO.findById(Id_minigame, id_room);
 						session.setAttribute("Minigame", minigame);
 					
 						if (minigame.getType().equalsIgnoreCase("hangmangame")) {						

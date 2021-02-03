@@ -28,7 +28,164 @@ public class MiniGameDAO {
 	public MiniGameDAO (Connection conn) {
 		this.connection= conn;
 		}
-	
+	public AbstractMinigame findById(int Id_minigame, int id_room) {
+		
+		String query = "select minigame.*, subject.prize1 as prize "
+				+ "from escapegame.minigame "
+				+ "inner join escapegame.subject on subject.idsubject = minigame.idsubject "
+				+ "inner join escapegame.room on room.idroom = ? and room.minigame1 = ? "
+				+ "where minigame.idminigame = ? "
+				+ "union all "
+				+ "select minigame.*, subject.prize2 as prize "
+				+ "from escapegame.minigame "
+				+ "inner join escapegame.subject on subject.idsubject = minigame.idsubject "
+				+ "inner join escapegame.room on room.idroom = ? and room.minigame2 = ? "
+				+ "where minigame.idminigame = ? "
+				+ "union all "				
+				+ "Select minigame.*, subject.prize3 as prize "
+				+ "from escapegame.minigame "
+				+ "inner join escapegame.subject on subject.idsubject = minigame.idsubject "
+				+ "inner join escapegame.room on room.idroom = ? and room.minigame3 = ? "
+				+ "where minigame.idminigame = ?";
+		AbstractMinigame minigame = null;
+		ResultSet result = null;
+		PreparedStatement pstatement = null;
+		
+
+		try {
+			pstatement = connection.prepareStatement(query);
+			pstatement.setInt(1, id_room);
+			pstatement.setInt(2, Id_minigame);
+			pstatement.setInt(3, Id_minigame);
+			pstatement.setInt(4, id_room);
+			pstatement.setInt(5, Id_minigame);
+			pstatement.setInt(6, Id_minigame);
+			pstatement.setInt(7, id_room);
+			pstatement.setInt(8, Id_minigame);
+			pstatement.setInt(9, Id_minigame);
+			
+			result = pstatement.executeQuery();
+			if(result.next()) {
+
+			    //RIPRENDO RISULTATI DELLA QUERY
+				String type=result.getString("type");
+				int subject= result.getInt("idsubject");
+				String prize= result.getString("prize");
+				//COSTRUISCO GIOCO IN BASE AL TIPO
+				if(HANGMAN.equalsIgnoreCase(type)) {
+					 Hangmangame hangmangame= new Hangmangame();
+					
+					String query1 ="SELECT * FROM `hangmangame` WHERE `idhangman`=? ;";
+					 
+					ResultSet result1 = null;
+					PreparedStatement pstate1 = null;
+					
+					pstate1 = connection.prepareStatement(query1);
+					pstate1.setInt(1, Id_minigame);
+					
+					result1 = pstate1.executeQuery();
+					if(result1.next()) {
+					hangmangame.setIdHangman(result1.getInt("idhangman"));
+					hangmangame.setType(type);
+					hangmangame.setIdsubject(subject);
+				    hangmangame.setWord(result1.getString("word"));
+					hangmangame.setQuestion1(result1.getString("question1"));
+					hangmangame.setQuestion2(result1.getString("question2"));
+					hangmangame.setPrize(prize);
+			
+				
+					minigame=hangmangame;
+					}
+					
+				}else if(QUIZ.equalsIgnoreCase(type)) {
+					
+					 Quizgame quizgame= new Quizgame();
+						
+						String query1 ="SELECT * FROM `quizgame` WHERE `idquiz`=? ;";
+						 
+						ResultSet result2 = null;
+						PreparedStatement pstate2 = null;
+						
+						pstate2 = connection.prepareStatement(query1);
+						pstate2.setInt(1, Id_minigame);
+						
+						result2 = pstate2.executeQuery();
+						if(result2.next()) {
+						quizgame.setIdQuiz(result2.getInt("idquiz"));
+						quizgame.setType(type);
+						quizgame.setIdsubject(subject);
+					    quizgame.setQuestion(result2.getString("question"));
+						quizgame.setRightAnswer(result2.getString("rightanswer"));
+						quizgame.setWrong1(result2.getString("wrong1"));
+						quizgame.setWrong2(result2.getString("wrong2"));
+						quizgame.setPrize(prize);
+						
+					
+						
+						
+						minigame = quizgame;
+					
+						}
+					
+					
+					
+				}else if (AFFINITY.equalsIgnoreCase(type)) {
+					 Affinitygame affinitygame= new Affinitygame();
+						
+						String query1 ="SELECT * FROM `affinitygame` WHERE `idaffinityGame`=? ;";
+						 
+						ResultSet result3 = null;
+						PreparedStatement pstate3 = null;
+						
+						pstate3 = connection.prepareStatement(query1);
+						pstate3.setInt(1, Id_minigame);
+						
+						result3 = pstate3.executeQuery();
+						if(result3.next()) {
+						affinitygame.setIdAffgame(result3.getInt("idaffinityGame"));
+						affinitygame.setType(type);
+						affinitygame.setIdsubject(subject);
+						affinitygame.setWord1(result3.getString("word1"));
+						affinitygame.setWord2(result3.getString("word2"));
+						affinitygame.setWord3(result3.getString("word3"));
+						affinitygame.setWord4(result3.getString("word4"));
+						affinitygame.setRightAnswer(result3.getString("rightanswer"));
+						affinitygame.setHint(result3.getString("hint"));
+						affinitygame.setPrize(prize);
+			
+						
+						minigame = affinitygame;
+					
+					
+					
+						}
+					
+				} else {
+					//ERRORE
+				}
+
+
+
+			}	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				result.close();
+			} 
+			catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			try {
+				pstatement.close();
+			} 
+			catch (Exception e3) {
+				e3.printStackTrace();
+			}
+		}
+		return minigame;
+	}
 	
 	
 	

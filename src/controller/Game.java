@@ -112,7 +112,7 @@ public class Game extends HttpServlet {
 										} else {
 											session.setAttribute("minigameNumber", "1");
 											session.setAttribute("wall", "2");
-											AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame1());
+											AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame1(), room.getIdRoom());
 											if (minigame != null) {
 												session.setAttribute("prize", minigame.getPrize());
 											}
@@ -120,7 +120,7 @@ public class Game extends HttpServlet {
 									} else {
 										session.setAttribute("minigameNumber", "2");
 										session.setAttribute("wall", "3");
-										AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame2());
+										AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame2(), room.getIdRoom());
 										if (minigame != null) {
 											session.setAttribute("prize", minigame.getPrize());
 										}
@@ -128,7 +128,7 @@ public class Game extends HttpServlet {
 								} else {
 									session.setAttribute("minigameNumber", "3");
 									session.setAttribute("wall", "4");
-									AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame3());
+									AbstractMinigame minigame = (AbstractMinigame) minigameDAO.findById(room.getMinigame3(), room.getIdRoom());
 									if (minigame != null) {
 										session.setAttribute("prize", minigame.getPrize());
 									}
