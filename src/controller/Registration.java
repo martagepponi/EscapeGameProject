@@ -62,12 +62,12 @@ public class Registration extends HttpServlet {
 		//riprendo codice inserito da docente
 		String Stringcode = request.getParameter("code");
 		if (Stringcode != null) {
-			int code = Integer.parseInt(Stringcode);
-			System.out.println("codice:   " + code);
+			//int code = Integer.parseInt(Stringcode);
+			System.out.println("codice:   " + Stringcode);
 			PrintWriter out2 = response.getWriter();
 
-            //verifico se codice è corretto
-			if(code == 102030) {
+            //verifico se codice è corretto 
+			if("102030".equalsIgnoreCase(Stringcode)) {
 				System.out.println("Codice corretto!");
 				out2.println("[{\"error\":0}]");
 			} else { 
