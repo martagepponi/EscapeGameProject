@@ -14,20 +14,20 @@ public class Quizgame extends AbstractMinigame {
 	
 	
 	//COSTRUTTORE
-	public Quizgame(int idMinigame, String type, int idSubject, int idQuiz, String question, String rightAnswer, String wrong1, String wrong2, 
-			String prize) {
-		super(idMinigame, type, idSubject);
-		this.idQuiz= idQuiz;
-		this.question=question;
-		this.rightAnswer= rightAnswer;
-		this.wrong1= wrong1;
-		this.wrong2= wrong2;
-		this.prize=prize;
-		errorNumber= 0;
-		hintSelected = false;
-		
-	}
-	
+//	public Quizgame(int idMinigame, String type, int idSubject, int idQuiz, String question, String rightAnswer, String wrong1, String wrong2, 
+//			String prize) {
+//		super(idMinigame, type, idSubject);
+//		this.idQuiz= idQuiz;
+//		this.question=question;
+//		this.rightAnswer= rightAnswer;
+//		this.wrong1= wrong1;
+//		this.wrong2= wrong2;
+//		this.prize=prize;
+//		errorNumber= 0;
+//		hintSelected = false;
+//		
+//	}
+//	
 	
 	
 

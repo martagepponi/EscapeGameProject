@@ -64,8 +64,7 @@
 					}
 				}
 			} else {
-				// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
-				// location errorPage.jsp con tasto di ritorna a login e invalida sessione
+				document.location.href="/Login.html";
 			}
 		}		
 	}

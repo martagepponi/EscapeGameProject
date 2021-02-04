@@ -1,6 +1,7 @@
 package Bean;
 
 public class Hangmangame extends AbstractMinigame {
+	public static final int MAX_NUM_ERROR = 10;
 	
 	protected int idHangman;
 	protected String word;
@@ -12,20 +13,20 @@ public class Hangmangame extends AbstractMinigame {
 	protected String selectedLetter;
 	
 	//COSTRUTTORE
-	public Hangmangame(int idMinigame, String type, int idSubject, int idHangman, String word, 
-			String question1, String question2, String prize) {
-		super(idMinigame, type, idSubject);
-		this.idHangman= idHangman;
-		this.word= word;
-		this.question1=question1;
-		this.question2=question2;
-		this.prize=prize;
-		displayWord = this.buildDisplay(word);
-		errorNumber = 0;
-		hintSelected = false;
-		selectedLetter = "";
-		
-	}
+//	public Hangmangame(int idMinigame, String type, int idSubject, int idHangman, String word, 
+//			String question1, String question2, String prize) {
+//		super(idMinigame, type, idSubject);
+//		this.idHangman= idHangman;
+//		this.word= word;
+//		this.question1=question1;
+//		this.question2=question2;
+//		this.prize=prize;
+//		displayWord = this.buildDisplay(word);
+//		errorNumber = 0;
+//		hintSelected = false;
+//		selectedLetter = "";
+//		
+//	}
 
 	
 

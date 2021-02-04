@@ -27,7 +27,6 @@ import Bean.Hangmangame;
 @WebServlet("/HangmanGame")
 public class HangmanGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final int MAX_NUM_ERROR = 10;
 	private static final int MAX_SCORE = 30;
 	private static final int POINTS_ERROR = 2;
 	private static final int POINTS_HINT = 10;
@@ -74,8 +73,6 @@ public class HangmanGame extends HttpServlet {
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
 	 	HangmanGameResponse retval = new HangmanGameResponse();
 		if(session.isNew() || user == null) {
-			System.out.println("redirect a login -...");
-//			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
 			retval.setSessionExpired(true);
 		}else {
 			Hangmangame minigame = (Hangmangame)session.getAttribute("Minigame");
@@ -86,22 +83,20 @@ public class HangmanGame extends HttpServlet {
 		 	int errorNumber = minigame.getErrorNumber();
 		 	String prize = minigame.getPrize();
 		 	String selectedLetter=minigame.getSelectedLetter();
-		 	System.out.println("question2:" + question2);
-		 	System.out.println("prize:" + prize);
-		 	
-		 	
+		 
 		 	
 		 	String action = request.getParameter("action");
 		 	if ("selectLetter".equals(action)) {
 		 		String letter = request.getParameter("letterSelected");
 		 		
 		 		if (letter.length() == 1) {
-		 			selectedLetter += letter;
+		 			selectedLetter += letter; //aggiungo la lettera all'elenco delle lettere selezionate
 		 			retval.setSelectedLetter(selectedLetter);
 		 			minigame.setSelectedLetter(selectedLetter);
-			 		if (word.indexOf(letter) != -1) //se -1 la lettera già selezionata in precedenza
+			 		if (word.indexOf(letter) != -1) //se la lettera fa parte della parola nascosta
 			 		{
-			 			int pos = 0;
+			 			//si aggiorna la displayWord
+			 			int pos = 0; 
 			 			String temp_mask = displayWord;
 			 			while (word.indexOf(letter, pos) != -1) {
 				 			pos = word.indexOf(letter, pos);
@@ -109,11 +104,13 @@ public class HangmanGame extends HttpServlet {
 				 			pos++;
 			 			}
 			 			displayWord = temp_mask;
-			 			minigame.setDisplayWord(temp_mask);
+			 			minigame.setDisplayWord(displayWord);
 			 			retval.setOutcome(true);
 			 			retval.setDisplayWord(displayWord);
 			 			retval.setErrorNumber(minigame.getErrorNumber());
-			 			if (temp_mask.indexOf("#") == -1) {
+			 			
+			 			//controllo se esistono  ancora #
+			 			if (displayWord.indexOf("#") == -1) { //non esistono più #: parola indovinata
 			 				minigame.setOutcome(AbstractMinigame.WON);		 				
 			 				int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
 			 				
@@ -130,7 +127,8 @@ public class HangmanGame extends HttpServlet {
 			 			retval.setOutcome(false);
 			 			retval.setDisplayWord(displayWord);
 			 			retval.setErrorNumber(minigame.getErrorNumber());
-			 			if (MAX_NUM_ERROR <= errorNumber) {
+			 			//controllo se utente ha raggiunto max numero errori
+			 			if (Hangmangame.MAX_NUM_ERROR <= errorNumber) {
 			 				minigame.setOutcome(AbstractMinigame.LOSE);
                             int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
 			 				
@@ -149,17 +147,13 @@ public class HangmanGame extends HttpServlet {
 		 		}
 		 	} else if ("hint".equals(action)) {
 	 			minigame.setHintSelected(true);
-	 			
-	 			
-	 			
-	 			
 		 		retval.setOutcome(true);
 	 			retval.setDisplayWord(displayWord);
 	 			retval.setErrorNumber(minigame.getErrorNumber());
 	 			retval.setQuestion2(question2);
 	 			
 		 	} else {
-		 		// TODO: gestione risposta su azione sconosciuta
+		 		//gestione risposta su azione sconosciuta
 		 		retval.setOutcome(false);
 	 			retval.setDisplayWord(displayWord);
 	 			retval.setErrorNumber(minigame.getErrorNumber());

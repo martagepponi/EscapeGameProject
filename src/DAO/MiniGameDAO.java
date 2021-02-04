@@ -161,7 +161,7 @@ public class MiniGameDAO {
 						}
 					
 				} else {
-					//ERRORE
+					
 				}
 
 
@@ -580,7 +580,7 @@ public class MiniGameDAO {
 					}
 				
 			} else {
-				//ERRORE
+				
 			}
 
 

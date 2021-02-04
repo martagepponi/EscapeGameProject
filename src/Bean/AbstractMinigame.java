@@ -1,6 +1,6 @@
 package Bean;
 
-public abstract class AbstractMinigame implements MiniGame{
+public abstract class AbstractMinigame{
 	public static final String WON = "W";
 	public static final String LOSE = "L";
 	
@@ -13,13 +13,13 @@ public abstract class AbstractMinigame implements MiniGame{
 	
 	
 	
-	public AbstractMinigame(int idminigame, String type, int idsubject) {
-		super();
-		this.idminigame = idminigame;
-		this.type = type;
-		this.idsubject = idsubject;
-		this.outcome= "";
-	}
+//	public AbstractMinigame(int idminigame, String type, int idsubject) {
+//		super();
+//		this.idminigame = idminigame;
+//		this.type = type;
+//		this.idsubject = idsubject;
+//		this.outcome= "";
+//	}
 
 	public AbstractMinigame() {
 		super();

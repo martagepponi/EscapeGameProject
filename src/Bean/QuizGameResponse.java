@@ -5,7 +5,6 @@ public class QuizGameResponse {
 	
 	
 	protected boolean outcome;
-	//protected String question2;  //suggerimento: la risposta è tra 1 e 2 (ne toglie una)
 	protected int errorNumber;
 	protected int attemptsRemained;
 	protected String finalOutcome;
@@ -16,7 +15,6 @@ public class QuizGameResponse {
 	public QuizGameResponse() {
 		super();
 		this.outcome= false;
-		//this.question2 = "";
 		this.errorNumber = 0;
 		this.score = 0;
 		this.finalOutcome = "";

@@ -54,8 +54,7 @@ function hintResponse(req) {
 				}
 			}
 		} else {
-			// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
-			// TODO: FABIO.
+			document.location.href="/Login.html";
 		}
 	}		
 }

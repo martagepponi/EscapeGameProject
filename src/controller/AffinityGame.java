@@ -66,8 +66,6 @@ public class AffinityGame extends HttpServlet {
 		
 		AffinityGameResponse retval = new AffinityGameResponse();
 		if(session.isNew() || user == null) {
-			System.out.println("redirect a login -...");
-//			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
 			retval.setSessionExpired(true);
 		}else {
 			Affinitygame minigame = (Affinitygame)session.getAttribute("Minigame");
@@ -119,7 +117,7 @@ public class AffinityGame extends HttpServlet {
 	 			retval.setQuestion2(hint);
 		 		
 		 	} else {
-		 		// TODO: gestione risposta su azione sconosciuta
+		 		
 		 		retval.setOutcome(false);
 	 			retval.setErrorNumber(errorNumber);
 		 	}

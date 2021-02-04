@@ -77,7 +77,7 @@ public class Minigame extends HttpServlet {
 				RoomDAO roomDAO = new RoomDAO(connection);
 				Room room = roomDAO.selectById(id_room, connection); 
 				if ( room != null) { 
-					//String first_time = (String) session.getAttribute("first_time"); 
+				
 					session.setAttribute("first_time", "NO"); 
 					int minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
 					int wallNumber = Integer.parseInt((String) session.getAttribute("wall"));

@@ -32,7 +32,7 @@ public class UserDAO {
 			pstatement.setString(1, username);
 			pstatement.setString(2, psw);
 			result = pstatement.executeQuery();
-
+		
 			//RIPRENDO RISULTATI DELLA QUERY
 			while(result.next()) {
 				int iduser =result.getInt("iduser");
