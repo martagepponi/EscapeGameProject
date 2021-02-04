@@ -117,7 +117,7 @@ public class SubjectDAO {
 			}
 	 
 		public void addSubject(String name, int year) {
-			String query = "INSERT INTO `escapegame`.`subject` (`name`, `year`, `object1`, `object2`, `object3`, `object4`, `wall1`, `wall2`, `wall3`, `wall4` ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			String query = "INSERT INTO `escapegame`.`subject` (`name`, `year`, `object1`, `object2`, `object3`, `object4`, `wall1`, `wall2`, `wall3`, `wall4`, `prize1`, `prize2`, `prize3` ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement pstatement = null;
 			try {
 				pstatement = connection.prepareStatement(query);
@@ -131,6 +131,9 @@ public class SubjectDAO {
 				pstatement.setString(8, "muro2");
 				pstatement.setString(9, "muro3");
 				pstatement.setString(10, "muro4");
+				pstatement.setString(11, "fireEx");
+				pstatement.setString(12, "arpa");
+				pstatement.setString(13, "ciotola");
 				
 				pstatement.executeUpdate(); 
 				

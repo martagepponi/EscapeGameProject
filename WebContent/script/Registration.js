@@ -80,7 +80,8 @@ function codeVerify() {
 		console.log(x.responseText);
 		var response = JSON.parse(x.responseText);
 		if (response[0].error == 1) {
-			alert("Codice non valido!");
+		var error_code = document.getElementById("error_code");
+			error_code.style.display = "block";
 			return;
 		} else {
 			var form1= document.getElementById("DivForm");
@@ -110,7 +111,7 @@ function codeVerify() {
 	var repetedPassword = document.Form2.pwd2.value;
 	var type = "docente";
     var error_pwd1 = document.getElementById("error_pwd1");
-    alert(error_pwd1);
+    
 	
 	if (password != repetedPassword) {
 		error_pwd1.style.display = "block";
