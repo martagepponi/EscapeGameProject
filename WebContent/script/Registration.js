@@ -42,7 +42,7 @@ function getstudentRegistration() {
 		console.log(x.responseText);
 		var response = JSON.parse(x.responseText);
 		if (response[0].error == 1) {
-			alert("Utente presente nel database!");
+			alert("Username gi\u00E0 in uso!");
 		} else {
 			alert("Studente inserito");
 			window.setTimeout(window.location.replace(serverPath + "/Login.html"), 2000);

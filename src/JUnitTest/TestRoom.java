@@ -22,8 +22,11 @@ class TestRoom {
 	private Connection connection;
 	private Room room = new Room();
 	private ArrayList<Room> RoomsList = new ArrayList<Room>();
+	private ArrayList<Room> RoomsList2 = new ArrayList<Room>();
 	int id=1;
+	int idProf=2;
 	int minigame1;
+	int minigame2;
 	int numElements;
 	String profSurname ="gepponi";
 	
@@ -92,6 +95,27 @@ class TestRoom {
 	    System.out.println("test selectById di TestRoom eseguito");
 	}
 	
+	
+	@Test
+	void testFindCreatedRooms() {
+		RoomDAO dao = new RoomDAO(this.connection);
+        numElements = RoomsList2.size();
+		
+		//verifico che elementi nella lista sono 0
+		assertTrue(numElements== 0);       
+		
+		
+		//verifico che elementi della lista non sono 0
+		RoomsList2= (ArrayList<Room>) dao.findCreatedRooms(idProf);
+		numElements = RoomsList2.size();    
+		assertTrue(numElements!=0);                  
+		
+		
+		//verifico che gli elementi di RoomList siano oggetti Room
+		assertTrue(RoomsList2.get(0).getClass().equals(room.getClass()));
+		
+	    System.out.println("test findCreatedRooms di TestRoom eseguito");
+	}
 	
 	@Test
 	void testGetSet() {

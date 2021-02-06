@@ -85,8 +85,9 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR- minigame.getErrorNumber();
 					document.getElementById("closechest").style.display = "none";
 					document.getElementById("openchest").style.display = "block";
 				    document.getElementById("score").innerHTML = response.score;
-				  
-					
+				    document.getElementById("key1").disabled = true;
+				    document.getElementById("key2").disabled = true;
+				    document.getElementById("key3").disabled = true;
 				} else {
 					if (response.finalOutcome == "L") {
 						alert("Perso!");
@@ -96,6 +97,9 @@ int initialAttempts = Quizgame.MAX_NUM_ERROR- minigame.getErrorNumber();
 						document.getElementById("closechest").style.display = "none";
 						document.getElementById("openchest").style.display = "block";
 						document.getElementById("score").innerHTML = response.score;
+						document.getElementById("key1").disabled = true;
+						document.getElementById("key2").disabled = true;
+						document.getElementById("key3").disabled = true;
 						
 					} else {
 						var attempts = response.attemptsRemained;
