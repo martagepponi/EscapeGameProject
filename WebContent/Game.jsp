@@ -259,7 +259,7 @@ function timerStart(){
 		  document.getElementById("demo").innerHTML = "";
 	    clearInterval(x);	    
 	    document.getElementById("timeEx").innerHTML = "TEMPO SCADUTO";
-	    setTimeout(function(){window.location.href = "./Minigame";}, 2000); 
+	    setTimeout(function(){window.location.href = "./Minigame?timeout=true";}, 2000); 
 	  }
 	}, 1000);
 }

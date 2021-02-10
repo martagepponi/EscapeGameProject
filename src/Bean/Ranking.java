@@ -15,12 +15,14 @@ public class Ranking {
 	private int idroom;
 	private String thumbnail;
 	private String title;
+	private String studentName;
+	private String studentSurname;
 
 
 
 
 public Ranking(int idRanking, int user, Date date, int rank1, int rank2,
-		int rank3, int rank4,int totalrank, int idroom) {
+		int rank3, int rank4,int totalrank, int idroom, String studentName, String studentSurname) {
 	this.idRanking = idRanking;
 	this.user = user;
 	this.date = date;
@@ -30,12 +32,15 @@ public Ranking(int idRanking, int user, Date date, int rank1, int rank2,
 	this.rank4 = rank4;
 	this.totalrank = totalrank;
 	this.idroom = idroom;
+	this.studentName = studentName;
+	this.studentSurname = studentSurname;
+	
 	
 }
 
 
 public Ranking(String thumbnail, int idRanking, int user, Date date, int rank1, int rank2,
-		int rank3, int rank4,int totalrank, int idroom, String title) {
+		int rank3, int rank4,int totalrank, int idroom, String title, String studentName, String studentSurname) {
 	this.thumbnail = thumbnail;
 	this.idRanking = idRanking;
 	this.user = user;
@@ -47,9 +52,31 @@ public Ranking(String thumbnail, int idRanking, int user, Date date, int rank1, 
 	this.totalrank = totalrank;
 	this.idroom = idroom;
 	this.title = title;
+	this.studentName = studentName;
+	this.studentSurname = studentSurname;
 	
 }
 
+
+
+public String getStudentName() {
+	return studentName;
+}
+
+
+public void setStudentName(String studentName) {
+	this.studentName = studentName;
+}
+
+
+public String getStudentSurname() {
+	return studentSurname;
+}
+
+
+public void setStudentSurname(String studentSurname) {
+	this.studentSurname = studentSurname;
+}
 
 
 public String getThumbnail() {

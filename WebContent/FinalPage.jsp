@@ -62,7 +62,7 @@ I tuoi punteggi sono stati i seguenti:<br>
 Minigioco 1: <%=rank1 %>/30<br>
 Minigioco 2:<%=rank2 %>/30<br>
 Minigioco 3:<%=rank3 %>/30<br>
-Finalgame :<%=rank4 %>/30<br>
+Finalgame :<%=rank4 %>/10<br>
 Il tuo score totale è: <%=totalRank %>/100!<br><br><br><br>
 
 

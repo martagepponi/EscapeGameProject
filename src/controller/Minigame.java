@@ -103,9 +103,15 @@ public class Minigame extends HttpServlet {
 						Id_minigame = room.getMinigame3();
 
 					} else if (minigameNumber == 4) {
+						int rank4 = 1;
+						if(!"true".equals(request.getParameter("timeout"))) {
+							rank4 = 10;
+						}
+						rankingDAO.InsertRank(4, rank4, idUser, id_room);
 						Ranking ranking = rankingDAO.findRankingByRoomAndUser(idUser, id_room);
 						int totalRank=  ranking.getRank1() + ranking.getRank2() + ranking.getRank3() + ranking.getRank4();
 						rankingDAO.insertTotalRank(totalRank, idUser, id_room);
+			
 						Ranking ranking2 = rankingDAO.findRankingByRoomAndUser(idUser, id_room);
 						session.setAttribute("ranking", ranking2);
 						request.getRequestDispatcher("/FinalPage.jsp").forward(request, response);

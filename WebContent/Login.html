@@ -6,17 +6,17 @@
 
 	<meta charset="ISO-8859-1">
 	<title>Login</title>
-	<!--<script type="text/javascript" src="script/Login.js?v=4" defer></script>-->
+	<script type="text/javascript" src="script/Login.js?v=4" defer></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js?v=1"></script>
-	<!--<script type="text/javascript" src="script/Registration.js?v=3" defer></script>-->
+	<script type="text/javascript" src="script/Registration.js?v=3" defer></script>
 	<script>
 	var serverPath = 'http://localhost:8080/EscapeGameProject';
-	var login = document.getElementById("login_button");
+	
 
 
 	// Click su ACCEDI
 
-	login.addEventListener('click', authentication, false);
+	
 	 
 	function authentication() {
 
@@ -52,7 +52,7 @@
 		}
 	
 	
-	var serverPath = 'http://localhost:8080/EscapeGameProject';
+	
 
 	//REGISTRAZIONE STUDENTE
 	function loadStudent(){ //altrimenti da errore visto che listener non legge nulla se clicchiamo il link del docente
@@ -105,8 +105,7 @@
 	}
 
 	//REGISTRAZIONE DOCENTE
-	var insertCode = document.getElementById("ok");
-	insertCode.addEventListener('click', initialization, false);
+	
 
 	//1. INSERIMENTO CODICE
 
@@ -153,8 +152,7 @@
 	//REGISTRAZIONE EFFETTIVA DOCENTE
 
 
-	    var registerProf = document.getElementById("register2");	
-		registerProf.addEventListener('click', profRegistration, false);
+	    
 		
 		function profRegistration() {
 
@@ -335,7 +333,16 @@
 	
 </body>
 
+
 </html>
+<script>
+var login = document.getElementById("login_button");
+login.addEventListener('click', authentication, false);
+var insertCode = document.getElementById("ok");
+insertCode.addEventListener('click', initialization, false);
+var registerProf = document.getElementById("register2");	
+registerProf.addEventListener('click', profRegistration, false);
+</script>
  <!--  <form>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Recipient:</label>

@@ -133,9 +133,12 @@ public class Game extends HttpServlet {
 									}
 								}
 							} else {
-								//TODO registrare total rank
-								//showre punbteggio totale raggiunto
-								//torna alla Home
+								
+					 			rankingDAO.InsertRank(4, 1, user.getIduser(), idroom);
+								
+								int totalRank=  ranking.getRank1() + ranking.getRank2() + ranking.getRank3() + 1;
+								rankingDAO.insertTotalRank(totalRank, user.getIduser(), idroom);
+								request.getRequestDispatcher("/FinalPage.jsp").forward(request, response);
 	
 							}
 							request.getRequestDispatcher("/Game.jsp").forward(request, response);

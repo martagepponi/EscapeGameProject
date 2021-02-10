@@ -123,7 +123,7 @@ createtedRooms = (List<Room>) request.getAttribute("createtedRooms");
 	<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog thumbnailCon modal-dialog-table2 d-flex flex-column align-items-center p-5">
     <table>
-	<tr><td>Stanza</td><td>Data</td><td>Studente</td><td>ID stanza</td><td>Minigame 1</td><td>Minigame 2</td><td>Minigame 3</td><td>Minigame 4</td><td>Totale</td></tr>
+	<tr><td>Stanza</td><td>Data</td><td> Nome Studente</td><td> Cognome Studente</td><td>ID stanza</td><td>Minigame 1</td><td>Minigame 2</td><td>Minigame 3</td><td>Minigame 4</td><td>Totale</td></tr>
   <%
 	
 
@@ -132,7 +132,7 @@ createtedRooms = (List<Room>) request.getAttribute("createtedRooms");
 			
 		for (Ranking ranking : Rankings) {
 		%>
-<tr><td><img id="imageT" height="62" width="62" src="images/stanza.jpg"></td><td><%=ranking.getDate()%></td><td><%=ranking.getUser()%></td><td><%=ranking.getIdroom() %></td><td><%=ranking.getRank1()%></td><td><%=ranking.getRank2()%></td><td><%=ranking.getRank3()%></td><td><%=ranking.getRank4()%></td><td><%=ranking.getTotalrank()%></td></tr>
+<tr><td><img id="imageT" height="62" width="62" src="images/stanza.jpg"></td><td><%=ranking.getDate()%></td><td><%=ranking.getStudentName() %></td><td><%=ranking.getStudentSurname() %></td><td><%=ranking.getIdroom() %></td><td><%=ranking.getRank1()%></td><td><%=ranking.getRank2()%></td><td><%=ranking.getRank3()%></td><td><%=ranking.getRank4()%></td><td><%=ranking.getTotalrank()%></td></tr>
 		
 			<%
 			}

@@ -23,7 +23,7 @@ public class RankingDAO {
 
 	public List<Ranking> findAllRanking (int iduser){
 
-		String query = "SELECT room.thumbnail, ranking.idranking, ranking.user, ranking.date, ranking.rank1, ranking.rank2, ranking.rank3, ranking.rank4, ranking.totalrank, ranking.idroom, room.title FROM escapegame.room JOIN escapegame.ranking WHERE room.idroom=ranking.idroom AND user=?;";
+		String query = "SELECT room.thumbnail, ranking.idranking, ranking.user, ranking.date, ranking.rank1, ranking.rank2, ranking.rank3, ranking.rank4, ranking.totalrank, ranking.idroom, room.title, user.name,user.surname FROM escapegame.room JOIN escapegame.ranking JOIN escapegame.user WHERE room.idroom=ranking.idroom AND ranking.user=user.iduser AND user=?;";
 		List<Ranking> Rankings = new ArrayList<>();
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -43,8 +43,10 @@ public class RankingDAO {
 				int totalrank= result.getInt("totalrank");
 				int idroom = result.getInt("idroom");
 				String title = result.getString("title");
+				String studentName = result.getString("user.name");
+				String studentSurname = result.getString("user.surname");
 
-				Ranking ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title);
+				Ranking ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title, studentName, studentSurname);
 				Rankings.add(ranking);
 
 
@@ -78,7 +80,7 @@ public class RankingDAO {
 
 	public List<Ranking> findRankingByProf (int iduser){
 
-		String query = "SELECT room.thumbnail, room.title, ranking.idranking, ranking.user, ranking.date, ranking.rank1, ranking.rank2, ranking.rank3, ranking.rank4, ranking.totalrank, ranking.idroom  FROM escapegame.room JOIN escapegame.ranking WHERE room.idroom=ranking.idroom AND room.idprof=?;";
+		String query = "SELECT room.thumbnail, room.title, ranking.idranking, ranking.user, ranking.date, ranking.rank1, ranking.rank2, ranking.rank3, ranking.rank4, ranking.totalrank, ranking.idroom, user.name, user.surname  FROM escapegame.room JOIN escapegame.ranking JOIN escapegame.user WHERE room.idroom=ranking.idroom AND ranking.user=user.iduser AND room.idprof=?;";
 		List<Ranking> Rankings = new ArrayList<>();
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
@@ -101,8 +103,10 @@ public class RankingDAO {
 				int totalrank= result.getInt("totalrank");
 				int idroom = result.getInt("idroom");
 				String title = result.getString ("title");
+				String studentName = result.getString("user.name");
+				String studentSurname = result.getString("user.surname");
 
-				Ranking ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title);
+				Ranking ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title, studentName, studentSurname);
 
 				//AGGIUNGO ALLA LISTA TUTTI I PUNTEGGI RISULTANTI DALLA QUERY
 				Rankings.add(ranking);
@@ -281,7 +285,7 @@ public class RankingDAO {
 
 	public Ranking findRankingByRoomAndUser (int iduser, int idroom){
 
-		String query = "SELECT room.thumbnail, room.title, ranking.idranking, ranking.user, ranking.date, ranking.rank1, ranking.rank2, ranking.rank3, ranking.rank4, ranking.totalrank FROM escapegame.room JOIN escapegame.ranking WHERE room.idroom=? AND user=?;";
+		String query = "SELECT room.thumbnail, room.title, ranking.idranking, ranking.user, ranking.date, ranking.rank1, ranking.rank2, ranking.rank3, ranking.rank4, ranking.totalrank, user.name, user.surname FROM escapegame.room JOIN escapegame.ranking JOIN escapegame.user WHERE room.idroom=? AND ranking.user=user.iduser AND user=?;";
 		ResultSet result = null;
 		PreparedStatement pstatement = null;
 		Ranking ranking = null;
@@ -301,8 +305,10 @@ public class RankingDAO {
 				int rank4= result.getInt("rank4");
 				int totalrank= result.getInt("totalrank");
 				String title = result.getString("title");
+				String studentName = result.getString("user.name");
+				String studentSurname = result.getString("user.surname");
 
-				ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title);
+				ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title, studentName, studentSurname);
 
 
 
