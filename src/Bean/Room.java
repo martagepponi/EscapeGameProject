@@ -15,7 +15,18 @@ public class Room {
 	private int minigame2;
 	private int minigame3;
 	private String thumbnail;
+	private int idSubject;
 
+
+
+	public int getIdSubject() {
+		return idSubject;
+	}
+
+
+	public void setIdSubject(int idSubject) {
+		this.idSubject = idSubject;
+	}
 
 
 	public Room(int idRoom, String title, Date date,String subject, String profName,  String profSurname, String password, int minigame1, int minigame2,

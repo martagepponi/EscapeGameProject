@@ -1,13 +1,15 @@
 package Bean;
 
 public class User {
-	
+	public static final String DOCENTE="docente";
+	public static final String STUDENTE="studente";
 	private int iduser;
 	private String name;
 	private String surname;
 	private String username;
 	private String password;
 	private String type;
+	
 	
 	
 	public User(int iduser, String name, String surname, String username, String password, String type) {

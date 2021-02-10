@@ -255,6 +255,7 @@ font-family: 'Bitter'!important;
 .HomeHead{
 	display:block;
 	text-align: end;
+	    height: 50px;
 }
 
 .btnLogout{
@@ -827,7 +828,7 @@ to {
 	left: 1%;
 	font-size:17.5px;
 	color: #f9f9f9;
-	top:69%; 
+	top:50%; 
 	align-items: center;
 	z-index: 1;
 }
@@ -894,7 +895,7 @@ to {
 	left: 1.2%;
 	font-size:12.5px;
 	color: #f9f9f9;
-	top:75%; 
+	top:50%; 
 	align-items: center;
 	z-index: 1;
 }
@@ -908,7 +909,7 @@ to {
 }
 /*prof Home*/
 .boxPHome {	
-	padding-top: 1%!important;
+	padding-top: 0%!important;
 }
 table{
 	margin:auto;
@@ -991,4 +992,48 @@ background-image: url(../images/bgBox.jpg);
 }
 .dbSubject button{
 	margin-top:50px!important;
+}
+/*RoomCreationUpdate*/
+.introCreatUpd{
+	font-size: x-large;
+}
+.roomCreationUpdate{
+	background-image: url(../images/bgBox.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	overflow: hidden!important;
+	height:100vh;
+	text-align:center;
+}
+.form-select1{
+    background-color: #fff; 
+    border-radius: 0.25rem;
+    min-width: 143px;
+    margin-bottom:5px;
+    border: 1px solid #ced4da;
+}
+.submitRoom{
+	width:165px;
+	padding: 9px 30px;
+	background-color:#f9f9f9; 
+	color:#cf0a21;
+	font-family:'Bitter';
+	font-weight: 700; 
+	text-decoration:none; 
+	text-transform: uppercase;
+	border:none;
+	border-radius:15px;
+	box-shadow:0 0 4px #555;
+	cursor:pointer;
+	margin-top:5px;
+}
+.submitRoom:hover {
+	background-color:#cf0a21; 
+	color:#f9f9f9;
+	transform: scale(1.1);
+	transition: all .3s ease-in-out;
+	}
+.form-control1{
+	    border: 1px solid #ced4da;
+	    border-radius: 0.25rem;
 }

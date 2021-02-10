@@ -139,17 +139,17 @@ function populateMinigameCombos(req) {
 								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
 										if(minigame.type=="hangmangame"){
-											el.textContent="Parola: "+minigame.word+" Domanda: "+minigame.question1+" Suggerimento: "+minigame.question2;
+											el.textContent="Parola da indovinare: "+minigame.word;
 											el.value= minigame.idHangman;
 											
 											select.appendChild(el);
 										}else if(minigame.type=="quizgame"){
-											el.textContent="Domanda: "+minigame.question+" Risposta Corretta: "+minigame.rightAnswer+" Risposta sbagliata 1: "+minigame.wrong1+" Risposta sbagliata 2: "+minigame.wrong2;
+											el.textContent="Domanda del quiz: "+minigame.question;
 											el.value= minigame.idQuiz;
 											
 											select.appendChild(el);
 										}else if(minigame.type=="affinitygame"){
-											el.textContent="Parola: "+minigame.rightAnswer+" Parola affine 1: "+minigame.word1+" Parola affine 2: "+minigame.word2+" Parola affine 3: "+minigame.word3+" Parola affine 4: "+minigame.word4+" Suggerimento: "+minigame.hint;
+											el.textContent="Parola da indovinare: "+minigame.rightAnswer;
 											el.value= minigame.idAffgame;
 											
 											select.appendChild(el);
@@ -163,15 +163,15 @@ function populateMinigameCombos(req) {
 								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
 										if(minigame.type=="hangmangame"){
-											el.textContent="Parola: "+minigame.word+" Domanda: "+minigame.question1+" Suggerimento: "+minigame.question2;
+											el.textContent="Parola da indovinare: "+minigame.word;
 											el.value= minigame.idHangman;
 											select.appendChild(el);
 										}else if(minigame.type=="quizgame"){
-											el.textContent="Domanda: "+minigame.question+" Risposta Corretta: "+minigame.rightAnswer+" Risposta sbagliata 1: "+minigame.wrong1+" Risposta sbagliata 2: "+minigame.wrong2;
+											el.textContent="Domanda del quiz: "+minigame.question;
 											el.value= minigame.idQuiz;
 											select.appendChild(el);
 										}else if(minigame.type=="affinitygame"){
-											el.textContent="Parola: "+minigame.rightAnswer+" Parola affine 1: "+minigame.word1+" Parola affine 2: "+minigame.word2+" Parola affine 3: "+minigame.word3+" Parola affine 4: "+minigame.word4+" Suggerimento: "+minigame.hint;
+											el.textContent="Parola da indovinare: "+minigame.rightAnswer;
 											el.value= minigame.idAffgame;
 											select.appendChild(el);
 									}
@@ -184,15 +184,15 @@ function populateMinigameCombos(req) {
 								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
 										if(minigame.type=="hangmangame"){
-											el.textContent="Parola: "+minigame.word+" Domanda: "+minigame.question1+" Suggerimento: "+minigame.question2;
+											el.textContent="Parola da indovinare: "+minigame.word;
 											el.value= minigame.idHangman;
 											select.appendChild(el);
 										}else if(minigame.type=="quizgame"){
-											el.textContent="Domanda: "+minigame.question+" Risposta Corretta: "+minigame.rightAnswer+" Risposta sbagliata 1: "+minigame.wrong1+" Risposta sbagliata 2: "+minigame.wrong2;
+											el.textContent="Domanda del quiz: "+minigame.question;
 											el.value= minigame.idQuiz;
 											select.appendChild(el);
 										}else if(minigame.type=="affinitygame"){
-											el.textContent="Parola: "+minigame.rightAnswer+" Parola affine 1: "+minigame.word1+" Parola affine 2: "+minigame.word2+" Parola affine 3: "+minigame.word3+" Parola affine 4: "+minigame.word4+" Suggerimento: "+minigame.hint;
+											el.textContent="Parola da indovinare: "+minigame.rightAnswer;
 											el.value= minigame.idAffgame;
 											select.appendChild(el);
 										}
@@ -226,7 +226,7 @@ function createRoom(){
 	var repetedPassword = document.getElementById("confirm_password").value;
 	var error_pwd = document.getElementById("error_pwd");
 	var empty_minigames = document.getElementById("empty_minigames");
-	alert("qui");
+	
 	
 	if (password != repetedPassword) {
 		error_pwd.style.display = "block";
@@ -275,51 +275,61 @@ function createRoom(){
 		
 </script>
 </head>
-<body onload="caricaMaterie()">
+<body class= "roomCreationUpdate" onload="caricaMaterie()">
 <div class="HomeHead">
 <button class= "btnLogout" id= "logout" type="button" name="esci" value="Indietro" onClick="backHome()" >Indietro</button>
 </div>
 <div id="RoomCreation">
 			<form  name="CreationForm" onsubmit="return false" >
 
-				<p>Scegli o crea i minigiochi da inserire nella stanza</p>
-				
-	<select id ="subjectListCombo" ></select>	
-	<select id ="firstGameTypeCombo" onChange="minigameTypeSelection(this, 1)">
+				<p class="introCreatUpd">Scegli i minigiochi da inserire nella stanza</p>
+	<Label for="subjectListCombo">Materia della stanza</Label><br>			
+	<select class="form-select1" id ="subjectListCombo" ></select><br>
+	
+	<Label for="firstGameTypeCombo">Tipo primo minigioco</Label><br>	
+	<select class="form-select1" id ="firstGameTypeCombo" onChange="minigameTypeSelection(this, 1)">
 		<option value=""> </option>
 		<option value="affinitygame">Affinity</option>
 		<option value="hangmangame">HangmanGame</option>
 		<option value="quizgame">QuizGame</option>
-	</select>
-	<select id ="firstGameCombo"></select>
-	<select id ="secondGameTypeCombo" onChange="minigameTypeSelection(this, 2)">
+	</select><br>
+	<Label for="firstGameCombo">Primo minigioco</Label><br>
+	<select class="form-select1" id ="firstGameCombo"></select><br>
+	
+	<Label for="secondGameTypeCombo">Tipo secondo minigioco</Label><br>
+	<select class="form-select1" id ="secondGameTypeCombo" onChange="minigameTypeSelection(this, 2)">
 		<option value=""> </option>
 	 	<option value="affinitygame">Affinity</option>
 		<option value="hangmangame">HangmanGame</option>
 		<option value="quizgame">QuizGame</option>
-	</select>
-	<select id ="secondGameCombo"></select>
-	<select id ="thirdGameTypeCombo" onChange="minigameTypeSelection(this, 3)">
+	</select><br>
+	<Label for="secondGameCombo">Secondo minigioco</Label><br>
+	<select class="form-select1" id ="secondGameCombo"></select><br>
+	
+	<Label for="thirdGameTypeCombo">Tipo terzo minigioco</Label><br>
+	<select class="form-select1" id ="thirdGameTypeCombo" onChange="minigameTypeSelection(this, 3)">
 		<option value=""> </option>
 	 	<option value="affinitygame">Affinity</option>
 		<option value="hangmangame">HangmanGame</option>
 		<option value="quizgame">QuizGame</option>
-	</select>
-	<select id ="thirdGameCombo"></select>
+	</select><br>
+	<Label for="thirdGameCombo">Terzo minigioco</Label><br>
+	<select class="form-select1" id ="thirdGameCombo"></select><br>
 			
 				
   <div class="error" id="error_pwd" style="display:none;">La password non corrisponde!</div>
   <div class="error" id="empty_minigames" style="display:none;">scegli tutti e 3 i minigiochi!</div>
   <div id="passwords">
-  <input  id="password" type="password" onkeyup="check();" placeholder="Password"  required />
-  <input type="password"  id="confirm_password"  onkeyup="check();" placeholder="Ripeti Password"  required />
+  <input  id="password" type="password" onkeyup="check();" placeholder="Password" class="form-control1 text1" required />
+  <input type="password"  id="confirm_password"  onkeyup="check();" placeholder="Ripeti Password" class="form-control1 text1" required />
   <span id='message'></span>
   </div>
-<input type="submit" class="submitRoom" name="button" value="submitRoom" id="roomSubmitOk">
+<input type="submit" class="submitRoom" name="button" value="Crea stanza" id="roomSubmitOk">
 				
 				
 </form>
 </div>
+
 </body>
 </html>
 

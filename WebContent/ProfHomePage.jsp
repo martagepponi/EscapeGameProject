@@ -23,29 +23,31 @@ User user = (User) session.getAttribute("user");
 
 
 <script type="text/javascript">
+var serverPath = 'http://localhost:8080/EscapeGameProject';	
+
+
+
 	
 	
-	
-	/*function load(){
-		document.getElementById('block2').style.display= "none";
-		document.getElementById('block3').style.display= "none";
-	}
-	
-	function show(number){
-		if (number==2) {
-		document.getElementById('block2').style.display = "block";
-		document.getElementById('block3').style.display= "none";
-		}
+function logout() {
+
+	x = new XMLHttpRequest();
+	x.onreadystatechange = getLogout;
+	x.open('POST', serverPath + '/Logout');
+	//Send the proper header information along with the request
+	x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	x.send();
 		
-		if(number==3){ 
-			document.getElementById('block2').style.display= "none";
-			document.getElementById('block3').style.display = "block";
-		}
-	}*/
-	
-	
-	function logout() {
+	}
+
+
+	function getLogout() {
+	if (x.readyState == 4 && x.status == 200) {
+
+		
 		window.location.href = "./Login.html";
+		
+	}
 	}
 	function goCreation(){
 		
@@ -59,9 +61,16 @@ User user = (User) session.getAttribute("user");
 		window.location = '/EscapeGameProject/SubjectInsertion.jsp';
 		
 	}
+	
+	function goUpdate(idRoom){
+		
+		window.location='/EscapeGameProject/RoomUpdate.jsp?idRoom='+idRoom;
+		
+	
+	}
 </script>
 </head>
-<body onload="load()">
+<body >
 <div class="introDue" >
 <div class="HomeHead">
 <button class= "btnLogout" id= "help" type="button" name="esci" value="Help" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@mdo"  >Help</button>
@@ -100,7 +109,7 @@ createtedRooms = (List<Room>) request.getAttribute("createtedRooms");
 			
 		for (Room room : createtedRooms) {
 		%>
-<tr><td><img id="imageT" height="62" width="62" src="images/<%= room.getThumbnail()  %>.jpg" alt="<%=room.getThumbnail()%>"></td><td><%=room.getDate()%></td><td><%=room.getYear()%></td><td><%=room.getSubject()%></td><td><%=room.getIdRoom()%></td><td><button id="UpdateRoom" value=<%=room.getIdRoom() %>>modifica stanza</button></td></tr>
+<tr><td><img id="imageT" height="62" width="62" src="images/<%= room.getThumbnail()  %>.jpg" alt="<%=room.getThumbnail()%>"></td><td><%=room.getDate()%></td><td><%=room.getYear()%></td><td><%=room.getSubject()%></td><td><%=room.getIdRoom()%></td><td><button id="UpdateRoom" onclick="goUpdate(<%=room.getIdRoom() %>)" value=<%=room.getIdRoom() %>>modifica stanza</button></td></tr>
 		
 			
 

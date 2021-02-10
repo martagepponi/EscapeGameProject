@@ -62,7 +62,7 @@ public class RoomCreation extends HttpServlet {
   	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("qui");
+		
 		RoomCreationResponse retval = new RoomCreationResponse();
 		
 		HttpSession session = request.getSession();
