@@ -65,6 +65,7 @@ function populateSubject(req){
 				if (response.outcome) {						
 					var subjectList = response.subjectList;
 					var select1 = document.getElementById("subjectListCombo1");	
+					clear(select1);
 					for(i=0; i < subjectList.length; i++){
 						//popolo combobox
 						    var subject = subjectList[i];
@@ -76,6 +77,7 @@ function populateSubject(req){
 						    select1.appendChild(el);
 						    }
 					var select2 = document.getElementById("subjectListCombo2");	
+					clear(select2);
 					for(i=0; i < subjectList.length; i++){
 						//popolo combobox
 						    var subject = subjectList[i];
@@ -87,6 +89,7 @@ function populateSubject(req){
 						    select2.appendChild(el);
 						    }
 					var select3 = document.getElementById("subjectListCombo3");	
+					clear(select3);
 					for(i=0; i < subjectList.length; i++){
 						//popolo combobox
 						    var subject = subjectList[i];
@@ -170,7 +173,12 @@ function createMinigameQ(){
 		
 	}
 		
-		
+function clear(select){
+
+	var length = select.options.length;
+	for (i = length-1; i >= 0; i--) {
+		  select.options[i] = null;
+		}}
 		
 	
 </script>

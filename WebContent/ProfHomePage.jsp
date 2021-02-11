@@ -142,7 +142,18 @@ createtedRooms = (List<Room>) request.getAttribute("createtedRooms");
   </div>
   <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog thumbnailCon modal-dialog-table2 d-flex flex-column align-items-center p-5">
-    <p>Spiegazioni</p>
+    <p>
+    <b>"STANZE CREATE"</b><br> 
+    In questa sezione è possibile visualizzare le stanze create da te ed eventualmente modificarne il contenuto <br>
+    <b>"CREA STANZE"</b><br>
+    In questa sezione è possibile creare una nuova stanza personalizzandola in base alla materia e ai minigiochi al suo interno, scegliendoli fra quelli disponibili. <br>
+    <b>"CREA MINIGIOCHI"</b><br>
+    In questa sezione è possibile creare nuovi minigiochi per personalizzare le proprie stanze, selezionandone il tipo fra tre disponibili, la materia e il contenuto.<br>
+     <b>"AGGIUNGI NUOVA MATERIA"</b><br>
+     In questa sezione è possibile aggiungere una nuova materia per poi poter creare una stanza con contenuti relativi alla materia scelta.<br>
+     <b>"Punteggi"</b><br>
+     In questa sezione è possibile visualizzare i punteggi ottenuti dagli alunni che hanno giocato alle stanze che hai creato. 
+     </p>
   </div>
   </div>
 <div class="foot">
