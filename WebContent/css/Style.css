@@ -968,7 +968,7 @@ background-image: url(../images/bgBox.jpg);
 	background-image: url(../images/bgBox.jpg);
     background-size: cover;
     background-position: center center;
-    width: 800px!important;
+    width: 1078px!important;
     max-width:none!important;
     height: auto;
     min-height: 420px;
@@ -976,7 +976,8 @@ background-image: url(../images/bgBox.jpg);
     box-shadow: 0 0 4px #333;
     position: absolute!important;
     top: calc(42.5% - 210px)!important;
-    left: calc(50% - 400px)!important;
+    left: calc(50% - 539px)!important;
+    font-size:15px;
 }
 #help{
 	left:2%!important;
@@ -1037,3 +1038,28 @@ background-image: url(../images/bgBox.jpg);
 	    border: 1px solid #ced4da;
 	    border-radius: 0.25rem;
 }
+.textSub{
+	    border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+}
+.upRoom{
+		width:212px;
+	padding: 9px 30px;
+	background-color:#f9f9f9; 
+	color:#cf0a21;
+	font-family:'Bitter';
+	font-weight: 700; 
+	text-decoration:none; 
+	text-transform: uppercase;
+	border:none;
+	border-radius:15px;
+	box-shadow:0 0 4px #555;
+	cursor:pointer;
+	margin-top:5px;
+}
+.upRoom:hover {
+	background-color:#cf0a21; 
+	color:#f9f9f9;
+	transform: scale(1.1);
+	transition: all .3s ease-in-out;
+	}

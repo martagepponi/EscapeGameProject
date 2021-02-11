@@ -320,7 +320,7 @@ function populateMinigameCombos(req) {
 		
 		<div id="subj">		
 		<Label for="sub">Materia della stanza</Label><br>
-		<input type= "text"  name="sub" id="sub" readonly> 
+		<input class="textSub" type= "text"  name="sub" id="sub" readonly> 
 		</div><br>
 				
 		<Label for="firstGameTypeCombo">Tipo primo minigioco</Label><br>
@@ -357,7 +357,7 @@ function populateMinigameCombos(req) {
   <input type="password"  id="confirm_password"  onkeyup="check();" placeholder="Ripeti Password" class="form-control1 text1"   />
   <span id='message'></span>
   </div>
-<input type="submit" class="submitRoom" name="button" value="submitRoom" id="roomSubmitOk">
+<input type="submit" class="upRoom" name="button" value="Aggiorna stanza" id="roomSubmitOk">
 				
 				
 </form>
