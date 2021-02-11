@@ -13,24 +13,8 @@ public class Affinitygame extends AbstractMinigame {
 	protected int errorNumber;
 	protected boolean hintSelected;
 	
-	
-	
-	//COSTRUTTORE 
-//	public Affinitygame(int idMinigame, String type, int idSubject, int idAffgame, String word1, String word2, 
-//			String word3, String word4, String rightAnswer, String hint, String prize) {
-//		super(idMinigame, type, idSubject);
-//		this.idAffgame= idAffgame;
-//		this.word1= word1;
-//		this.word2= word2;
-//		this.word3= word3;
-//		this.word4= word4;
-//		this.rightAnswer= rightAnswer;
-//		this.hint= hint;
-//		this.errorNumber = 0;
-//		this.hintSelected = false;
-//	}
 
-  //COSTRUTTORE2
+  //COSTRUTTORE
 	public Affinitygame() {
 		super();
 		this.errorNumber = 0;

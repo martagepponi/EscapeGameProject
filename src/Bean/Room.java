@@ -61,38 +61,30 @@ public class Room {
 		super();
 	}
 
-	
-	
 
 	public String getTitle() {
 		return title;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public String getProfSurname() {
 		return profSurname;
 	}
 
-
 	public void setProfSurname(String profSurname) {
 		this.profSurname = profSurname;
 	}
-
 
 	public int getYear() {
 		return year;
 	}
 
-
 	public void setYear(int year) {
 		this.year = year;
 	}
-
 
 	public int getIdRoom() {
 		return idRoom;

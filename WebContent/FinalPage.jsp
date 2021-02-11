@@ -68,9 +68,5 @@ Il tuo score totale è: <%=totalRank %>/100!<br><br><br><br>
 
 <input type="button" id="returnHome" value="Torna alla Home Page" class="btnA backR" onclick="returnHome()">
 </div>
-
-
-
-
 </body>
 </html>

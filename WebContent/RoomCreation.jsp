@@ -91,7 +91,6 @@ function check() {
 				}
 			} else {
 				// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
-				// TODO: FABIO.
 			}
 		}		
 	// riprendo lista minigiochi per tipo selezionato e numero della combo in cui inserirli
@@ -136,7 +135,6 @@ function populateMinigameCombos(req) {
 							for(i=0; i < minigameByTypeList.length; i++){
 								
 								var minigame = minigameByTypeList[i];
-								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
 										if(minigame.type=="hangmangame"){
 											el.textContent="Parola da indovinare: "+minigame.word;
@@ -154,13 +152,12 @@ function populateMinigameCombos(req) {
 											
 											select.appendChild(el);
 									}
-								//}
+								
 							}
 						}else if(numCombo=="2"){
 							var select = document.getElementById("secondGameCombo");
 							for(i=0; i < minigameByTypeList.length; i++){
 								var minigame = minigameByTypeList[i];
-								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
 										if(minigame.type=="hangmangame"){
 											el.textContent="Parola da indovinare: "+minigame.word;
@@ -175,13 +172,12 @@ function populateMinigameCombos(req) {
 											el.value= minigame.idAffgame;
 											select.appendChild(el);
 									}
-								//}
+								
 							}
 						}else if(numCombo=="3"){
 							var select = document.getElementById("thirdGameCombo");
 							for(i=0; i < minigameByTypeList.length; i++){
 								var minigame = minigameByTypeList[i];
-								//if(minigame.idsubject == document.getElementById("subjectListCombo").value){
 										var el = document.createElement("option");
 										if(minigame.type=="hangmangame"){
 											el.textContent="Parola da indovinare: "+minigame.word;
@@ -196,7 +192,6 @@ function populateMinigameCombos(req) {
 											el.value= minigame.idAffgame;
 											select.appendChild(el);
 										}
-									//}
 								}
 								
 							}
@@ -206,8 +201,6 @@ function populateMinigameCombos(req) {
 					}
 				}
 			} else {
-				// SE LA RISPOSTA è UN ERRORE(400, 401, 500)
-				// TODO: FABIO.
 			}
 		}
 		
@@ -227,6 +220,9 @@ function createRoom(){
 	var error_pwd = document.getElementById("error_pwd");
 	var empty_minigames = document.getElementById("empty_minigames");
 	
+	if (password==""){
+		return false;
+	}
 	
 	if (password != repetedPassword) {
 		error_pwd.style.display = "block";
@@ -258,10 +254,6 @@ function createRoom(){
 						}
 				}
 			}
-		
-		
-		
-		
 		
 	}
 	

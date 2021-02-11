@@ -27,9 +27,6 @@ import DAO.MiniGameDAO;
 import DAO.RoomDAO;
 import DAO.SubjectDAO;
 
-/**
- * Servlet implementation class InitRoomCreation
- */
 @WebServlet("/RoomCreation")
 public class RoomCreation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,34 +34,34 @@ public class RoomCreation extends HttpServlet {
 	private static final String HANGMAN = "hangmangame";
 	private static final String AFFINITY = "affinitygame";
 	private static final String QUIZ = "quizgame";
-    
-    public RoomCreation() {
-        super();
-       
-    }
 
-    public void init() throws ServletException {
-  		try {
-  			ServletContext context = getServletContext();
-  			String driver = context.getInitParameter("dbDriver");
-  			String url = "jdbc:mysql://localhost:3306/escapegame?useTimezone=true&serverTimezone=UTC";
-  			String user = context.getInitParameter("dbUser");
-  			String password = context.getInitParameter("dbPassword");
-  			Class.forName(driver);
-  			this.connection = DriverManager.getConnection(url, user, password);
-  			System.out.println("Connessione al db effettuata correttamente!");
+	public RoomCreation() {
+		super();
 
-  		} catch (ClassNotFoundException e) {
-  			throw new UnavailableException("Can't load database driver");
-  		} catch (SQLException e) {
-  			throw new UnavailableException("Couldn't get db connection");
-  		}
-  	}
-	
+	}
+
+	public void init() throws ServletException {
+		try {
+			ServletContext context = getServletContext();
+			String driver = context.getInitParameter("dbDriver");
+			String url = "jdbc:mysql://localhost:3306/escapegame?useTimezone=true&serverTimezone=UTC";
+			String user = context.getInitParameter("dbUser");
+			String password = context.getInitParameter("dbPassword");
+			Class.forName(driver);
+			this.connection = DriverManager.getConnection(url, user, password);
+			System.out.println("Connessione al db effettuata correttamente!");
+
+		} catch (ClassNotFoundException e) {
+			throw new UnavailableException("Can't load database driver");
+		} catch (SQLException e) {
+			throw new UnavailableException("Couldn't get db connection");
+		}
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		RoomCreationResponse retval = new RoomCreationResponse();
-		
+
 		HttpSession session = request.getSession();
 		User user =(User) session.getAttribute("user");
 		if(session.isNew() || user == null) {
@@ -74,8 +71,6 @@ public class RoomCreation extends HttpServlet {
 			int iduser = user.getIduser();	
 			String action = request.getParameter("action");
 			if("subjectList".equals(action)) {
-				
-				
 				SubjectDAO subjectDao = new SubjectDAO(connection);
 				List<Subject> subjectList = subjectDao.findAllSubject(); 
 				if(subjectList.isEmpty()) {
@@ -84,7 +79,7 @@ public class RoomCreation extends HttpServlet {
 					retval.setOutcome(true);
 					retval.setSubjectList(subjectList);
 				}
-				
+
 			}else if("minigameListByType".equals(action)){
 				String type= request.getParameter("type");
 				String numCombo= request.getParameter("num");
@@ -98,12 +93,12 @@ public class RoomCreation extends HttpServlet {
 					retval.setOutcome(true);
 					retval.setMinigameByTypeList(minigameByTypeList);
 					retval.setComboBoxSelected(numCombo);
-					
+
 				}
-				
-				
+
+
 			}else if("createRoom".equals(action)){
-				
+
 				String idM1 = request.getParameter("idMinigame1");
 				String idM2 = request.getParameter("idMinigame2");
 				String idM3 = request.getParameter("idMinigame3");
@@ -115,54 +110,51 @@ public class RoomCreation extends HttpServlet {
 				int idprof = Integer.parseInt(idp);
 				int idsubject = Integer.parseInt(ids);
 				String password = request.getParameter("password");
-				
-				
-				
+
+
+
 				RoomDAO roomDao = new RoomDAO(connection);
-				
+
 				try {
 					roomDao.addRoom(idsubject, idprof, password, idMinigame1, idMinigame2, idMinigame3);
 					retval.setOutcome(true);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-				
+
+
+
 			}else if("addSubject".equals(action)){
-				
+
 				String name = request.getParameter("subjectName");
 				String y = request.getParameter("subjectYear");
 				int year = Integer.parseInt(y);
-	
+
 				SubjectDAO subjectDao = new SubjectDAO(connection);
-				
+
 				try {
 					subjectDao.addSubject(name, year);
 					retval.setOutcome(true);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-				
+
+
+
 			}else if("createMinigame".equals(action)){
 				MiniGameDAO minigameDao = new MiniGameDAO(connection);
-				
+
 				String type = request.getParameter("type");
 				if(HANGMAN.equalsIgnoreCase(type)) {
-				String hangmanWord = request.getParameter("hangmanWord");
-				String questionH = request.getParameter("questionH");
-				String hintH = request.getParameter("hintH");
-				String ids = request.getParameter("idSubject");
-				int idsubject = Integer.parseInt(ids);
+					String hangmanWord = request.getParameter("hangmanWord");
+					String questionH = request.getParameter("questionH");
+					String hintH = request.getParameter("hintH");
+					String ids = request.getParameter("idSubject");
+					int idsubject = Integer.parseInt(ids);
 					try {
 						minigameDao.addMinigameH(hangmanWord, questionH, hintH, idsubject);
 						retval.setOutcome(true);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}else if(AFFINITY.equalsIgnoreCase(type)) {
@@ -174,13 +166,12 @@ public class RoomCreation extends HttpServlet {
 					String hintA = request.getParameter("hintA");
 					String ids = request.getParameter("idSubject");
 					int idsubject = Integer.parseInt(ids);
-						try {
-							minigameDao.addMinigameA(affinityWord, word1A, word2A, word3A, word4A, hintA, idsubject);
-							retval.setOutcome(true);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+					try {
+						minigameDao.addMinigameA(affinityWord, word1A, word2A, word3A, word4A, hintA, idsubject);
+						retval.setOutcome(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}else if(QUIZ.equalsIgnoreCase(type)) {
 					String questionQ = request.getParameter("questionQ");
 					String quizWord = request.getParameter("quizWord");
@@ -188,48 +179,32 @@ public class RoomCreation extends HttpServlet {
 					String wrong2Q = request.getParameter("wrong2Q");
 					String ids = request.getParameter("idSubject");
 					int idsubject = Integer.parseInt(ids);
-						try {
+					try {
 						minigameDao.addMinigameQ(questionQ, quizWord, wrong1Q, wrong2Q, idsubject);
-							retval.setOutcome(true);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						retval.setOutcome(true);
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				
-				
-	
-				
-				
-				
-				
-				
-				
+				}
+
 			}else {
-		 		// TODO: gestione risposta su azione sconosciuta
-		 		retval.setOutcome(false);
-	 			
-		 	}
-			
-			
-			
-			
-			
-			
-			
-		 	PrintWriter out = response.getWriter();
-		 	Gson gson = new Gson();
+				retval.setOutcome(false);
+
+			}
+
+
+			PrintWriter out = response.getWriter();
+			Gson gson = new Gson();
 			String json = gson.toJson(retval);
 			System.out.println("response: "+ json );
 			out.println(json);
-			
-			
+
+
 		}
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -46,7 +46,7 @@ public class RegistrationDAO {
         //SE username E' = NULL ALLORA utente NON ESISTE NEL DB E SI PUO' PASSARE ALL'INSERT      
 		if (username1 == null) {	
 			return true;
-			//SE username E' DIVERSA DA NULL USERNAME GIA' IN UTILIZZO
+			//USERNAME GIA' IN UTILIZZO
 		} else {
 			return false;
 		}

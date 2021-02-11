@@ -54,40 +54,40 @@ public class Game extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
- HttpSession session = request.getSession(true);
-		
+
+		HttpSession session = request.getSession(true);
+
 		session.removeAttribute("Minigame");
 		request.getRequestDispatcher("/Game.jsp").forward(request, response);
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
 		User user =(User) session.getAttribute("user");
-		
+
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
 		if(session.isNew() || user == null) {
 			System.out.println("redirect a login -...");
 			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
 		}else { //SE SESSIONE NON E' NUOVA E UTENTE NON E' NULL
-		
+
 			session.removeAttribute("Minigame");
 			String id_room = request.getParameter("id_room");//DA StudentHomePageScript.js
 			System.out.println("id_room:" + id_room);
 			int idroom = Integer.parseInt(id_room);
-			
+
 			SubjectDAO subjectDAO = new SubjectDAO(connection);
 			Subject subject =subjectDAO.findSubjectByIdRoom(idroom);
-			
+
 			if(subject != null) {
 				session.setAttribute("subject", subject);
 				session.setAttribute("id_room", "" + id_room);
 				RoomDAO roomDAO = new RoomDAO(connection);
 				Room room1 = roomDAO.selectById(idroom, connection);
 				session.setAttribute("title", room1.getTitle());
-				
+
 				//controllo se ho già fatto accesso ad almeno un minigioco
 				RankingDAO rankingDAO = new RankingDAO(connection);
 				Ranking ranking = rankingDAO.findRankingByRoomAndUser(user.getIduser() , idroom);
@@ -97,7 +97,7 @@ public class Game extends HttpServlet {
 				} else {
 					if (ranking.getTotalrank() == 0) {
 						session.setAttribute("first_time", "NO");
-						
+
 						Room room = roomDAO.selectById(idroom, connection);
 						if (room != null) {
 							MiniGameDAO minigameDAO = new MiniGameDAO(connection);
@@ -133,13 +133,13 @@ public class Game extends HttpServlet {
 									}
 								}
 							} else {
-								
-					 			rankingDAO.InsertRank(4, 1, user.getIduser(), idroom);
-								
+
+								rankingDAO.InsertRank(4, 1, user.getIduser(), idroom);
+
 								int totalRank=  ranking.getRank1() + ranking.getRank2() + ranking.getRank3() + 1;
 								rankingDAO.insertTotalRank(totalRank, user.getIduser(), idroom);
 								request.getRequestDispatcher("/FinalPage.jsp").forward(request, response);
-	
+
 							}
 							request.getRequestDispatcher("/Game.jsp").forward(request, response);
 						} else {
@@ -151,14 +151,14 @@ public class Game extends HttpServlet {
 						request.getRequestDispatcher("/HomePage").forward(request,response);
 					}
 				}
-				
+
 			} else {
-				
+
 				request.getRequestDispatcher("/ErrorPage.html").forward(request,response);
 			}
 		}
 	}
-	
+
 	public void destroy() {
 		try{
 			if(this.connection!=null) {

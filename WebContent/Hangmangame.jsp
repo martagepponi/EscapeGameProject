@@ -18,8 +18,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<link rel="stylesheet" href="css/Style.css">
-	 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/Style.css">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
 <meta charset="ISO-8859-1">
 <title>Impiccato</title>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -50,7 +51,6 @@
 	
 		if (req.readyState == 4) {
 			var message = req.responseText;
-			//alert(message);
 			if (req.status == 200) {
 				var response = JSON.parse(req.responseText);
 				if (response.sessionExpired) {
@@ -73,7 +73,6 @@
 		
 		if (req.readyState == 4) {
 			var message = req.responseText;
-			//alert(message);
 			if (req.status == 200) {
 				// SE LA RISPOSTA è OK
 				var response = JSON.parse(req.responseText);
@@ -105,8 +104,6 @@
 				if (finalOutcome == "W") {
 					document.game.displayWord.value = display_word;
 					alert("Vinto!");
-					//alert("punti di errore: " + wrong_guesses);
-					//alert("Punteggio ottenuto: " + score );
 					can_play = false;
 					
 					document.getElementById("fireExtinguisher").style.display="block";
@@ -166,7 +163,7 @@
 		music.pause();
 	}
 
-	//FINE SCRIPT HANGMANGAME
+	
 </script>
 <script type="text/javascript">
 
@@ -182,26 +179,30 @@ function makeCall(method, url, cback) {
 }
 </script>
 </head>
-        
-<body class= "hangmanGame" onload="load()">
+
+<body class="hangmanGame" onload="load()">
 
 
 	<div id="Hangmangame" align="center">
 		<h1>Il gioco dell&apos;Impiccato</h1>
 
 
-		<h2 id="question1">Domanda: <br><%=question1 %></h2>
+		<h2 id="question1">
+			Domanda: <br><%=question1 %></h2>
 		<h2 id="question2" style="display: none;"></h2>
 		<p>
-			<img id=hngImg src="images/hangmangame/hm<%= errorNumber %>.gif" name="hm">
+			<img id=hngImg src="images/hangmangame/hm<%= errorNumber %>.gif"
+				name="hm">
 		</p>
 		<form id="textBoxForm" name="game">
-			<p> 
-			   <label for="word">Parola</label><br>
-				 <input id="word" type="text" name="displayWord" value="<%=displayWord %>" readonly="true" /><br>
-				 <label for="usedLetters">Lettere utilizzate</label><br>
-				 <input id="usedLetters"type="text" name="usedLetters" value="<%=selectedLetter %>" readonly="true" style="cursor:not-allowed;">
-				
+			<p>
+				<label for="word">Parola</label><br> <input id="word"
+					type="text" name="displayWord" value="<%=displayWord %>"
+					readonly="true" /><br> <label for="usedLetters">Lettere
+					utilizzate</label><br> <input id="usedLetters" type="text"
+					name="usedLetters" value="<%=selectedLetter %>" readonly="true"
+					style="cursor: not-allowed;">
+
 			</p>
 		</form>
 
@@ -239,52 +240,51 @@ function makeCall(method, url, cback) {
 		</p>
 
 
-	<audio id="myAudio">
-		<source src="music/askingquestions.mp3" type="audio/mpeg">
+		<audio id="myAudio">
+			<source src="music/askingquestions.mp3" type="audio/mpeg">
 
-	</audio>
+		</audio>
 
 
-	
-	<div id="musicButton" align="center">
-		<img src="images/audioOff.png" onclick="pauseMusic()" >
 
-		<img src="images/audioOn.png" onclick="startMusic()" >
-	</div>
+		<div id="musicButton" align="center">
+			<img src="images/audioOff.png" onclick="pauseMusic()"> <img
+				src="images/audioOn.png" onclick="startMusic()">
+		</div>
 
 	</div>
 
 
 	<!-- ------------------------------------------------------------------------ -->
-	
-<!-- 		DIV CON IMMAGINE ESTINTORE CHE APPARE A FINE MINIGIOCO -->
+
+	<!-- 		DIV CON IMMAGINE ESTINTORE CHE APPARE A FINE MINIGIOCO -->
 
 
-<div id="fireExtinguisher" align="center" >
+	<div id="fireExtinguisher" align="center">
 
-<p id="showWord1" style="display: none;"> La parola corretta era: <span id="correctWord"> </p>
-<p>Punteggio ottenuto: <span id="score"></span></p>
+		<p id="showWord1" style="display: none;">
+			La parola corretta era: <span id="correctWord">
+		</p>
+		<p>
+			Punteggio ottenuto: <span id="score"></span>
+		</p>
 
-<img id="hangmanPrize" src="images/<%=minigame.getPrize()%>.png" height="250" width="150"><br><br><br>
+		<img id="hangmanPrize" src="images/<%=minigame.getPrize()%>.png"
+			height="250" width="150"><br>
+		<br>
+		<br>
 
-<p align="center">  Hai trovato un oggetto!<br>
-                    Troverai questo oggetto nell'inventario, 
-                    ritorna alla stanza e clicca nel punto in cui l'oggetto
-                     trovato può risultarti utile! </p>
-                     
-<a href="./Game"> <input type="button" class="btnA" value="Torna alla stanza" > </a>
+		<p align="center">
+			Hai trovato un oggetto!<br> Troverai questo oggetto
+			nell'inventario, ritorna alla stanza e clicca nel punto in cui
+			l'oggetto trovato può risultarti utile!
+		</p>
 
-
-</div>
-
-
-
-
-
+		<a href="./Game"> <input type="button" class="btnA"
+			value="Torna alla stanza">
+		</a>
 
 
-
-	
-
+	</div>
 </body>
 </html>

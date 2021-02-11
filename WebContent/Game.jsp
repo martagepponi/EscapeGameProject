@@ -6,8 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<link rel="stylesheet" href="css/Style.css">
-	 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/Style.css">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
 <%  
 	Subject subject = null;
 		    
@@ -28,7 +29,7 @@
  %>
 <meta charset="ISO-8859-1">
 <title>EscapeGame</title>
-		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
 <script>
 <%
@@ -160,11 +161,6 @@ function startGame2(){ //click "inizia"
 		//riprendo primo oggetto presente nell'array
 		var objectName = objects[0];
 		var referenceWall = "muro" + number;
-// 		var correctWall = objectsAndWall[[0]]; 
-// 		//alert("correctWall"+ correctWall);
-// 		if(correctWall != referenceWall){   //se wall non è quello giusto inserisco mappa vuota
-// 			wall.setAttribute("usemap", ""); //riempirò la mappa con le giuste coord solo quando wall sarà quello "giusto"
-// 		}
 		
 		//se muro in cui mi trovo NON è il primo muro presente nella tabella associativa
 		if(!checkObjectsAndWall(objectName, referenceWall, objectsAndWall)){
@@ -488,7 +484,7 @@ function removeChild(cell){
 
 </head>
 
-<body class= "game" onload="load(); ">
+<body class="game" onload="load(); ">
 
 	<%if(subject != null){ %>
 
@@ -497,35 +493,36 @@ function removeChild(cell){
 			<%
 			if (title.equalsIgnoreCase("Un brutto risveglio")) {
 		%>
-		<h1 id="title">
-			"<%=title %>"
-		</h1>
+			<h1 id="title">
+				"<%=title %>"
+			</h1>
 			<p>
-			Sei un giovane investigatore e sei stato rapito <br>
-			prima di poter rivelare il nome di un famigerato assassino.<br>
-			ESCI DALLA STANZA E SVELA AL MONDO LA SUA IDENTITA'<br>
-		    PRIMA CHE COLPISCA ANCORA!</p>
-		    
-		    <%
+				Sei un giovane investigatore e sei stato rapito <br> prima di
+				poter rivelare il nome di un famigerato assassino.<br> ESCI
+				DALLA STANZA E SVELA AL MONDO LA SUA IDENTITA'<br> PRIMA CHE
+				COLPISCA ANCORA!
+			</p>
+
+			<%
 			}
 		%>
 			<%
 			if (title.equalsIgnoreCase("Il codice da Vinci")) {
 		%>
 			<h1 id="title">
-			"<%=title %>"
-		   </h1>
-			<p>
-			Sei un giovane ricercatore... Pochi passi ti separano dallo
-			 svelare il segreto di Leonardo da Vinci!</p>
-		
-		       <%
+				"<%=title %>"
+			</h1>
+			<p>Sei un giovane ricercatore... Pochi passi ti separano dallo
+				svelare il segreto di Leonardo da Vinci!</p>
+
+			<%
 			}
 		%>
-            <button class="btn-game" id="avanti" value="Salta" onclick="startGame1()">Salta</button>
+			<button class="btn-game" id="avanti" value="Salta"
+				onclick="startGame1()">Salta</button>
 		</div>
 
-		
+
 	</div>
 
 
@@ -540,33 +537,32 @@ function removeChild(cell){
 	</audio>
 
 
-	
+
 	<div id="game">
-<div class="wall_cont d-flex flex-column align-items-center pt-2">
-		<img id="wall"
-			src="images/<%=subject.getName()%>/<%=subject.getWall1()%>.jpg">
-			</div>
-		<div id="arrows">		
-			<img class="arrow" id="left_arrow"
-				src="images/leftArrow.png" onclick="imageScroll(this)"> <img
-				class="arrow" id="right_arrow" src="images/rightArrow.png"
+		<div class="wall_cont d-flex flex-column align-items-center pt-2">
+			<img id="wall"
+				src="images/<%=subject.getName()%>/<%=subject.getWall1()%>.jpg">
+		</div>
+		<div id="arrows">
+			<img class="arrow" id="left_arrow" src="images/leftArrow.png"
+				onclick="imageScroll(this)"> <img class="arrow"
+				id="right_arrow" src="images/rightArrow.png"
 				onclick="imageScroll(this)">
 		</div>
-		
-		<div id= counter>
-		<p id = timeEx></p>
-		<p id = "time"></p>
-		<p id = "demo"></p>
+
+		<div id=counter>
+			<p id=timeEx></p>
+			<p id="time"></p>
+			<p id="demo"></p>
 		</div>
 
 	</div>
-	
-	<div id="musicButton" align="center">
-		<img src="images/audioOff.png" onclick="pauseMusic()" >
 
-		<img src="images/audioOn.png" onclick="startMusic()" >
+	<div id="musicButton" align="center">
+		<img src="images/audioOff.png" onclick="pauseMusic()"> <img
+			src="images/audioOn.png" onclick="startMusic()">
 	</div>
-	
+
 
 
 	<div id="top_right">
@@ -583,9 +579,10 @@ function removeChild(cell){
 			<%} %>
 		</table>-->
 		<div class="inventory">
-		<% if(session.getAttribute("first_time").equals("NO")){%>
-		<img id ="inventoryImage" src="images/<%=prize%>.png" class="<%=prize%>">
-		<%} %>
+			<% if(session.getAttribute("first_time").equals("NO")){%>
+			<img id="inventoryImage" src="images/<%=prize%>.png"
+				class="<%=prize%>">
+			<%} %>
 		</div>
 	</div>
 
@@ -595,18 +592,18 @@ function removeChild(cell){
 	<!-- PANEL INFO BOX -->
 
 	<div id="panel">
-	<p>NOTE</p>
-		
-				<div class="box"></div>
-			
-				<div id="cell"></div>
-			
+		<p>NOTE</p>
+
+		<div class="box"></div>
+
+		<div id="cell"></div>
+
 	</div>
 
 
 
 
-    <!-- MAPPE OGGETTI CLICCABILI -->
+	<!-- MAPPE OGGETTI CLICCABILI -->
 	<!-- CREAZIONE MAPPA CON AREA MINIGIOCO SENZA COORDINATE E AREE DEGLI ALTRO OGGETTI CLICCABILI CON COORDINATE -->
 
 	<map id="point1" name="point1">

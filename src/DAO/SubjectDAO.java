@@ -149,7 +149,7 @@ public class SubjectDAO {
 			}
 			
 		}
-	//insert new subject
+	
 }
 
 		

@@ -23,7 +23,7 @@ import Bean.AbstractMinigame;
 import Bean.HangmanGameResponse;
 import Bean.Hangmangame;
 
- 
+
 @WebServlet("/HangmanGame")
 public class HangmanGame extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,12 +31,12 @@ public class HangmanGame extends HttpServlet {
 	private static final int POINTS_ERROR = 2;
 	private static final int POINTS_HINT = 10;
 	private Connection connection = null;
-  
-    public HangmanGame() {
-        super();
-       
-    }
-    
+
+	public HangmanGame() {
+		super();
+
+	}
+
 
 	//METODO INIT
 	public void init() throws ServletException {
@@ -56,7 +56,7 @@ public class HangmanGame extends HttpServlet {
 			throw new UnavailableException("Couldn't get db connection");
 		}
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RIPRENDO SESSIONE PRECEDENTE E OGGETTO UTENTE
 		HttpSession session = request.getSession();
@@ -65,121 +65,121 @@ public class HangmanGame extends HttpServlet {
 		User user =(User) session.getAttribute("user");
 		int iduser = user.getIduser();
 
-		
+
 		int minigameNumber = Integer.parseInt((String) session.getAttribute("minigameNumber"));
-		
+
 		System.out.println(user.getUsername());
 
 		//SE LA SESSIONE è NUOVA O SE L'UTENTE è NULL TORNO ALLA PAG DI LOGIN
-	 	HangmanGameResponse retval = new HangmanGameResponse();
+		HangmanGameResponse retval = new HangmanGameResponse();
 		if(session.isNew() || user == null) {
 			retval.setSessionExpired(true);
 		}else {
 			Hangmangame minigame = (Hangmangame)session.getAttribute("Minigame");
-		 	String word = minigame.getWord();
-		 	String displayWord = minigame.getDisplayWord();
-		 	String question1 = minigame.getQuestion1();
-		 	String question2 = minigame.getQuestion2();
-		 	int errorNumber = minigame.getErrorNumber();
-		 	String prize = minigame.getPrize();
-		 	String selectedLetter=minigame.getSelectedLetter();
-		 
-		 	
-		 	String action = request.getParameter("action");
-		 	if ("selectLetter".equals(action)) {
-		 		String letter = request.getParameter("letterSelected");
-		 		
-		 		if (letter.length() == 1) {
-		 			selectedLetter += letter; //aggiungo la lettera all'elenco delle lettere selezionate
-		 			retval.setSelectedLetter(selectedLetter);
-		 			minigame.setSelectedLetter(selectedLetter);
-			 		if (word.indexOf(letter) != -1) //se la lettera fa parte della parola nascosta
-			 		{
-			 			//si aggiorna la displayWord
-			 			int pos = 0; 
-			 			String temp_mask = displayWord;
-			 			while (word.indexOf(letter, pos) != -1) {
-				 			pos = word.indexOf(letter, pos);
-				 			temp_mask = temp_mask.substring(0, pos) + letter + temp_mask.substring(pos + 1);
-				 			pos++;
-			 			}
-			 			displayWord = temp_mask;
-			 			minigame.setDisplayWord(displayWord);
-			 			retval.setOutcome(true);
-			 			retval.setDisplayWord(displayWord);
-			 			retval.setErrorNumber(minigame.getErrorNumber());
-			 			
-			 			//controllo se esistono  ancora #
-			 			if (displayWord.indexOf("#") == -1) { //non esistono più #: parola indovinata
-			 				minigame.setOutcome(AbstractMinigame.WON);		 				
-			 				int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
-			 				
-			 				RankingDAO rankingDAO = new RankingDAO(connection);
-				 			rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
-				 			
-			 				retval.setCorrectWord(word);
-			 				retval.setFinalOutcome(AbstractMinigame.WON);
-			 				retval.setScore(score);
-			 			}
-			 		} else {
-			 			errorNumber++;
-			 			minigame.setErrorNumber(errorNumber);
-			 			retval.setOutcome(false);
-			 			retval.setDisplayWord(displayWord);
-			 			retval.setErrorNumber(minigame.getErrorNumber());
-			 			//controllo se utente ha raggiunto max numero errori
-			 			if (Hangmangame.MAX_NUM_ERROR <= errorNumber) {
-			 				minigame.setOutcome(AbstractMinigame.LOSE);
-                            int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
-			 				
-			 				RankingDAO rankingDAO = new RankingDAO(connection);
-				 			rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
+			String word = minigame.getWord();
+			String displayWord = minigame.getDisplayWord();
+			String question1 = minigame.getQuestion1();
+			String question2 = minigame.getQuestion2();
+			int errorNumber = minigame.getErrorNumber();
+			String prize = minigame.getPrize();
+			String selectedLetter=minigame.getSelectedLetter();
 
-			 				retval.setCorrectWord(word);
-			 				retval.setFinalOutcome(AbstractMinigame.LOSE);
-			 				retval.setScore(score);
-			 			}
-			 		}
-		 		} else {
-		 			retval.setOutcome(false);
-		 			retval.setDisplayWord(displayWord);
-		 			retval.setErrorNumber(minigame.getErrorNumber());
-		 		}
-		 	} else if ("hint".equals(action)) {
-	 			minigame.setHintSelected(true);
-		 		retval.setOutcome(true);
-	 			retval.setDisplayWord(displayWord);
-	 			retval.setErrorNumber(minigame.getErrorNumber());
-	 			retval.setQuestion2(question2);
-	 			
-		 	} else {
-		 		//gestione risposta su azione sconosciuta
-		 		retval.setOutcome(false);
-	 			retval.setDisplayWord(displayWord);
-	 			retval.setErrorNumber(minigame.getErrorNumber());
-		 	}
-		 	PrintWriter out = response.getWriter();
-		 	Gson gson = new Gson();
+
+			String action = request.getParameter("action");
+			if ("selectLetter".equals(action)) {
+				String letter = request.getParameter("letterSelected");
+
+				if (letter.length() == 1) {
+					selectedLetter += letter; //aggiungo la lettera all'elenco delle lettere selezionate
+					retval.setSelectedLetter(selectedLetter);
+					minigame.setSelectedLetter(selectedLetter);
+					if (word.indexOf(letter) != -1) //se la lettera fa parte della parola nascosta
+					{
+						//si aggiorna la displayWord
+						int pos = 0; 
+						String temp_mask = displayWord;
+						while (word.indexOf(letter, pos) != -1) {
+							pos = word.indexOf(letter, pos);
+							temp_mask = temp_mask.substring(0, pos) + letter + temp_mask.substring(pos + 1);
+							pos++;
+						}
+						displayWord = temp_mask;
+						minigame.setDisplayWord(displayWord);
+						retval.setOutcome(true);
+						retval.setDisplayWord(displayWord);
+						retval.setErrorNumber(minigame.getErrorNumber());
+
+						//controllo se esistono  ancora #
+						if (displayWord.indexOf("#") == -1) { //non esistono più #: parola indovinata
+							minigame.setOutcome(AbstractMinigame.WON);		 				
+							int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
+
+							RankingDAO rankingDAO = new RankingDAO(connection);
+							rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
+
+							retval.setCorrectWord(word);
+							retval.setFinalOutcome(AbstractMinigame.WON);
+							retval.setScore(score);
+						}
+					} else {
+						errorNumber++;
+						minigame.setErrorNumber(errorNumber);
+						retval.setOutcome(false);
+						retval.setDisplayWord(displayWord);
+						retval.setErrorNumber(minigame.getErrorNumber());
+						//controllo se utente ha raggiunto max numero errori
+						if (Hangmangame.MAX_NUM_ERROR <= errorNumber) {
+							minigame.setOutcome(AbstractMinigame.LOSE);
+							int score=  scoreEstimate(minigame.getErrorNumber(), minigame.isHintSelected());
+
+							RankingDAO rankingDAO = new RankingDAO(connection);
+							rankingDAO.InsertRank(minigameNumber, score, iduser, idroom);
+
+							retval.setCorrectWord(word);
+							retval.setFinalOutcome(AbstractMinigame.LOSE);
+							retval.setScore(score);
+						}
+					}
+				} else {
+					retval.setOutcome(false);
+					retval.setDisplayWord(displayWord);
+					retval.setErrorNumber(minigame.getErrorNumber());
+				}
+			} else if ("hint".equals(action)) {
+				minigame.setHintSelected(true);
+				retval.setOutcome(true);
+				retval.setDisplayWord(displayWord);
+				retval.setErrorNumber(minigame.getErrorNumber());
+				retval.setQuestion2(question2);
+
+			} else {
+				//gestione risposta su azione sconosciuta
+				retval.setOutcome(false);
+				retval.setDisplayWord(displayWord);
+				retval.setErrorNumber(minigame.getErrorNumber());
+			}
+			PrintWriter out = response.getWriter();
+			Gson gson = new Gson();
 			String json = gson.toJson(retval);
 			System.out.println("response: "+ json );
 			out.println(json);
 		}
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
+
 	protected int scoreEstimate(int errorNumber, boolean requestedHint) {
 		int retval = MAX_SCORE;
 		retval -= (errorNumber * POINTS_ERROR);
 		retval -= (requestedHint ? POINTS_HINT : 0);
-		
+
 		return retval;
 	}
-	
-	
-	
+
+
+
 }
-	
+
 

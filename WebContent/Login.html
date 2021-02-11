@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="css/Style.css">
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/Style.css">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
 
-	<meta charset="ISO-8859-1">
-	<title>Login</title>
-	<script type="text/javascript" src="script/Login.js?v=4" defer></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js?v=1"></script>
-	<script type="text/javascript" src="script/Registration.js?v=3" defer></script>
-	<script>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+<script type="text/javascript" src="script/Login.js?v=4" defer></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js?v=1"></script>
+<script type="text/javascript" src="script/Registration.js?v=3" defer></script>
+<script>
 	var serverPath = 'http://localhost:8080/EscapeGameProject';
-	
-
 
 	// Click su ACCEDI
-
-	
-	 
 	function authentication() {
 
 		var username = document.Form1.username.value;
 		var password = document.Form1.pwd.value;
-		if (username != "" && password != "" && username!= null && password!= null) {	
+		if (username != "" && password != "" && username != null
+				&& password != null) {
 			x = new XMLHttpRequest();
 			x.onreadystatechange = getLogin;
 			x.open('POST', serverPath + '/Login');
 			//Send the proper header information along with the request
-			x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			x.setRequestHeader('Content-type',
+					'application/x-www-form-urlencoded');
 			//var params = stringa
 			var params = 'username=' + username + '&password=' + password;
 			x.send(params);
@@ -46,21 +44,18 @@
 				//salvo name nella sessione client
 				sessionStorage.username = response[0].username;
 				//reindirizzamento dopo 2000 millisecondi
-				window.setTimeout(window.location.replace(serverPath + "/HomePage"), 2000); //HomePage controller per smistare alla giusta HomePage
+				window.setTimeout(window.location.replace(serverPath
+						+ "/HomePage"), 2000); //HomePage controller per smistare alla giusta HomePage
 			}
 		}
-		}
-	
-	
-	
+	}
 
 	//REGISTRAZIONE STUDENTE
-	function loadStudent(){ //altrimenti da errore visto che listener non legge nulla se clicchiamo il link del docente
-		var registerStudent = document.getElementById("register1");	
+	function loadStudent() { //altrimenti da errore visto che listener non legge nulla se clicchiamo il link del docente
+		var registerStudent = document.getElementById("register1");
 		registerStudent.addEventListener('click', studentRegistration, false);
 
 	}
-
 
 	function studentRegistration() {
 
@@ -70,24 +65,25 @@
 		var password = document.studentForm.pwd1.value;
 		var repetedPassword = document.studentForm.pwd2.value;
 		var type = "studente";
-	    var error_pwd = document.getElementById("error_pwd");
-
+		var error_pwd = document.getElementById("error_pwd");
 
 		if (password != repetedPassword) {
 			error_pwd.style.display = "block";
 			return false;
 		}
-		
-		 if ( name == '' || surname == '' || username == '' ||  password == '' || repetedPassword == '') {
+
+		if (name == '' || surname == '' || username == '' || password == ''
+				|| repetedPassword == '') {
 			return false;
-		} 
+		}
 
 		x = new XMLHttpRequest();
 		x.onreadystatechange = getstudentRegistration;
 		x.open('POST', serverPath + '/Registration');
 		//Send the proper header information along with the request
 		x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		var params = 'name=' + name + '&surname=' + surname  +  '&username=' + username + '&password=' + password + '&type=' + type;
+		var params = 'name=' + name + '&surname=' + surname + '&username='
+				+ username + '&password=' + password + '&type=' + type;
 		x.send(params);
 	}
 
@@ -99,27 +95,25 @@
 				alert("Utente presente nel database!");
 			} else {
 				alert("Studente inserito");
-				window.setTimeout(window.location.replace(serverPath + "/Login.html"), 2000);
+				window.setTimeout(window.location.replace(serverPath
+						+ "/Login.html"), 2000);
 			}
 		}
 	}
 
 	//REGISTRAZIONE DOCENTE
-	
 
 	//1. INSERIMENTO CODICE
 
-
 	function initialization() {
-		
+
 		var code = document.Form.code.value;
-		
-		if( code == null || code ==""){
+
+		if (code == null || code == "") {
 			return false;
-		} 
-		
-		
-	    x = new XMLHttpRequest();
+		}
+
+		x = new XMLHttpRequest();
 		x.onreadystatechange = codeVerify;
 		x.open('POST', serverPath + '/Registration');
 		//Send the proper header information along with the request
@@ -133,28 +127,22 @@
 			console.log(x.responseText);
 			var response = JSON.parse(x.responseText);
 			if (response[0].error == 1) {
-			var error_code = document.getElementById("error_code");
+				var error_code = document.getElementById("error_code");
 				error_code.style.display = "block";
 				return;
 			} else {
-				var form1= document.getElementById("DivForm");
-				form1.style.display= "none";
+				var form1 = document.getElementById("DivForm");
+				form1.style.display = "none";
 				var form2 = document.getElementById("DivForm2");
 				form2.style.display = "block";
-				
+
 			}
 		}
-			
-		
+
 	}
 
-
 	//REGISTRAZIONE EFFETTIVA DOCENTE
-
-
-	    
-		
-		function profRegistration() {
+	function profRegistration() {
 
 		var name = document.Form2.name.value;
 		var surname = document.Form2.surname.value;
@@ -162,24 +150,25 @@
 		var password = document.Form2.pwd1.value;
 		var repetedPassword = document.Form2.pwd2.value;
 		var type = "docente";
-	    var error_pwd1 = document.getElementById("error_pwd1");
+		var error_pwd1 = document.getElementById("error_pwd1");
 
-		
 		if (password != repetedPassword) {
 			error_pwd1.style.display = "block";
 			return false;
 		}
-		
-		 if ( name == '' || surname == '' ||  username == '' ||  password == '' || repetedPassword == '') {
+
+		if (name == '' || surname == '' || username == '' || password == ''
+				|| repetedPassword == '') {
 			return false;
-		} 
+		}
 
 		x = new XMLHttpRequest();
 		x.onreadystatechange = getprofRegistration;
 		x.open('POST', serverPath + '/Registration');
 		//Send the proper header information along with the request
 		x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		var params = 'name=' + name + '&surname=' + surname + '&username=' + username  + '&password=' + password + '&type='+ type;
+		var params = 'name=' + name + '&surname=' + surname + '&username='
+				+ username + '&password=' + password + '&type=' + type;
 		x.send(params);
 	}
 
@@ -188,169 +177,176 @@
 			console.log(x.responseText);
 			var response = JSON.parse(x.responseText);
 			if (response[0].error == 1) {
-				alert("Utente già presente nel database!");
+				alert("Utente presente nel database!");
 			} else {
 				//reindirizzamento dopo 2000 millisecondi
 				alert("Docente inserito")
-				window.setTimeout(window.location.replace(serverPath + "/Login.html"), 2000);
+				window.setTimeout(window.location.replace(serverPath
+						+ "/Login.html"), 2000);
 			}
 		}
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	</script>
+</script>
 </head>
 
 <body>
 
-<div class="intro " >
+	<div class="intro ">
 
 
-<div id="div1" class="boxLogin" >
+		<div id="div1" class="boxLogin">
 
-				<img src="images/logo.png">	
-				<button id="prova" class="btn2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><img src="images/user.png">Accedi</button>  <br>		    
-			    <div class="btnCont">
-				<button class="btn2" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat" onclick="loadStudent()"><img src="images/user2.png">Registrati come studente</button> <br>	
-				<button class="btn2"data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@getbootstrap"><img src="images/user2.png">Registrati come docente</button> <br>
-				</div>	
-</div>
-
-
-<!-- Modal1 -->
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="LogSignForm modal-dialog d-flex flex-column align-items-center ">
-    
-    
-      <form  name="Form1" onsubmit="return false;"class= "quote-container" >
 			<img src="images/logo.png">
-
-			<input type= "text" class="form-control text1" placeholder="Username" name="username" id="username" required>
-			<input type="password" class="form-control text1" placeholder="Password" name="pwd" id="password" required>	
-			<input type="submit" class="btnA" value="Accedi" id="login_button"> 	
-			
-		</form>
-       
-   
-    
-  </div>
-</div>
-
-<!-- Modal2 -->
-
-
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class=" LogSignForm modal-dialog d-flex flex-column align-items-center ">
-    
-    
-      <form name="studentForm" onsubmit="return false;"class= "quote-container" >
-		
-			<img src="images/logo.png">
-			<input type="text" class="form-control text2" placeholder="Name" name="name" id="name" required><br>
-			<input type="text" class ="form-control text2" placeholder="Surname" name="surname" id="surname" required><br>
-			<input type="text" class="form-control text2" placeholder="Username" name="username" id="Username" required><br>
-			<div class="error" id="error_pwd" style="display:none;">La password non corrisponde!</div>
-			<input type="password" class="form-control text2" placeholder="Password" name="pwd1" id="password" required><br>
-			<input type="password" class="form-control text2" placeholder="Repeat Password" name="pwd2" id="password2" required><br>
-			<input type="submit" class="btnA" value="Registrati" id="register1">
-			
-		</form>
-   
-    
-  </div>
-</div>
-
-
-
-<!-- Modal3 -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="LogSignForm modal-dialog d-flex flex-column align-items-center ">
-    
-    
-   	<div class="DivForm" id ="DivForm">
-		
-		<form class="pt-5" name="Form" onsubmit="return false;">
-			<label for="code" id="label_code">Inserisci codice: </label>
-			 <input type="text" class ="form-control text2" placeholder="Codice" name="code" id="code" required>
-			 <div class="error" id="error_code" style="display:none;">Il codice non è corretto!</div>
-				<div class="button1">				
-				</a> &nbsp; <input type="submit" class="btnA" value="ok" id="ok">
+			<button id="prova" class="btn2" data-bs-toggle="modal"
+				data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+				<img src="images/user.png">Accedi
+			</button>
+			<br>
+			<div class="btnCont">
+				<button class="btn2" data-bs-toggle="modal"
+					data-bs-target="#exampleModal2" data-bs-whatever="@fat"
+					onclick="loadStudent()">
+					<img src="images/user2.png">Registrati come studente
+				</button>
+				<br>
+				<button class="btn2" data-bs-toggle="modal"
+					data-bs-target="#exampleModal3" data-bs-whatever="@getbootstrap">
+					<img src="images/user2.png">Registrati come docente
+				</button>
+				<br>
 			</div>
-		</form>
+		</div>
+
+
+		<!-- Modal1 -->
+
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div
+				class="LogSignForm modal-dialog d-flex flex-column align-items-center ">
+
+
+				<form name="Form1" onsubmit="return false;" class="quote-container">
+					<img src="images/logo.png"> <input type="text"
+						class="form-control text1" placeholder="Username" name="username"
+						id="username" required> <input type="password"
+						class="form-control text1" placeholder="Password" name="pwd"
+						id="password" required> <input type="submit" class="btnA"
+						value="Accedi" id="login_button">
+
+				</form>
+
+
+
+			</div>
+		</div>
+
+		<!-- Modal2 -->
+
+
+		<div class="modal fade" id="exampleModal2" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div
+				class=" LogSignForm modal-dialog d-flex flex-column align-items-center ">
+
+
+				<form name="studentForm" onsubmit="return false;"
+					class="quote-container">
+
+					<img src="images/logo.png"> <input type="text"
+						class="form-control text2" placeholder="Name" name="name"
+						id="name" required><br> <input type="text"
+						class="form-control text2" placeholder="Surname" name="surname"
+						id="surname" required><br> <input type="text"
+						class="form-control text2" placeholder="Username" name="username"
+						id="Username" required><br>
+					<div class="error" id="error_pwd" style="display: none;">La
+						password non corrisponde!</div>
+					<input type="password" class="form-control text2"
+						placeholder="Password" name="pwd1" id="password" required><br>
+					<input type="password" class="form-control text2"
+						placeholder="Repeat Password" name="pwd2" id="password2" required><br>
+					<input type="submit" class="btnA" value="Registrati" id="register1">
+
+				</form>
+
+
+			</div>
+		</div>
+
+
+
+		<!-- Modal3 -->
+		<div class="modal fade" id="exampleModal3" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div
+				class="LogSignForm modal-dialog d-flex flex-column align-items-center ">
+
+
+				<div class="DivForm" id="DivForm">
+
+					<form class="pt-5" name="Form" onsubmit="return false;">
+						<label for="code" id="label_code">Inserisci codice: </label> <input
+							type="text" class="form-control text2" placeholder="Codice"
+							name="code" id="code" required>
+						<div class="error" id="error_code" style="display: none;">Il
+							codice non è corretto!</div>
+						<div class="button1">
+							</a> &nbsp; <input type="submit" class="btnA" value="ok" id="ok">
+						</div>
+					</form>
+				</div>
+
+
+
+				<div class="DivForm2" id="DivForm2" style="display: none">
+
+					<form name="Form2" onsubmit="return false;">
+						<img src="images/logo.png"> <input type="text"
+							class="form-control text2" placeholder="Nome" name="name"
+							id="name" required><br> <input type="text"
+							class="form-control text2" placeholder="Cognome" name="surname"
+							id="surname" required><br> <input type="text"
+							class="form-control text2" placeholder="Username" name="username"
+							id="Username" required><br>
+
+
+						<div class="error" id="error_pwd1" style="display: none">La
+							password non corrisponde!</div>
+						<input type="password" class="form-control text2"
+							placeholder="Password" name="pwd1" id="password" required><br>
+						<input type="password" class="form-control text2"
+							placeholder="Ripeat Password" name="pwd2" id="password2" required><br>
+						<div class="button2">
+
+							<input type="submit" class="btnA" value="Registrati"
+								id="register2">
+						</div>
+					</form>
+
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+		<div class=foot>
+			<p>Copyright2020</p>
+		</div>
 	</div>
 
 
-
-	<div class="DivForm2" id="DivForm2" style="display:none">
-	    
-		<form name="Form2" onsubmit="return false;">
-			<img src="images/logo.png">
-
-			
-			<input type="text" class="form-control text2" placeholder="Nome" name="name" id="name" required><br>
-			<input type="text" class="form-control text2" placeholder="Cognome" name="surname" id="surname"required><br>
-			<input type="text" class="form-control text2" placeholder="Username" name="username" id="Username" required><br>
-
-
-			<div class="error" id="error_pwd1" style="display:none">La password non corrisponde!</div>
-            <input type="password" class="form-control text2" placeholder="Password" name="pwd1" id="password"required><br> 
-            <input type="password" class="form-control text2" placeholder="Ripeat Password" name="pwd2" id="password2" required><br>	
-			<div class="button2">
-				
-				 <input type="submit" class="btnA" value="Registrati" id="register2">
-			</div>
-		</form>
-
-	</div>
-   
-    
-  </div>
-</div>
-
-
-
-<div class=foot>
-<p>Copyright2020</p>
-</div>
-</div>
-
-	
 </body>
 
 
 </html>
 <script>
-var login = document.getElementById("login_button");
-login.addEventListener('click', authentication, false);
-var insertCode = document.getElementById("ok");
-insertCode.addEventListener('click', initialization, false);
-var registerProf = document.getElementById("register2");	
-registerProf.addEventListener('click', profRegistration, false);
+	var login = document.getElementById("login_button");
+	login.addEventListener('click', authentication, false);
+	var insertCode = document.getElementById("ok");
+	insertCode.addEventListener('click', initialization, false);
+	var registerProf = document.getElementById("register2");
+	registerProf.addEventListener('click', profRegistration, false);
 </script>
- <!--  <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-        -->

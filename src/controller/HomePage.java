@@ -73,16 +73,16 @@ public class HomePage extends HttpServlet {
 			System.out.println("redirect a login -...");
 			response.sendRedirect(getServletContext().getContextPath()+"/Login.html");
 		}else { //SE SESSIONE NON E' NUOVA E UTENTE E' IN SESSIONE
-			
-			
+
+
 			//SE UTENTE=STUDENTE
-			
+
 			if(user.getType().equals("studente")) { 
 				//RIPRENDO ELENCO DI TUTTE LE STANZE
 				RoomDAO roomDAO = new RoomDAO(connection);
 				List<Room> Rooms1 = roomDAO.findAllRooms();
-                List<Integer> allIdRooms = new ArrayList();
-                //PER OGNI STANZA MI RICAVO L'ID
+				List<Integer> allIdRooms = new ArrayList();
+				//PER OGNI STANZA MI RICAVO L'ID
 				for(Room room : Rooms1) { 
 					int idroom = room.getIdRoom();
 					//AGGIUNGO ALLA LISTA GLI ID DI TUTTE LE STANZE ESISTENTI
@@ -103,12 +103,10 @@ public class HomePage extends HttpServlet {
 				}
 				session.setAttribute("Rooms", Rooms );
 
-                //RIPRENDO TUTTI I PUNTEGGI OTTENUTI DALL'UTENTE
+				//RIPRENDO TUTTI I PUNTEGGI OTTENUTI DALL'UTENTE
 				List<Ranking> Rankings = rankingDAO.findAllRanking(user.getIduser());
 				session.setAttribute("Rankings", Rankings);
 				request.getRequestDispatcher("/StudentHomePage.jsp").forward(request, response);
-
-
 
 
 				//SE UTENTE=DOCENTE
@@ -129,9 +127,6 @@ public class HomePage extends HttpServlet {
 				request.setAttribute("createtedRooms", createtedRooms);
 
 				request.getRequestDispatcher("/ProfHomePage.jsp").forward(request, response);
-
-
-
 
 			}
 		}

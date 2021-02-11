@@ -62,11 +62,10 @@ public class Registration extends HttpServlet {
 		//riprendo codice inserito da docente
 		String Stringcode = request.getParameter("code");
 		if (Stringcode != null) {
-			//int code = Integer.parseInt(Stringcode);
 			System.out.println("codice:   " + Stringcode);
 			PrintWriter out2 = response.getWriter();
 
-            //verifico se codice è corretto 
+			//verifico se codice è corretto 
 			if("102030".equalsIgnoreCase(Stringcode)) {
 				System.out.println("Codice corretto!");
 				out2.println("[{\"error\":0}]");
@@ -92,11 +91,11 @@ public class Registration extends HttpServlet {
 			boolean registrationError = registrationDAO.register(username); //per controllare se username inserito già esiste in db
 			PrintWriter out = response.getWriter();
 			System.out.println("risultato query:  "+ registrationError);
-            //se username già esiste in db
+			//se username già esiste in db
 			if (!registrationError) {
 				out.println("[{\"error\":1}]");
 
-			//se username non esiste in db procedo con inserimento utente 
+				//se username non esiste in db procedo con inserimento utente 
 			}else if(registrationError){
 				registrationDAO.addUser(name, surname, username, password, type);
 				out.println("[{\"error\":0}]");

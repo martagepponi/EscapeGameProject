@@ -53,8 +53,6 @@ class TestRanking {
 		assertTrue(dao.findAllRanking(iduser).isEmpty());
 		assertTrue(dao.findAllRanking(iduser).size()==0);
 		
-		
-		
 	}
 	
 	

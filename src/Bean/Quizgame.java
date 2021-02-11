@@ -11,27 +11,6 @@ public class Quizgame extends AbstractMinigame {
 	protected int errorNumber;
 	protected boolean hintSelected;
 	
-	
-	
-	//COSTRUTTORE
-//	public Quizgame(int idMinigame, String type, int idSubject, int idQuiz, String question, String rightAnswer, String wrong1, String wrong2, 
-//			String prize) {
-//		super(idMinigame, type, idSubject);
-//		this.idQuiz= idQuiz;
-//		this.question=question;
-//		this.rightAnswer= rightAnswer;
-//		this.wrong1= wrong1;
-//		this.wrong2= wrong2;
-//		this.prize=prize;
-//		errorNumber= 0;
-//		hintSelected = false;
-//		
-//	}
-//	
-	
-	
-
-
 
 	public Quizgame() {
 		super();
@@ -105,26 +84,14 @@ public class Quizgame extends AbstractMinigame {
 	}
 
 
-
-
-
-
 	public void setErrorNumber(int errorNumber) {
 		this.errorNumber = errorNumber;
 	}
 
 
-
-
-
-
 	public boolean isHintSelected() {
 		return hintSelected;
 	}
-
-
-
-
 
 
 	public void setHintSelected(boolean hintSelected) {

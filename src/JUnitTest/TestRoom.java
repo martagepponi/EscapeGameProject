@@ -18,7 +18,7 @@ import DAO.RoomDAO;
 
 
 class TestRoom {
-	
+
 	private Connection connection;
 	private Room room = new Room();
 	private ArrayList<Room> RoomsList = new ArrayList<Room>();
@@ -29,10 +29,10 @@ class TestRoom {
 	int minigame2;
 	int numElements;
 	String profSurname ="gepponi";
-	
-	
+
+
 	@BeforeEach
-	   void setUp() throws Exception{
+	void setUp() throws Exception{
 		System.out.println("setUp");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -44,93 +44,90 @@ class TestRoom {
 		} catch (SQLException e) {
 			throw new UnavailableException("Couldn't get db connection");
 		}
-		
-		
+
+
 	}
-	
-	
-	
-	
+
 	@Test
 	void testFindAllRooms() {
 		RoomDAO dao = new RoomDAO(this.connection);
 		numElements = RoomsList.size();
-		
+
 		//verifico che elementi nella lista sono 0
 		assertTrue(numElements== 0);       
-		
-		
+
+
 		//verifico che elementi della lista non sono 0
 		RoomsList= (ArrayList<Room>) dao.findAllRooms();
 		numElements = RoomsList.size();    
 		assertTrue(numElements!=0);                  
-		
-		
+
+
 		//verifico che gli elementi di RoomList siano oggetti Room
 		assertTrue(RoomsList.get(0).getClass().equals(room.getClass()));
-		
-		
+
+
 		System.out.println("test testFindAllRooms di TestRoom eseguito");
 	}
-	
-	
+
+
 	@Test
 	void testSelectById() {
 		RoomDAO dao = new RoomDAO(this.connection);
-		
+
 		//verifico che la stanza ritornata non sia vuota
 		assertFalse(room.equals(dao.selectById(id, connection))); 
-		
+
 		//verifico che minigame1 è un intero
-	    minigame1 = dao.selectById(1, connection).getMinigame1(); 
-	    
-	    //verifico che non esistono stanze con id=-1
-	    assertTrue(dao.selectById(-1, connection) == null);
-	    
-	    
-	  //verifico che minigame1 prende il giusto valore (1)
-	    assertTrue(minigame1==1);
-	    
-	    
-	    System.out.println("test selectById di TestRoom eseguito");
+		minigame1 = dao.selectById(1, connection).getMinigame1(); 
+
+		//verifico che non esistono stanze con id=-1
+		assertTrue(dao.selectById(-1, connection) == null);
+
+
+		//verifico che minigame1 prende il giusto valore (1)
+		assertTrue(minigame1==1);
+
+
+		System.out.println("test selectById di TestRoom eseguito");
 	}
-	
-	
+
+
 	@Test
 	void testFindCreatedRooms() {
 		RoomDAO dao = new RoomDAO(this.connection);
-        numElements = RoomsList2.size();
-		
+		numElements = RoomsList2.size();
+
 		//verifico che elementi nella lista sono 0
 		assertTrue(numElements== 0);       
-		
-		
+
+
 		//verifico che elementi della lista non sono 0
 		RoomsList2= (ArrayList<Room>) dao.findCreatedRooms(idProf);
 		numElements = RoomsList2.size();    
 		assertTrue(numElements!=0);                  
-		
-		
+
+
 		//verifico che gli elementi di RoomList siano oggetti Room
 		assertTrue(RoomsList2.get(0).getClass().equals(room.getClass()));
-		
-	    System.out.println("test findCreatedRooms di TestRoom eseguito");
+
+		System.out.println("test findCreatedRooms di TestRoom eseguito");
 	}
-	
+
 	@Test
 	void testGetSet() {
-		
+
 		//verifico che id room sia 1
 		room.setIdRoom(id);
 		assertTrue(1==room.getIdRoom());
-		
+
 		//verifico che profSurname sia "gepponi"
 		room.setProfSurname(profSurname);
 		assertEquals("gepponi", room.getProfSurname());
-		
+
 		System.out.println("test GetSet di TestRoom eseguito");
 	}
-	
-	
-	
+
+
+
 }

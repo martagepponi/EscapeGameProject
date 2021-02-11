@@ -11,15 +11,7 @@ public abstract class AbstractMinigame{
 	protected String outcome;
 	protected String prize;
 	
-	
-	
-//	public AbstractMinigame(int idminigame, String type, int idsubject) {
-//		super();
-//		this.idminigame = idminigame;
-//		this.type = type;
-//		this.idsubject = idsubject;
-//		this.outcome= "";
-//	}
+
 
 	public AbstractMinigame() {
 		super();

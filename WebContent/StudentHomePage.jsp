@@ -82,7 +82,6 @@ x.send();
 
 function getLogout() {
 if (x.readyState == 4 && x.status == 200) {
-//	alert("logout");
 	localStorage.removeItem("id_room");
 	localStorage.removeItem("room_password");
 	window.location.href = "./Login.html";
@@ -119,7 +118,7 @@ if (x.readyState == 4 && x.status == 200) {
     
 	
 		<%if(Rooms.isEmpty()){%>
-			<p>Non ci sono stanze visualizzabili! </p>
+			<p><br>Non ci sono stanze visualizzabili! </p>
 		<%}
 		int roomCount = 1;
 		for (Room room : Rooms) {

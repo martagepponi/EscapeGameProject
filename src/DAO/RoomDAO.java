@@ -72,8 +72,6 @@ public class RoomDAO {
 	
 	
 	 
-	 
-		
 		//CERCO UNA ROOM TRAMITE ID
 		public Room selectById(int idRoom, Connection connection) {
 			Room t = null;
@@ -120,9 +118,6 @@ public class RoomDAO {
 		}
 		
 		
-		
-		
-
 	//TUTTE LE ROOMS CREATE DAL PROF LOGGATO
 
 	public List<Room> findCreatedRooms(int iduser) {
@@ -176,7 +171,7 @@ public class RoomDAO {
 	
 	
 	public void addRoom(int idsubject, int idprof, String password, int idMin1, int idMin2,int idMin3) {
-		String query = "INSERT INTO `escapegame`.`room` (`idsubject`, `idprof`, `password`, `minigame1`, `minigame2`, `minigame3`, `finalgame`, `thumbnail`, `title`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO `escapegame`.`room` (`idsubject`, `idprof`, `password`, `minigame1`, `minigame2`, `minigame3`, `thumbnail`, `title`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement pstatement = null;
 		try {
 			pstatement = connection.prepareStatement(query);
@@ -186,9 +181,9 @@ public class RoomDAO {
 			pstatement.setInt(4, idMin1);
 			pstatement.setInt(5, idMin2);
 			pstatement.setInt(6, idMin3);
-			pstatement.setInt(7, 2);
-			pstatement.setString(8, "stanza");
-			pstatement.setString(9, "Un brutto risveglio");
+			
+			pstatement.setString(7, "stanza");
+			pstatement.setString(8, "Un brutto risveglio");
 			
 			pstatement.executeUpdate(); 
 			
@@ -231,15 +226,7 @@ public class RoomDAO {
 				
 			}
 		}
-		
-		
-		
-		
-		
-		
+	
 	}
-	
-	
-	
 	
 }

@@ -93,50 +93,29 @@ public class Subject {
 	public void setObject4(String object4) {
 		this.object4 = object4;
 	}
-
-
-
 	public String getWall1() {
 		return wall1;
 	}
-
-
-
 	public void setWall1(String wall1) {
 		this.wall1 = wall1;
 	}
-
-
-
 	public String getWall2() {
 		return wall2;
 	}
-
-
-
-	public void setWall2(String wall2) {
+    public void setWall2(String wall2) {
 		this.wall2 = wall2;
 	}
-
-
 
 	public String getWall3() {
 		return wall3;
 	}
-
-
-
 	public void setWall3(String wall3) {
 		this.wall3 = wall3;
 	}
 
-
-
 	public String getWall4() {
 		return wall4;
 	}
-
-
 
 	public void setWall4(String wall4) {
 		this.wall4 = wall4;

@@ -71,10 +71,8 @@ public class RankingDAO {
 		return Rankings;
 	}
 
-	
-	
-	
-	
+
+
 	//DOCENTE
 	//PUNTEGGI UTENTE LOGGATO E REPERIMENTO IMMAGINE STANZA GIOCATA 
 
@@ -134,6 +132,7 @@ public class RankingDAO {
 	}
 
 
+
 	// METODO PER OTTENERE ID STANZE GIOCATE DA UN UTENTE SPECIFICO, CON TOTAL RANK DIVERSO DA 0
 	public List<Integer> idRoomList (int iduser){
 
@@ -148,10 +147,7 @@ public class RankingDAO {
 			while (result.next()) {
 				int idroom = result.getInt("idroom");
 				idRoomList.add(idroom);
-
-
 			}
-
 
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -202,7 +198,6 @@ public class RankingDAO {
 				pstatement2.executeUpdate();
 
 			}else {
-
 
 				pstatement2 = connection.prepareStatement(queryInsert);
 				pstatement2.setInt(1, iduser);
@@ -279,8 +274,6 @@ public class RankingDAO {
 	}
 
 
-
-
 	//PUNTEGGI UTENTE CHE HA APPENA GIOCATO A UNA SPECIFICA STANZA 
 
 	public Ranking findRankingByRoomAndUser (int iduser, int idroom){
@@ -310,9 +303,6 @@ public class RankingDAO {
 
 				ranking = new Ranking(thumbnail, idRanking, user, date, rank1, rank2, rank3, rank4, totalrank, idroom, title, studentName, studentSurname);
 
-
-
-
 			}
 
 		}catch (SQLException e) {
@@ -333,17 +323,5 @@ public class RankingDAO {
 		}
 		return ranking;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
